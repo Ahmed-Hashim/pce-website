@@ -117,7 +117,7 @@ export default function CEOSection({
                 {/* Back face */}
                 <div
                   aria-label={uiLabels.backAriaLabel}
-                  className="absolute inset-0 flex flex-col items-center justify-center text-center transform-[rotateY(180deg)] [backface-visibility:hidden]"
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center [backface-visibility:hidden]"
                 >
                   <div className="relative z-10 space-y-4">
 
