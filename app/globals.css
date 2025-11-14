@@ -1,26 +1,225 @@
 @import "tailwindcss";
 
+@theme {
+  /* Primary PCE Branding Colors */
+  --color-bg: #0C1C3A; /* Deep navy blue background */
+  --color-text: #FFFFFF; /* White primary text */
+  --color-text-secondary: #A9B4C7; /* Soft gray for secondary text */
+  --color-heading: #FFFFFF; /* White headings */
+  --color-accent: #a38c62; /* Gold accent */
+  --color-border: #233150; /* Subtle navy border tone */
+  --color-border-subtle: #314163; /* Even lighter subtle border */
+  --color-button-text: #0C1C3A; /* Navy text on gold buttons */
+
+  /* Extended Tailwind colors */
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text);
+  --color-foreground-secondary: var(--color-text-secondary);
+  --color-heading: var(--color-heading);
+  --color-accent: var(--color-accent);
+  --color-border: var(--color-border);
+  --color-border-subtle: var(--color-border-subtle);
+  --color-button-text: var(--color-button-text);
+}
+
+/* Global spacing tokens for consistent section padding */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Vertical padding across breakpoints (expert design rhythm) */
+  --space-section-y-mobile: 3rem; /* 48px */
+  --space-section-y-sm: 4rem;     /* 64px */
+  --space-section-y-md: 5rem;     /* 80px */
+  --space-section-y-lg: 6rem;     /* 96px */
+
+  /* Optional horizontal padding tokens (used where sections have px) */
+  --space-section-x-mobile: 1.25rem; /* 20px */
+  --space-section-x-sm: 1.5rem;      /* 24px */
+  --space-section-x-md: 2rem;        /* 32px */
+  --space-section-x-lg: 2.25rem;     /* 36px */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Dark theme override */
+:root[data-theme="dark"] {
+  --color-bg: #0A1024; /* Darker navy for dark mode */
+  --color-text: #C8D1E1;
+  --color-text-secondary: #A9B4C7;
+  --color-heading: #FFFFFF;
+  --color-accent: #a38c62;
+  --color-border: #1E2A44;
+  --color-border-subtle: #2A3550;
+  --color-button-text: #FFFFFF;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Custom animations for hero section */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Counter animation for numbers */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-count-up {
+  animation: countUp 0.6s ease-out forwards;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+/* Smooth transitions for hero section */
+.transition-all {
+  transition-property: all;
+}
+
+.duration-800 {
+  transition-duration: 800ms;
+}
+
+.duration-\[2000ms\] {
+  transition-duration: 2000ms;
+}
+
+.duration-\[5000ms\] {
+  transition-duration: 5000ms;
+}
+
+.ease-linear {
+  transition-timing-function: linear;
+}
+
+/* Custom group hover effects */
+.group:hover .group-hover\:translate-x-1 {
+  transform: translateX(0.25rem);
+}
+
+.group:hover .group-hover\:scale-105 {
+  transform: scale(1.05);
+}
+
+/* Animated scrolling for client logos */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Marquee animation for continuous scrolling */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Anti-flicker utility classes */
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+}
+
+/* Enhanced animations for CTA section */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent)/80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Interactive hover effects */
+.hover-effect:hover .hover\:scale-102 {
+  transform: scale(1.02);
+}
+
+.hover-effect:hover .hover\:bg-accent\/10 {
+  background-color: rgba(200, 165, 100, 0.1);
+}
+
+/* Smooth parallax transition */
+.parallax-element {
+  will-change: transform;
+  transition: transform 0.1s ease-out;
 }
