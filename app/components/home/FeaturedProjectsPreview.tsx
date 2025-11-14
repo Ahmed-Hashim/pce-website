@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { motion, useMotionValue, animate } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
 import SectionTitle from "../ui/SectionTitle";
 
@@ -113,6 +114,11 @@ export default function FeaturedProjectsPreview({
 }: FeaturedProjectsPreviewProps) {
   const [currentProject, setCurrentProject] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(1);
+  const dragStartX = useRef<number | null>(null);
+  const dragStartTime = useRef<number>(0);
+  const isDragging = useRef<boolean>(false);
+  const SWIPE_THRESHOLD_PX = 50;
+  const SWIPE_MAX_DURATION_MS = 600;
 
   useEffect(() => {
     const updateItemsPerView = () => {
@@ -130,6 +136,42 @@ export default function FeaturedProjectsPreview({
   const goToProject = (index: number) => {
     const maxIndex = Math.max(0, projects.length - itemsPerView);
     setCurrentProject(Math.min(Math.max(index, 0), maxIndex));
+  };
+
+  const nextProject = () => goToProject(currentProject + 1);
+  const prevProject = () => goToProject(currentProject - 1);
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLElement>) => {
+    isDragging.current = true;
+    dragStartX.current = e.clientX;
+    dragStartTime.current = performance.now();
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLElement>) => {
+    if (!isDragging.current || dragStartX.current === null) {
+      isDragging.current = false;
+      dragStartX.current = null;
+      return;
+    }
+    const deltaX = e.clientX - dragStartX.current;
+    const duration = performance.now() - dragStartTime.current;
+    if (Math.abs(deltaX) > SWIPE_THRESHOLD_PX && duration < SWIPE_MAX_DURATION_MS) {
+      if (deltaX < 0) {
+        nextProject();
+      } else {
+        prevProject();
+      }
+    }
+    isDragging.current = false;
+    dragStartX.current = null;
+  };
+
+  const handlePointerLeave = (e: React.PointerEvent<HTMLElement>) => {
+    if (isDragging.current) {
+      handlePointerUp(e);
+    }
+    isDragging.current = false;
+    dragStartX.current = null;
   };
 
   return (
@@ -152,7 +194,12 @@ export default function FeaturedProjectsPreview({
 
         {/* Projects Slider */}
         <div className="relative">
-          <div className="overflow-hidden rounded-xl">
+          <div
+            className="overflow-hidden rounded-xl touch-manipulation select-none"
+            onPointerDown={handlePointerDown}
+            onPointerUp={handlePointerUp}
+            onPointerLeave={handlePointerLeave}
+          >
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{
@@ -167,34 +214,7 @@ export default function FeaturedProjectsPreview({
                   style={{ width: `${100 / itemsPerView}%` }}
                   className="shrink-0 p-2"
                 >
-                  <div className="group relative h-88 md:h-96 lg:h-104 rounded-xl overflow-hidden border border-border bg-border/10 hover:bg-border/20 transition-all duration-300 hover:shadow-xl hover:scale-[1.04]">
-                    {/* Image */}
-                    <Image
-                      width={500}
-                      height={500}
-                      src={project.image}
-                      alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/45 transition-colors"></div>
-
-                    {/* Hover overlay matching screenshot */}
-                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="mb-3 inline-block bg-accent/90 text-button-text px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
-                        {project.category}
-                      </span>
-                      <h3 className="text-white text-2xl md:text-3xl font-extrabold drop-shadow-lg">
-                        {project.title}
-                      </h3>
-                      <a
-                        href={project.link}
-                        className="mt-5 inline-flex items-center justify-center w-12 h-12 rounded-lg border-2 border-white/80 text-white hover:bg-white hover:text-bg transition-all duration-300"
-                        aria-label={viewProjectLabel}
-                      >
-                        <FiArrowUpRight className="w-6 h-6" />
-                      </a>
-                    </div>
-                  </div>
+                  <FlippableProjectCard project={project} viewProjectLabel={viewProjectLabel} />
                 </div>
               ))}
             </div>
@@ -220,5 +240,89 @@ export default function FeaturedProjectsPreview({
         </div>
       </div>
     </section>
+  );
+}
+
+function FlippableProjectCard({
+  project,
+  viewProjectLabel,
+}: {
+  project: Project;
+  viewProjectLabel: string;
+}) {
+  const rotation = useMotionValue(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  return (
+    <motion.div
+      className="group relative h-88 md:h-96 lg:h-104 rounded-xl overflow-hidden border border-border bg-border/10 hover:bg-border/20 transition-all duration-300 hover:shadow-xl hover:scale-[1.04] touch-manipulation select-none"
+      style={{ perspective: "1000px" }}
+    >
+      <motion.div
+        className="absolute inset-0 transform-3d"
+        style={{ rotateY: rotation }}
+        onClick={(e) => {
+          const el = e.target as HTMLElement;
+          if (el.closest("a")) return;
+          const target = isFlipped ? 0 : 180;
+          setIsFlipped(!isFlipped);
+          animate(rotation, target, { type: "spring", stiffness: 300, damping: 30 });
+        }}
+      >
+        <div className="absolute inset-0 backface-hidden">
+          <Image
+            width={500}
+            height={500}
+            src={project.image}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/45 transition-colors"></div>
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span className="mb-3 inline-block bg-accent/90 text-button-text px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
+              {project.category}
+            </span>
+            <h3 className="text-white text-2xl md:text-3xl font-extrabold drop-shadow-lg">
+              {project.title}
+            </h3>
+            <a
+              href={project.link}
+              className="mt-5 inline-flex items-center justify-center w-12 h-12 rounded-lg border-2 border-white/80 text-white hover:bg-white hover:text-bg transition-all duration-300"
+              aria-label={viewProjectLabel}
+            >
+              <FiArrowUpRight className="w-6 h-6" />
+            </a>
+          </div>
+        </div>
+        <div className="absolute inset-0 backface-hidden rotate-y-180">
+          <Image
+            width={500}
+            height={500}
+            src={project.image}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
+            <span className="mb-3 inline-block bg-accent/90 text-button-text px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
+              {project.category}
+            </span>
+            <h3 className="text-white text-2xl md:text-3xl font-extrabold drop-shadow-lg">
+              {project.title}
+            </h3>
+            <p className="mt-3 text-white/90 text-sm md:text-base max-w-md">
+              {project.description}
+            </p>
+            <a
+              href={project.link}
+              className="mt-5 inline-flex items-center justify-center w-12 h-12 rounded-lg border-2 border-white/80 text-white hover:bg-white hover:text-bg transition-all duration-300"
+              aria-label={viewProjectLabel}
+            >
+              <FiArrowUpRight className="w-6 h-6" />
+            </a>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
