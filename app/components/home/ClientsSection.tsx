@@ -55,16 +55,16 @@ export default function ClientsSection({ data = defaultData }: ClientsSectionPro
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
           {/* Left Column: Title/Copy */}
-          <div className="lg:col-span-1 relative lg:pr-8 lg:border-r-2 border-accent">
+          <div className="lg:col-span-1 relative lg:pr-8 lg:border-r-2 border-accent text-center lg:text-left">
             <SectionTitle
               title={title}
               titleColor="accent"
               outlineColor="var(--color-accent)"
               background={title.split(" ").pop()}
-              align="left"
+              align="center"
             />
             {subtitle && (
-              <p className="mt-4 text-bg text-base md:text-lg ">
+              <p className="mt-4 text-bg text-base md:text-lg">
                 {subtitle}
               </p>
             )}

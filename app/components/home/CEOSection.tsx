@@ -74,7 +74,7 @@ export default function CEOSection({
                   toggleFlip(index);
                 }
               }}
-              className="group relative bg-linear-to-b from-white/95 to-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-700 ease-out hover:-translate-y-2 cursor-pointer perspective-[1000px] overflow-hidden"
+              className="group relative bg-linear-to-b from-white/95 to-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-700 ease-out hover:-translate-y-2 cursor-pointer overflow-hidden perspective-1000"
             >
               {/* Luxury accent border */}
               <div className="absolute inset-0 rounded-3xl bg-linear-to-br from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
@@ -82,13 +82,13 @@ export default function CEOSection({
               {/* Flip wrapper */}
               <div
                 className={`relative w-full h-[420px] transform-3d transition-transform duration-700 ${
-                  flipped[index] ? "transform-[rotateY(180deg)]" : ""
+                  flipped[index] ? "rotate-y-180" : ""
                 }`}
               >
                 {/* Front face */}
                 <div
                   aria-label={uiLabels.frontAriaLabel}
-                  className="absolute inset-0 flex flex-col items-center justify-center text-center [backface-visibility:hidden]"
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center backface-hidden"
                 >
                   <div className="relative w-56 h-56 mb-8 rounded-full overflow-hidden shadow-xl group-hover:shadow-2xl transition-all duration-700">
                     <Image
@@ -117,7 +117,7 @@ export default function CEOSection({
                 {/* Back face */}
                 <div
                   aria-label={uiLabels.backAriaLabel}
-                  className="absolute inset-0 flex flex-col items-center justify-center text-center [backface-visibility:hidden]"
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center backface-hidden rotate-y-180"
                 >
                   <div className="relative z-10 space-y-4">
 
