@@ -41,7 +41,7 @@ export default function HoldingGroupSection({
   };
 
   return (
-    <section className="relative py-[var(--space-section-y-mobile)] sm:py-[var(--space-section-y-sm)] md:py-[var(--space-section-y-md)] lg:py-[var(--space-section-y-lg)] bg-bg overflow-hidden">
+    <section className="relative py-(--space-section-y-mobile) sm:py-(--space-section-y-sm) md:py-(--space-section-y-md) lg:py-(--space-section-y-lg) bg-bg overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 pointer-events-none opacity-5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(163,140,98,0.1),transparent_70%)]"></div>
