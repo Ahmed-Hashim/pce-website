@@ -23,7 +23,7 @@ export default function MissionVisionValues({ title, background, description, mi
           <p className="mt-4 max-w-3xl mx-auto text-left text-secondary-dark text-sm md:text-base leading-tight">{description}</p>
         ) : null}
 
-        <div className="mt-12 grid md:grid-cols-3 gap-10 items-start justify-items-center">
+        <div className="mt-12 grid md:grid-cols-3 gap-10 items-start justify-items-start md:justify-items-center">
           <div className="text-center">
             <div className="flex items-center gap-3">
               <span className="inline-block h-5 w-0.5 bg-primary-medium"></span>
@@ -62,16 +62,16 @@ export default function MissionVisionValues({ title, background, description, mi
             )}
           </div>
 
-          <div className="md:border-l md:border-secondary-dark/20 md:pl-8 text-center">
-            <div className="flex items-center justify-left gap-3">
+          <div className="md:border-l md:border-secondary-dark/20 md:pl-8 text-left md:text-center">
+            <div className="flex items-center justify-start md:justify-center gap-3">
               <span className="inline-block h-5 w-0.5 bg-primary-medium"></span>
               <h3 className=" uppercase tracking-wide text-primary-dark">{labels.values}</h3>
             </div>
             <div className="mt-4 space-y-3">
               {values.map((v, i) => (
-                <div key={`val-${i}`} className="flex items-start justify-left gap-3">
+                <div key={`val-${i}`} className="flex items-start justify-start md:justify-center gap-3">
                   <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium"></span>
-                  <p className="text-primary-dark text-sm md:text-base leading-tight text-center">{v}</p>
+                  <p className="text-primary-dark text-sm md:text-base leading-tight text-left md:text-center">{v}</p>
                 </div>
               ))}
             </div>
