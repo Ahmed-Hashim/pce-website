@@ -40,50 +40,45 @@ const defaultData: ClientsSectionData = {
     { id: "12", name: "SmartChain", logo: "/pce-logo.png" }
   ],
   anchorId: "our-clients",
-  gradientColor: "#FFF",
+  gradientColor: "var(--color-white)",
   gradientWidth: 25
 };
 
 export default function ClientsSection({ data = defaultData }: ClientsSectionProps) {
   const title = data.title;
-  const subtitle = data.subtitle;
-  const gradientColor = data.gradientColor ?? "#FFF";
-  const gradientWidth = data.gradientWidth ?? 25;
 
   return (
-    <section id={data.anchorId} className="py-[var(--space-section-y-mobile)] sm:py-[var(--space-section-y-sm)] md:py-[var(--space-section-y-md)] lg:py-[var(--space-section-y-lg)] bg-white relative overflow-hidden">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
+    <section id={data.anchorId} className="">
+      <div className="mx-auto border-0 lg:border-y md:border-y lg:border-primary-medium">
+        <div className="grid grid-cols-1 lg:grid-cols-3  items-center pl-10">
           {/* Left Column: Title/Copy */}
-          <div className="lg:col-span-1 relative lg:pr-8 lg:border-r-2 border-accent text-center lg:text-left">
+          <div className="lg:col-span-1 relative border-0 lg:border-r lg:border-primary-medium text-center ">
             <SectionTitle
               title={title}
               titleColor="accent"
-              outlineColor="var(--color-accent)"
+              outlineColor="var(--color-primary-medium)"
               background={title.split(" ").pop()}
               align="center"
             />
-            {subtitle && (
-              <p className="mt-4 text-bg text-base md:text-lg">
+            {/* {subtitle && (
+              <p className="mt-4 text-primary-dark text-base md:text-lg">
                 {subtitle}
               </p>
-            )}
+            )} */}
           </div>
 
           {/* Right Column: Wide Marquee of Logos */}
-          <div className="lg:col-span-2 overflow-hidden">
+          <div className="lg:col-span-2">
             <div className="relative">
               <Marquee
                 pauseOnHover={true}
-                gradient={true}
-                gradientColor={gradientColor}
-                gradientWidth={gradientWidth}
+                
                 autoFill={true}
               >
                 {data.clients.map((client) => (
                   <div
                     key={client.id}
-                    className="group inline-flex w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-36 items-center justify-center transition-all duration-300 cursor-pointer mx-3 shrink-0 relative overflow-hidden"
+                    className="group inline-flex w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-36 items-center justify-center transition-all duration-300 cursor-pointer lg:mx-3 shrink-0 relative overflow-hidden"
                   >
                     <Image
                       src={client.logo}

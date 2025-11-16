@@ -19,10 +19,10 @@ export default function SectionTitle({
   background,
   align = "center",
   className = "",
-  outlineColor = "var(--color-accent)",
+  outlineColor = "var(--color-primary-medium)",
   outlineWidth = 0.5,
-  backgroundOpacity = 0.2,
-  titleColor = "var(--color-bg)",
+  backgroundOpacity = 0.3,
+  titleColor = "",
   backgroundTextColor,
 }: SectionTitleProps) {
   const alignment =
@@ -32,56 +32,54 @@ export default function SectionTitle({
       ? "items-end text-right"
       : "items-center text-center";
 
+
   return (
     <div className={`relative w-full ${alignment} ${className}`}>
-      {/* Background word with luxury styling */}
-      {background ? (
+      {/* Background word (faint luxury) */}
+      {background && (
         <span
           aria-hidden="true"
-          className={`absolute py-4 select-none pointer-events-none inset-x-0 -top-8 md:-top-12 text-7xl md:text-8xl font-extrabold tracking-wider`}
+          className="absolute select-none pointer-events-none inset-x-0 -top-4 md:-top-6 font-extrabold tracking-widest text-[2rem] md:text-[3rem] lg:text-[4rem]"
           style={{
-            lineHeight: 1,
             color: "transparent",
             WebkitTextStrokeWidth: outlineWidth,
             WebkitTextStrokeColor: backgroundTextColor || outlineColor,
             opacity: backgroundOpacity,
+            lineHeight: 1,
             whiteSpace: "nowrap",
             overflow: "hidden",
-            WebkitMaskImage:
-              "linear-gradient(to right, rgba(0,0,0,1) 30%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 90%)",
-            maskImage:
-              "linear-gradient(to right, rgba(0,0,0,1) 30%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 90%)",
-            textShadow: "0 0 40px rgba(163, 140, 98, 0.1)",
+            textShadow: "0 0 40px rgba(163, 140, 98, 0.05)",
           }}
         >
           {background}
         </span>
-      ) : null}
+      )}
 
-      {/* Luxury eyebrow with decorative elements */}
-      {eyebrow ? (
-        <div className="relative z-10 flex items-center justify-center gap-4 mb-4">
-          <div className="w-12 h-px bg-linear-to-r from-transparent via-accent to-transparent" />
-          <p className="uppercase tracking-[0.3em] text-sm md:text-base font-medium text-[--color-text] whitespace-nowrap">
+      {/* Eyebrow with decorative lines */}
+      {eyebrow && (
+        <div className="relative z-10 flex items-center justify-center gap-4 mb-3 md:mb-4">
+          <div className="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
+          <p className="uppercase tracking-widest text-xs md:text-sm font-medium text-neutral-light whitespace-nowrap">
             {eyebrow}
           </p>
-          <div className="w-12 h-px bg-linear-to-r from-transparent via-accent to-transparent" />
+          <div className="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
         </div>
-      ) : null}
+      )}
 
-      {/* Main title with luxury gradient effect */}
+      {/* Main title */}
       <h2
-        className={`relative z-10 mt-4 text-4xl md:text-6xl font-bold  bg-linear-to-r from-${titleColor} via-accent to-${titleColor} bg-clip-text text-transparent py-4`}
+        className="relative z-10 mt-2 md:mt-4 font-extrabold leading-tight text-3xl md:text-4xl lg:text-5xl"
         style={{
-          textShadow: "0 2px 4px rgba(0,0,0,0.1)",
+          color: titleColor,
+          textShadow: "var(--text-shadow-soft)",
         }}
       >
         {title}
       </h2>
-      
-      {/* Subtle decorative underline */}
-      <div className="relative z-10 mt-6">
-        <div className="w-24 h-1 bg-linear-to-r from-transparent via-accent to-transparent mx-auto rounded-full" />
+
+      {/* Subtle underline */}
+      <div className="relative z-10 mt-4 md:mt-6">
+        <div className="w-20 md:w-24 h-1 mx-auto rounded-full bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
       </div>
     </div>
   );

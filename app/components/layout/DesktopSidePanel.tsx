@@ -69,13 +69,13 @@ export default function DesktopSidePanel({
   role="dialog"
   aria-modal="true"
   className={`fixed top-0 right-0 h-screen w-[360px] sm:w-[420px] 
-  bg-bg text-foreground border-l border-border-subtle shadow-xl 
+  bg-background text-primary-dark border-l border-secondary-dark shadow-xl 
   transition-transform duration-300 will-change-transform
   ${open ? "translate-x-0" : "translate-x-full"}`}
 >
 
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-border-subtle bg-bg">
+        <div className="flex items-center justify-between p-5 border-b border-secondary-dark bg-background">
           <div className="flex items-center gap-3">
             <Image
               src={branding.logoSrc}
@@ -85,9 +85,9 @@ export default function DesktopSidePanel({
               className="brightness-0 invert"
             />
             <div>
-              <p className="text-xl font-semibold text-heading">{branding.name}</p>
+              <p className="text-xl font-semibold text-primary-medium">{branding.name}</p>
               {branding.tagline && (
-                <p className="text-sm text-foreground-secondary">{branding.tagline}</p>
+                <p className="text-sm text-secondary-dark">{branding.tagline}</p>
               )}
             </div>
           </div>
@@ -96,30 +96,30 @@ export default function DesktopSidePanel({
             aria-label={closeLabel}
             className="p-2 rounded-md border border-text/20 hover:bg-text/10 hover:border-text/30 transition-all duration-300"
           >
-            <FiX className="w-5 h-5 text-heading/70" />
+            <FiX className="w-5 h-5 text-primary-medium/70" />
           </button>
         </div>
 
         {/* Body */}
-        <div className="p-6 space-y-6 bg-bg">
+        <div className="p-6 space-y-6 bg-background">
           {companySection && (
             <div>
-              <p className="text-foreground-secondary">{companySection.description}</p>
+              <p className="text-secondary-dark">{companySection.description}</p>
             </div>
           )}
 
           {/* Contact */}
           <div>
-            <h4 className="text-lg font-semibold text-heading mb-3">{getInTouchTitle}</h4>
+            <h4 className="text-lg font-semibold text-primary-medium mb-3">{getInTouchTitle}</h4>
             <div className="space-y-3">
               {phone && (
-                <div className="flex items-center gap-3 text-foreground-secondary">
+                <div className="flex items-center gap-3 text-secondary-dark">
                   <FiPhone className="w-4 h-4" />
                   <span>{phone}</span>
                 </div>
               )}
               {address && (
-                <div className="flex items-center gap-3 text-foreground-secondary">
+                <div className="flex items-center gap-3 text-secondary-dark">
                   <FiMapPin className="w-4 h-4" />
                   <span>{address}</span>
                 </div>
@@ -135,7 +135,7 @@ export default function DesktopSidePanel({
                   key={i}
                   href={social.href}
                   aria-label={social.ariaLabel}
-                  className="w-10 h-10 grid place-items-center rounded-full bg-foreground/10 text-foreground-secondary hover:text-accent hover:bg-foreground/15 transition-colors"
+                  className="w-10 h-10 grid place-items-center rounded-full bg-primary-dark/10 text-secondary-dark hover:text-primary-medium hover:bg-primary-dark/15 transition-colors"
                 >
                   {socialIconMap[social.icon]}
                 </a>

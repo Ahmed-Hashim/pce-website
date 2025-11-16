@@ -2,6 +2,8 @@ export interface WhoWeAreData {
   sectionTitle: string;
   sectionSubtitle: string;
   sectionDescription: string;
+  backgroundImage?: string;
+  backgroundOpacity?: number;
   leftColumn: {
     title: string;
     description: string;
@@ -29,6 +31,7 @@ export interface WhoWeAreData {
     icon: string;
     title: string;
     description: string;
+    refreshLabel: string;
   };
 }
 
@@ -44,6 +47,8 @@ export const whoWeAreData: WhoWeAreData = {
   sectionTitle: "Who We Are",
   sectionSubtitle: "Driving digital transformation through strategic innovation and operational excellence",
   sectionDescription: "As a leading technology solutions provider, we deliver enterprise-grade digital transformation services that empower organizations to achieve sustainable growth, operational efficiency, and competitive advantage in today's dynamic marketplace.",
+  backgroundImage: "/bg-comp.png",
+  backgroundOpacity: 0.8,
   
   leftColumn: {
     title: "Our Corporate Mission",
@@ -96,6 +101,7 @@ export const whoWeAreData: WhoWeAreData = {
   videoErrorFallback: {
     icon: "M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z",
     title: "Corporate Video",
-    description: "Learn more about our enterprise solutions and strategic partnerships"
+    description: "Learn more about our enterprise solutions and strategic partnerships",
+    refreshLabel: "Refresh Page"
   }
 };

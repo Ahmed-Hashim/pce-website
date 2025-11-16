@@ -29,7 +29,7 @@ export default function EnhancedImage({
   caption = "",
   subCaption = "",
   showOverlay = true,
-  overlayGradient = "bg-linear-to-t from-bg/60 via-transparent to-transparent",
+  overlayGradient = "bg-linear-to-t from-primary-dark/60 via-transparent to-transparent",
   hoverEffect = true,
   priority = false,
   objectFit = "cover",
@@ -63,7 +63,7 @@ export default function EnhancedImage({
   };
 
   const getBorderClass = () => {
-    if (border === true) return "border border-border-subtle";
+    if (border === true) return "border border-secondary-dark";
     if (typeof border === "string") {
       if (border.includes("border")) return border; // Full border class provided
       return `border border-${border}`; // Just the variant provided
@@ -100,8 +100,8 @@ export default function EnhancedImage({
       {/* Loading State */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-border/20">
-          <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
-            <svg className="w-6 h-6 text-accent animate-spin" fill="currentColor" viewBox="0 0 20 20">
+          <div className="w-12 h-12 bg-primary-medium/20 rounded-full flex items-center justify-center">
+            <svg className="w-6 h-6 text-primary-medium animate-spin" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
             </svg>
           </div>
@@ -112,12 +112,12 @@ export default function EnhancedImage({
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-border/40">
           <div className="text-center p-6">
-            <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-8 h-8 text-accent" fill="currentColor" viewBox="0 0 20 20">
+            <div className="w-16 h-16 bg-primary-medium/20 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg className="w-8 h-8 text-primary-medium" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
               </svg>
             </div>
-            <p className="text-text-secondary text-sm">Image failed to load</p>
+            <p className="text-secondary-dark text-sm">Image failed to load</p>
           </div>
         </div>
       )}

@@ -19,19 +19,20 @@ export default function ValuesMarqueeSection({
   speed = 22,
 }: ValuesMarqueeSectionProps) {
   return (
-    <section>
-        <Marquee speed={speed} autoFill={true} pauseOnHover={true} gradient={false}>
+ 
+        <Marquee speed={speed} autoFill={true} pauseOnHover={true} gradient={false} className="bg-primary-dark">
           <div className="flex items-center gap-8 p-5">
             {items.map((label, index) => (
               <React.Fragment key={index}>
-                <span className="text-3xl font-semibold text-bg mx-4">
+                <span className="text-3xl font-semibold text-white mx-4">
                   {label}
                 </span>
 
                 {separatorIcon && index < items.length && (
                   <span
                     aria-hidden="true"
-                    className="inline-flex items-center justify-center "
+                    className="inline-flex items-center justify-center animate-spin"
+                    style={{ animationDuration: '4s' }}
                   >
                     {separatorIcon}
                   </span>
@@ -40,6 +41,6 @@ export default function ValuesMarqueeSection({
             ))}
           </div>
         </Marquee>
-    </section>
+
   );
 }

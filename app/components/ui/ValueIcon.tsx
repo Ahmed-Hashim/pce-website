@@ -6,7 +6,7 @@ interface ValueIconProps {
 }
 
 export default function ValueIcon({
-  className = "w-8 h-8 text-accent",
+  className = "w-8 h-8 text-primary-medium",
   title = "Value icon",
 }: ValueIconProps) {
   return (

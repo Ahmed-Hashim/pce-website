@@ -26,13 +26,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       window.removeEventListener(sidePanelEvents.open, handleOpen);
       window.removeEventListener(sidePanelEvents.close, handleClose);
     };
-  }, []);
+  }, [sidePanelEvents.close, sidePanelEvents.open]);
 
   return (
-    <html lang="en" data-theme="dark" className={raleway.variable}>
-      <body>
+    <html lang="en" className={raleway.variable}>
+      <body className={`bg-background ${raleway.className} text-white antialiased`}>
         <Header />
-        <main id="primary" className="site-main">
+        <main id="primary" className="site-main min-h-screen ">
           {children}
         </main>
         <Footer />

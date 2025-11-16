@@ -4,53 +4,24 @@ import { WhoWeAreData as WhoWeAreDataType } from "./WhoWeAreData";
 import VideoPlayer from "../ui/VideoPlayer";
 import SectionTitle from "../ui/SectionTitle";
 
+// No changes to the fallback component are needed
 interface VideoErrorFallbackProps {
   title: string;
   description: string;
+  refreshLabel: string;
 }
 
-const VideoErrorFallback = ({
-  title,
-  description,
-}: VideoErrorFallbackProps) => (
-  <div className="relative w-full h-60 md:h-80 bg-linear-to-br from-slate-100 to-slate-50 rounded-2xl border border-slate-200 flex items-center justify-center shadow-lg">
-    <div className="text-center p-8 max-w-md">
-      <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-        <svg
-          className="w-10 h-10 text-blue-600"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-          />
-        </svg>
-      </div>
-      <h4 className="text-lg md:text-xl font-bold text-slate-900 mb-3">{title}</h4>
-      <p className="text-slate-600 leading-relaxed text-sm md:text-base">{description}</p>
+const VideoErrorFallback = ({ title, description, refreshLabel }: VideoErrorFallbackProps) => (
+  <div className="w-full bg-section-light rounded-2xl border border-neutral-light">
+    <div className="text-center p-10 max-w-xl mx-auto">
+      <h4 className="text-xl font-semibold text-primary-dark">{title}</h4>
+      <p className="text-secondary-dark mt-3">{description}</p>
       <div className="mt-6">
         <button
           onClick={() => window.location.reload()}
-          className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
+          className="btn-primary px-5 py-2 rounded-lg transition-colors"
         >
-          <svg
-            className="w-4 h-4 mr-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-            />
-          </svg>
-          Refresh Page
+          {refreshLabel}
         </button>
       </div>
     </div>
@@ -61,48 +32,87 @@ export default function WhoWeAreSection({ data }: { data: WhoWeAreDataType }) {
   const [videoError, setVideoError] = useState(false);
 
   return (
-    <section className="py-[var(--space-section-y-mobile)] sm:py-[var(--space-section-y-sm)] md:py-[var(--space-section-y-md)] lg:py-[var(--space-section-y-lg)] bg-bg relative overflow-hidden">
-      {/* Professional Background Pattern */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_80%,rgba(59,130,246,0.05),transparent_50%)]"></div>
-        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.05),transparent_50%)]"></div>
-      </div>
+    // The section will have a dark background from a parent layout component (e.g., <body class="bg-main">)
+    <section className="relative overflow-hidden">
+      {/* Background image with overlay */}
+      {/* LEFT side triangle 1 (center) */}
+  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-40 h-40 opacity-20 pointer-events-none">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
+      <path d="M 0 50 L 100 0 L 100 100 Z" fill="var(--color-primary-medium)" />
+    </svg>
+  </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <SectionTitle
-            title={data.sectionTitle}
-            titleColor="heading"
-            outlineColor="var(--color-heading)"
-            background={data.sectionTitle}
-            align="center"
-          />
-        </div>
+      
+      {/* Triangle SVG background in top left corner pointing right */}
+     <div className="absolute top-0 right-0 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 opacity-20 pointer-events-none">
+{/* Triangle on the left side pointing right */}
+<div className="absolute left-0 top-1/2 -translate-y-1/2 w-32 h-32 opacity-20 pointer-events-none">
+  <svg
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+    className="w-full h-full"
+  >
+    {/* Triangle pointing → */}
+    <path
+      d="M 0 50 L 100 0 L 100 100 Z"
+      fill="var(--color-primary-medium)"
+    />
+  </svg>
+</div>
+<div className="absolute left-0 bottom-10 w-28 h-28 opacity-20 pointer-events-none">
+  <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
+    <path d="M 0 50 L 100 0 L 100 100 Z" fill="var(--color-primary-medium)" />
+  </svg>
+</div>
+<div className="absolute left-0 bottom-10 w-28 h-28 opacity-20 pointer-events-none">
+  <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
+    <path d="M 0 50 L 100 0 L 100 100 Z" fill="var(--color-primary-medium)" />
+  </svg>
+</div>
 
-        {/* Video and Description */}
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <p className="text-base md:text-xl text-text-secondary leading-relaxed">
+</div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Using a larger gap to match the visual spacing in the image */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Left Column - Title and Description */}
+          {/* CHANGED: Removed text-center to align content to the left */}
+          <div className="space-y-6">
+            <SectionTitle
+              title={data.sectionTitle}
+              titleColor="text-white"
+              // CHANGED: Underline color now uses the accent color to match the design
+              outlineColor="var(--color-primary-medium)"
+              background={data.sectionTitle}
+              // CHANGED: Alignment is now 'left' to match the design
+              align="left"
+            />
+            {/* This text is now left-aligned by default */}
+            <p className=" max-w-lg">
               {data.sectionDescription}
             </p>
           </div>
 
-          {/* Video Container */}
-          {videoError ? (
-            <VideoErrorFallback
-              title={data.rightColumn.video.fallbackTitle}
-              description={data.rightColumn.video.fallbackDescription}
-            />
-          ) : (
-            <VideoPlayer
-              videoSrc={data.rightColumn.video.src}
-              poster={data.rightColumn.video.poster}
-              title={data.rightColumn.video.title}
-              subTitle={data.rightColumn.video.subTitle}
-              onError={() => setVideoError(true)}
-            />
-          )}
+          {/* Right Column - Video */}
+          <div className="w-full">
+            {videoError ? (
+              <VideoErrorFallback
+                title={data.videoErrorFallback.title}
+                description={data.videoErrorFallback.description}
+                refreshLabel={data.videoErrorFallback.refreshLabel}
+              />
+            ) : (
+              <VideoPlayer
+                videoSrc={data.rightColumn.video.src}
+                poster={data.rightColumn.video.poster}
+                title={data.rightColumn.video.title}
+                subTitle={data.rightColumn.video.subTitle}
+                onError={() => setVideoError(true)}
+              />
+            )}
+          </div>
         </div>
       </div>
     </section>

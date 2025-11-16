@@ -39,7 +39,7 @@ const HeroSection = () => {
   const [current, setCurrent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [progress, setProgress] = useState(0);
-  const SLIDE_DURATION = 10000; // ms
+  const SLIDE_DURATION = 8000; // ms - increased for slower, more relaxed viewing
 
   // Drag/Swipe handling
   const dragStartX = useRef<number | null>(null);
@@ -52,21 +52,21 @@ const HeroSection = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrent((prev) => (prev + 1) % slides.length);
-    setTimeout(() => setIsAnimating(false), 800);
+    setTimeout(() => setIsAnimating(false), 1200); // Match slide transition duration
   };
 
   const prevSlide = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
-    setTimeout(() => setIsAnimating(false), 800);
+    setTimeout(() => setIsAnimating(false), 1200); // Match slide transition duration
   };
 
   const goToSlide = (index: number) => {
     if (isAnimating || index === current) return;
     setIsAnimating(true);
     setCurrent(index);
-    setTimeout(() => setIsAnimating(false), 800);
+    setTimeout(() => setIsAnimating(false), 1200); // Match slide transition duration
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLElement>) => {
@@ -83,13 +83,17 @@ const HeroSection = () => {
     }
     const deltaX = e.clientX - dragStartX.current;
     const duration = performance.now() - dragStartTime.current;
-    if (Math.abs(deltaX) > SWIPE_THRESHOLD_PX && duration < SWIPE_MAX_DURATION_MS) {
+    const absDeltaX = Math.abs(deltaX);
+    
+    // More lenient swipe detection
+    if (absDeltaX > SWIPE_THRESHOLD_PX && duration < SWIPE_MAX_DURATION_MS) {
       if (deltaX < 0) {
-        nextSlide();
+        nextSlide(); // Swipe left - next slide
       } else {
-        prevSlide();
+        prevSlide(); // Swipe right - previous slide
       }
     }
+    
     isDragging.current = false;
     dragStartX.current = null;
   };
@@ -104,6 +108,8 @@ const HeroSection = () => {
 
   // Real-time progress animation and auto-advance
   useEffect(() => {
+    if (isAnimating) return; // Don't run progress while animating
+    
     let rafId: number;
     const startTime = performance.now();
 
@@ -121,52 +127,100 @@ const HeroSection = () => {
     rafId = requestAnimationFrame(step);
     return () => cancelAnimationFrame(rafId);
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, isAnimating]);
+  const heroRef = useRef<HTMLElement>(null);
+
+  const setHeroHeight = () => {
+    const header = document.getElementById("site-header");
+    if (heroRef.current && header) {
+      // Get the actual rendered height of the header (including mobile menu if open)
+      const headerHeight = header.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const heroHeight = viewportHeight - headerHeight;
+      
+      heroRef.current.style.height = `${heroHeight}px`;
+      heroRef.current.style.minHeight = `${heroHeight}px`;
+    }
+  };
+
+  useEffect(() => {
+    setHeroHeight();
+    window.addEventListener("resize", setHeroHeight);
+    
+    // Also observe header height changes (mobile menu open/close)
+    const header = document.getElementById("site-header");
+    if (header && window.ResizeObserver) {
+      const resizeObserver = new ResizeObserver(() => {
+        setHeroHeight();
+      });
+      resizeObserver.observe(header);
+      
+      return () => {
+        window.removeEventListener("resize", setHeroHeight);
+        resizeObserver.disconnect();
+      };
+    }
+    
+    return () => window.removeEventListener("resize", setHeroHeight);
+  }, []);
+
+  // Reset progress when slide changes
+  useEffect(() => {
+    setProgress(0);
   }, [current]);
 
   return (
     <section
-      className="relative min-h-[80vh] md:h-screen overflow-hidden text-white touch-manipulation select-none"
+     ref={heroRef}
+      className="relative w-full overflow-hidden text-white select-none cursor-grab active:cursor-grabbing"
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerLeave}
+      onPointerMove={(e) => {
+        // Prevent default to avoid page scroll during swipe
+        if (isDragging.current) {
+          e.preventDefault();
+        }
+      }}
+      style={{ touchAction: 'pan-y' }}
     >
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-all duration-800 ease-in-out ${
+          className={`absolute inset-0 transition-all duration-[1200ms] ease-in-out ${
             index === current 
               ? "opacity-100 z-10 scale-100" 
               : "opacity-0 z-0 scale-105"
           }`}
         >
-          {/* Animated Background with Ken Burns effect */}
+          {/* Animated Background with slow Ken Burns effect */}
           <div
-            className={`absolute inset-0 bg-fixed bg-center bg-cover transition-transform duration-2000ms ease-out ${
-              index === current ? "scale-110" : "scale-100"
+            className={`absolute inset-0 bg-fixed bg-center bg-cover transition-transform duration-[8000ms] ease-in-out ${
+              index === current ? "scale-105" : "scale-100"
             }`}
             style={{ backgroundImage: `url(${slide.image})` }}
           ></div>
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 bg-primary-dark/10"></div>
 
           {/* Animated Content */}
-          <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-6">
+          <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4 sm:px-6">
             <div
-              className={`transition-all duration-800 ease-out ${
+              className={`transition-all duration-[1000ms] ease-out w-full ${
                 index === current
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
               }`}
             >
-              <h1 className="text-4xl md:text-6xl font-bold mb-4 text-heading animate-fade-in-up drop-shadow-lg">
+              <h1 className=" mb-3 sm:mb-4 animate-fade-in-up drop-shadow-lg">
                 {slide.title}
               </h1>
-              <p className="text-lg md:text-xl mb-6 text-foreground-secondary animate-fade-in-up animation-delay-200 max-w-2xl mx-auto leading-relaxed">
+              <p className=" text-shadow-2xs text-white mb-4 sm:mb-6 animate-fade-in-up animation-delay-200 max-w-2xl mx-auto leading-relaxed px-2">
                 {slide.description}
               </p>
               <div className="animate-fade-in-up animation-delay-400">
                 <a
                   href={slide.link}
-                  className="inline-flex items-center gap-2 bg-accent text-button-text px-6 py-3 rounded-md text-sm font-medium hover:opacity-90 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  className="inline-flex items-center gap-2 btn-primary px-5 sm:px-6 py-2.5 sm:py-3 rounded-md text-sm font-medium hover:opacity-90 transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 >
                   <span>{slide.buttonText}</span> 
                   <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -196,14 +250,14 @@ const HeroSection = () => {
       </button>
 
       {/* Enhanced Dots indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-30">
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-30">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goToSlide(i)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
               current === i 
-                ? "bg-accent scale-125 w-8" 
+                ? "bg-primary-medium scale-125 w-6 sm:w-8" 
                 : "bg-white/50 hover:bg-white hover:scale-110"
             }`}
           ></button>
@@ -211,10 +265,10 @@ const HeroSection = () => {
       </div>
 
       {/* Progress indicator */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20 z-30">
+      <div className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-white/20 z-30 overflow-hidden">
         <div 
-          className="h-full bg-accent"
-          style={{ width: `${progress}%` }}
+          className="h-full bg-primary-medium transition-all duration-200 ease-out"
+          style={{ width: `${progress}%`, transform: `translateX(${progress === 0 ? '-100%' : '0%'})` }}
         ></div>
       </div>
     </section>

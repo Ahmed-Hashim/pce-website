@@ -5,6 +5,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FaBars } from "react-icons/fa";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -20,15 +21,16 @@ const Header = () => {
   const desktopPanelEvents = { open: 'desktopSidePanel:open', close: 'desktopSidePanel:close' } as const;
 
   return (
- <header className="fixed rounded-2xl top-5 w-[90%] left-[5%] right-[5%] z-50 bg-bg/25 backdrop-blur-lg border-b border-text/10 transition-all duration-300 ">
+ <header id="site-header" className=" bg-white transition-all duration-300 ">
   <div className="container mx-auto flex items-center justify-between py-4 px-4">
+
         {/* Logo */}
         <div className="shrink-0">
           <Link href="/">
             <Image
               src="/pce-logo.png"
               alt="PCE Logo"
-              className="brightness-0 invert"
+             
               width={50}
               height={50}
             />
@@ -43,7 +45,7 @@ const Header = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-text font-medium hover:text-heading px-3 py-2 rounded-md transition-all duration-300"
+                className="text-primary-dark font-medium transition-all duration-300"
               >
                 {link.name}
               </Link>
@@ -52,7 +54,7 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-4">
-          <button className="bg-accent/90 text-button-text px-5 py-2 rounded-md text-sm font-medium hover:bg-accent hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+          <button className="bg-primary-dark text-button-text px-5 py-2 rounded-md text-sm font-medium hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
             Book a Meeting
           </button>
 
@@ -63,22 +65,9 @@ const Header = () => {
               }
             }}
             aria-label={desktopPanelOpenLabel}
-            className="p-2 rounded-md border border-text/20 hover:bg-text/10 hover:border-text/30 transition-all duration-300 backdrop-blur-sm"
+            className="p-2 rounded-md border border-primary-dark/20 hover:bg-primary-dark/10 hover:border-primary-dark/30 transition-all duration-300 backdrop-blur-sm"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-heading/70"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h7"
-              />
-            </svg>
+            <FaBars className="text-primary-medium/70 text-base" />
           </button>
         </div>
 
@@ -86,11 +75,11 @@ const Header = () => {
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 rounded-md border border-text/20 hover:bg-text/10 hover:border-text/30 focus:outline-none transition-all duration-300 backdrop-blur-sm"
+            className="p-2 rounded-md border border-primary-dark/20 hover:bg-primary-dark/10 hover:border-primary-dark/30 focus:outline-none transition-all duration-300 backdrop-blur-sm"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-heading/70"
+              className="h-6 w-6 text-primary-medium/70"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -114,12 +103,12 @@ const Header = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-heading/80 hover:text-heading hover:bg-text/10 rounded-md px-3 py-2 transition-all duration-300"
+                className="text-primary-medium/80 hover:text-primary-medium hover:bg-text/10 rounded-md px-3 py-2 transition-all duration-300"
               >
                 {link.name}
               </Link>
             ))}
-            <button className="bg-accent/90 text-button-text w-full mt-4 px-6 py-2 rounded-lg hover:bg-accent hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+            <button className="bg-primary-medium/90 text-button-text w-full mt-4 px-6 py-2 rounded-lg hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
               Book a Meeting
             </button>
           </nav>

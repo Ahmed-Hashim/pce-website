@@ -11,9 +11,9 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ href, children }) => {
   return (
     <a
       href={href}
-      className="inline-flex items-center justify-center gap-2.5 relative bg-theme-primary text-base font-semibold py-1.5 pl-6 pr-1.5 text-center rounded-full z-[2] overflow-hidden group"
+      className="inline-flex items-center justify-center gap-2.5 relative btn-primary text-base font-semibold py-1.5 pl-6 pr-1.5 text-center rounded-full z-[2] overflow-hidden group"
     >
-      <span className="text-common-white overflow-hidden relative h-5">
+      <span className="text-white overflow-hidden relative h-5">
         <span className="flex leading-none transition-transform duration-300 ease-in-out group-hover:-translate-y-full">
           {children}
         </span>
@@ -21,8 +21,8 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ href, children }) => {
           {children}
         </span>
       </span>
-      <span className="inline-flex justify-center items-center text-xl w-10 h-10 overflow-hidden bg-theme-dark rounded-full">
-        <FaArrowRight className="text-common-white transform -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
+      <span className="inline-flex justify-center items-center text-xl w-10 h-10 overflow-hidden bg-primary-dark rounded-full">
+        <FaArrowRight className="text-white transform -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
       </span>
     </a>
   );

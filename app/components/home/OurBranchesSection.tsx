@@ -110,7 +110,7 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
       <div className="absolute inset-0 bg-linear-to-br from-background via-background/90 to-background/70" />
       {/* Top Divider - positioned above background but below content */}
       <div className="relative mb-10 z-10">
-        {/* <hr className="h-4 bg-accent border-none" /> */}
+        {/* <hr className="h-4 bg-primary-medium border-none" /> */}
       </div>
       {/* **All background layers stay inside this section** */}
 
@@ -124,12 +124,12 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
         >
           <SectionTitle
             titleColor="heading"
-            outlineColor="var(--color-heading)"
+            outlineColor="var(--color-neutral-light)"
             title={sectionTitle}
             background={sectionTitle.split(" ").pop()}
             align="center"
           />
-          <p className="mt-3 md:mt-4 text-lg md:text-xl text-heading max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="mt-3 md:mt-4 text-lg md:text-xl text-primary-medium max-w-3xl mx-auto leading-relaxed px-4">
             {sectionSubtitle}
           </p>
         </div>
@@ -140,7 +140,7 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
             {branches.slice(0, 3).map((branch, index) => (
               <div
                 key={`${branch.country}-${index}`}
-                className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-border-subtle transition-all duration-500 hover:border-accent hover:scale-105 hover:shadow-2xl flex flex-col touch-manipulation ${
+                className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-secondary-dark transition-all duration-500 hover:border-primary-medium hover:scale-105 hover:shadow-2xl flex flex-col touch-manipulation ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
@@ -149,14 +149,14 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
               >
                 {/* Headquarters Badge */}
                 {branch.isHeadquarters && (
-                  <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 z-10 bg-accent text-button-text px-2 py-1 md:px-3 md:py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                  <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 z-10 bg-primary-medium text-button-text px-2 py-1 md:px-3 md:py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                     HQ
                   </div>
                 )}
 
                 {/* Country Header with Circular Flag */}
                 <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
-                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-border-subtle transition-colors duration-300 shrink-0">
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-secondary-dark transition-colors duration-300 shrink-0">
                     <Image
                       width={250}
                       height={250}
@@ -166,10 +166,10 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
                     />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="text-lg md:text-xl font-bold text-heading truncate">
+                    <h3 className="text-lg md:text-xl font-bold text-primary-medium truncate">
                       {branch.country}
                     </h3>
-                    <p className="text-xs md:text-sm text-foreground-secondary capitalize">
+                    <p className="text-xs md:text-sm text-secondary-dark capitalize">
                       {branch.region} Region
                     </p>
                   </div>
@@ -177,28 +177,28 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
 
                 {/* Locations with Contact Info */}
                 <div className="mb-3 flex-1">
-                  <h4 className="text-xs md:text-sm font-semibold text-foreground-secondary mb-2 md:mb-3 uppercase tracking-wide">
+                  <h4 className="text-xs md:text-sm font-semibold text-secondary-dark mb-2 md:mb-3 uppercase tracking-wide">
                     Locations & Contact
                   </h4>
                   <div className="space-y-2 md:space-y-3">
                     {branch.locations.map((location, idx) => (
                       <div
                         key={`${branch.country}-location-${idx}`}
-                        className="border-l-2 border-accent pl-2 md:pl-3"
+                        className="border-l-2 border-primary-medium pl-2 md:pl-3"
                       >
-                        <div className="text-foreground text-xs md:text-sm leading-relaxed mb-1">
+                        <div className="text-primary-dark text-xs md:text-sm leading-relaxed mb-1">
                           {location}
                         </div>
                         {branch.contacts[idx] && (
                           <div className="flex items-center gap-2">
                             <svg
-                              className="w-3 h-3 text-accent shrink-0"
+                              className="w-3 h-3 text-primary-medium shrink-0"
                               fill="currentColor"
                               viewBox="0 0 24 24"
                             >
                               <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                             </svg>
-                            <span className="text-accent text-xs font-medium break-all">
+                            <span className="text-primary-medium text-xs font-medium break-all">
                               {branch.contacts[idx]}
                             </span>
                           </div>
@@ -218,7 +218,7 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
             {branches.slice(3, 5).map((branch, index) => (
               <div
                 key={`${branch.country}-${index + 3}`}
-                className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-border-subtle transition-all duration-500 hover:border-accent hover:scale-105 hover:shadow-2xl flex flex-col touch-manipulation ${
+                className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-secondary-dark transition-all duration-500 hover:border-primary-medium hover:scale-105 hover:shadow-2xl flex flex-col touch-manipulation ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
@@ -227,14 +227,14 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
               >
                 {/* Headquarters Badge */}
                 {branch.isHeadquarters && (
-                  <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 z-10 bg-accent text-button-text px-2 py-1 md:px-3 md:py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                  <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 z-10 bg-primary-medium text-button-text px-2 py-1 md:px-3 md:py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                     HQ
                   </div>
                 )}
 
                 {/* Country Header with Circular Flag */}
                 <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
-                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-border-subtle transition-colors duration-300 shrink-0">
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-secondary-dark transition-colors duration-300 shrink-0">
                     <Image
                       width={250}
                       height={250}
@@ -244,10 +244,10 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
                     />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="text-lg md:text-xl font-bold text-heading truncate">
+                    <h3 className="text-lg md:text-xl font-bold text-primary-medium truncate">
                       {branch.country}
                     </h3>
-                    <p className="text-xs md:text-sm text-foreground-secondary capitalize">
+                    <p className="text-xs md:text-sm text-secondary-dark capitalize">
                       {branch.region} Region
                     </p>
                   </div>
@@ -255,28 +255,28 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
 
                 {/* Locations with Contact Info */}
                 <div className="mb-3 flex-1">
-                  <h4 className="text-xs md:text-sm font-semibold text-foreground-secondary mb-2 md:mb-3 uppercase tracking-wide">
+                  <h4 className="text-xs md:text-sm font-semibold text-secondary-dark mb-2 md:mb-3 uppercase tracking-wide">
                     Locations & Contact
                   </h4>
                   <div className="space-y-2 md:space-y-3">
                     {branch.locations.map((location, idx) => (
                       <div
                         key={`${branch.country}-location-${idx}`}
-                        className="border-l-2 border-accent pl-2 md:pl-3"
+                        className="border-l-2 border-primary-medium pl-2 md:pl-3"
                       >
-                        <div className="text-foreground text-xs md:text-sm leading-relaxed mb-1">
+                        <div className="text-primary-dark text-xs md:text-sm leading-relaxed mb-1">
                           {location}
                         </div>
                         {branch.contacts[idx] && (
                           <div className="flex items-center gap-2">
                             <svg
-                              className="w-3 h-3 text-accent shrink-0"
+                              className="w-3 h-3 text-primary-medium shrink-0"
                               fill="currentColor"
                               viewBox="0 0 24 24"
                             >
                               <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                             </svg>
-                            <span className=" text-xs font-medium text-accent break-all">
+                            <span className=" text-xs font-medium text-primary-medium break-all">
                               {branch.contacts[idx]}
                             </span>
                           </div>

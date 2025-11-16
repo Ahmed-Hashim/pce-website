@@ -24,13 +24,13 @@ const Statistics: React.FC<StatisticsProps> = ({
   backgroundOpacity,
 }) => {
   return (
-    <section className="py-[var(--space-section-y-mobile)] sm:py-[var(--space-section-y-sm)] md:py-[var(--space-section-y-md)] lg:py-[var(--space-section-y-lg)] bg-bg relative overflow-hidden">
+    <section className="py-[var(--space-section-y-mobile)] sm:py-[var(--space-section-y-sm)] md:py-[var(--space-section-y-md)] lg:py-[var(--space-section-y-lg)] bg-background relative overflow-hidden">
       {/* Background image with brand color overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5"
         style={{ backgroundImage: "url('/bg-comp.png')" }}
       >
-        <div className="absolute inset-0 bg-[--color-bg] opacity-80"></div>
+        <div className="absolute inset-0 bg-[--color-primary-dark] opacity-80"></div>
       </div>
       
       {/* Content */}
@@ -41,12 +41,12 @@ const Statistics: React.FC<StatisticsProps> = ({
           align="center"
           className="mb-24"
           titleColor="heading"
-          outlineColor="var(--color-heading)"
+          outlineColor="var(--color-neutral-light)"
           backgroundOpacity={backgroundOpacity}
         />
         <div className="relative">
           {/* Dotted line for desktop view */}
-          <div className="absolute top-14 left-0 w-full h-px border-t-2 border-dotted border-border hidden md:block"></div>
+          <div className="absolute top-14 left-0 w-full h-px border-t-2 border-dotted border-secondary-dark hidden md:block"></div>
 
           <div className="flex flex-col md:flex-row justify-between text-center space-y-16 md:space-y-0">
             {stats.map((stat, index) => (
@@ -56,23 +56,23 @@ const Statistics: React.FC<StatisticsProps> = ({
               >
                 {/* Icon with pointer */}
                 <div className="relative">
-                  <div className="w-28 h-28 bg-accent rounded-full flex items-center justify-center text-button-text text-5xl">
+                  <div className="w-28 h-28 bg-primary-medium rounded-full flex items-center justify-center text-button-text text-5xl">
                     {stat.icon}
                   </div>
                   <div
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-0 h-0 
                     border-l-15 border-l-transparent 
                     border-r-15 border-r-transparent 
-                    border-t-15 border-t-accent"
+                    border-t-15 border-t-primary-medium"
                   ></div>
                 </div>
 
                 {/* Text content */}
                 <div className="mt-10">
-                  <p className="text-2xl font-bold text-heading">
+                  <p className="text-2xl font-bold text-primary-medium">
                     {stat.value}
                   </p>
-                  <p className="text-text-secondary mt-1">{stat.label}</p>
+                  <p className="text-secondary-dark mt-1">{stat.label}</p>
                 </div>
               </div>
             ))}
