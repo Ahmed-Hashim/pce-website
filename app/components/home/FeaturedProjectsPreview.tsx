@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, animate } from "framer-motion";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import SectionTitle from "../ui/SectionTitle";
 
 interface Project {
@@ -106,10 +106,9 @@ const defaultProjects: Project[] = [
 ];
 
 export default function FeaturedProjectsPreview({
-  title = "PROUD PROJECTS",
-  subtitle = "Showcasing our excellence in engineering and construction",
+  title = "OUR PROJECTS",
+  subtitle = "",
   projects = defaultProjects,
-
   viewProjectLabel = "View Project",
 }: FeaturedProjectsPreviewProps) {
   const [currentProject, setCurrentProject] = useState(0);
@@ -174,9 +173,19 @@ export default function FeaturedProjectsPreview({
     dragStartX.current = null;
   };
 
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrentProject((prev) => {
+        const maxIndex = Math.max(0, projects.length - itemsPerView);
+        return prev >= maxIndex ? 0 : prev + 1;
+      });
+    }, 12000);
+    return () => clearInterval(id);
+  }, [projects.length, itemsPerView]);
+
   return (
-    <section className="py-[var(--space-section-y-mobile)] sm:py-[var(--space-section-y-sm)] md:py-[var(--space-section-y-md)] lg:py-[var(--space-section-y-lg)] px-[var(--space-section-x-mobile)] sm:px-[var(--space-section-x-sm)] md:px-[var(--space-section-x-md)] lg:px-[var(--space-section-x-lg)] bg-background relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/bg-2.png')] bg-cover bg-center opacity-20 scale-x-[-1] scale-y-[-1]"></div>
+    <section className="relative overflow-hidden bg-neutral-light/20">
+      {/* <div className="absolute inset-0 bg-[url('/bg-2.png')] bg-cover bg-center opacity-20 scale-x-[-1] scale-y-[-1]"></div> */}
       <div className="container mx-auto max-w-6xl relative z-10">
         {/* Section Header */}
         <div className="text-center mb-12">
@@ -187,9 +196,9 @@ export default function FeaturedProjectsPreview({
             background={title.split(" ").pop()}
             align="center"
           />
-          <p className="mt-4 text-lg text-secondary-dark max-w-2xl mx-auto">
-            {subtitle}
-          </p>
+          {subtitle && (
+            <p className="mt-4 text-lg text-secondary-dark max-w-2xl mx-auto">{subtitle}</p>
+          )}
         </div>
 
         {/* Projects Slider */}
@@ -208,34 +217,49 @@ export default function FeaturedProjectsPreview({
                 }%)`,
               }}
             >
-              {projects.map((project) => (
-                <div
-                  key={project.id}
-                  style={{ width: `${100 / itemsPerView}%` }}
-                  className="shrink-0 p-2"
-                >
-                  <FlippableProjectCard project={project} viewProjectLabel={viewProjectLabel} />
-                </div>
-              ))}
+              {projects.map((project, index) => {
+                const centerIndex = currentProject + Math.floor(itemsPerView / 2);
+                const isCenter = index === centerIndex;
+                return (
+                  <div
+                    key={project.id}
+                    style={{ width: `${100 / itemsPerView}%` }}
+                    className={`shrink-0 p-2 transition-transform duration-500 ${
+                      isCenter ? "scale-[1.02]" : "scale-[0.95]"
+                    }`}
+                  >
+                    <ProjectHoverCard project={project} viewProjectLabel={viewProjectLabel} />
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-2 mt-8">
-            {Array.from({
-              length: Math.max(1, projects.length - itemsPerView + 1),
-            }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToProject(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentProject === index
-                    ? "bg-primary-medium scale-125"
-                    : "bg-border hover:bg-border-subtle"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              ></button>
-            ))}
+          <div className="flex items-center justify-center gap-6 mt-6">
+            <button
+              onClick={prevProject}
+              aria-label="Previous"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
+            >
+              <FiChevronLeft className="w-5 h-5" />
+            </button>
+            {(() => {
+              const totalPages = Math.max(1, projects.length - itemsPerView + 1);
+              const currentPage = Math.min(currentProject + 1, totalPages);
+              const pad = (n: number) => n.toString().padStart(2, "0");
+              return (
+                <span className="text-sm tracking-widest text-secondary-dark">
+                  {pad(currentPage)} / {pad(totalPages)}
+                </span>
+              );
+            })()}
+            <button
+              onClick={nextProject}
+              aria-label="Next"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
+            >
+              <FiChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>
@@ -243,86 +267,34 @@ export default function FeaturedProjectsPreview({
   );
 }
 
-function FlippableProjectCard({
+function ProjectHoverCard({
   project,
   viewProjectLabel,
 }: {
   project: Project;
   viewProjectLabel: string;
 }) {
-  const rotation = useMotionValue(0);
-  const [isFlipped, setIsFlipped] = useState(false);
-
   return (
-    <motion.div
-      className="group relative h-88 md:h-96 lg:h-104 rounded-xl overflow-hidden border border-secondary-dark bg-secondary-dark/10 hover:bg-secondary-dark/20 transition-all duration-300 hover:shadow-xl hover:scale-[1.04] touch-manipulation select-none"
-      style={{ perspective: "1000px" }}
-    >
-      <motion.div
-        className="absolute inset-0 transform-3d"
-        style={{ rotateY: rotation }}
-        onClick={(e) => {
-          const el = e.target as HTMLElement;
-          if (el.closest("a")) return;
-          const target = isFlipped ? 0 : 180;
-          setIsFlipped(!isFlipped);
-          animate(rotation, target, { type: "spring", stiffness: 300, damping: 30 });
-        }}
-      >
-        <div className="absolute inset-0 backface-hidden">
-          <Image
-            width={500}
-            height={500}
-            src={project.image}
-            alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/45 transition-colors"></div>
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <span className="mb-3 inline-block bg-primary-medium/90 text-button-text px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
-              {project.category}
-            </span>
-            <h3 className="text-white text-2xl md:text-3xl font-extrabold drop-shadow-lg">
-              {project.title}
-            </h3>
-            <a
-              href={project.link}
-              className="mt-5 inline-flex items-center justify-center w-12 h-12 rounded-lg border-2 border-white/80 text-white hover:bg-white hover:text-primary-dark transition-all duration-300"
-              aria-label={viewProjectLabel}
-            >
-              <FiArrowUpRight className="w-6 h-6" />
-            </a>
+    <Link href={project.link} aria-label={viewProjectLabel} className="group block">
+      <div className="relative h-88 md:h-96 lg:h-104 rounded-xl overflow-hidden border bg-secondary-dark/10 transition-all duration-300 hover:shadow-xl">
+        <Image
+          width={800}
+          height={600}
+          src={project.image}
+          alt={project.title}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors"></div>
+        <div className="absolute bottom-4 left-4 right-4">
+          <div className="relative rounded-xl bg-primary-dark/90 text-white p-5 shadow-xl">
+            <div className="absolute -left-3 bottom-5 w-2 h-12 bg-primary-medium rounded-full"></div>
+            <div className="flex flex-col">
+              <h6 >{project.title}</h6>
+              <small>{project.category}</small>
+            </div>
           </div>
         </div>
-        <div className="absolute inset-0 backface-hidden rotate-y-180">
-          <Image
-            width={500}
-            height={500}
-            src={project.image}
-            alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/50"></div>
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
-            <span className="mb-3 inline-block bg-primary-medium/90 text-button-text px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
-              {project.category}
-            </span>
-            <h3 className="text-white text-2xl md:text-3xl font-extrabold drop-shadow-lg">
-              {project.title}
-            </h3>
-            <p className="mt-3 text-white/90 text-sm md:text-base max-w-md">
-              {project.description}
-            </p>
-            <a
-              href={project.link}
-              className="mt-5 inline-flex items-center justify-center w-12 h-12 rounded-lg border-2 border-white/80 text-white hover:bg-white hover:text-primary-dark transition-all duration-300"
-              aria-label={viewProjectLabel}
-            >
-              <FiArrowUpRight className="w-6 h-6" />
-            </a>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </Link>
   );
 }

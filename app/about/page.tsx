@@ -49,16 +49,12 @@ const leaders = [
 const story = {
   title: "Our Philosophy",
   background: "Philosophy",
-  mission: [
-    "Deliver engineering excellence across design and supervision",
-    "Drive sustainable impact through innovation and precision",
-    "Empower clients with reliable, cost-effective solutions",
-  ],
-  vision: [
-    "Be a trusted regional leader in consulting engineering",
-    "Elevate industry standards for safety and quality",
-    "Expand global footprint with consistent service delivery",
-  ],
+  description:
+    "PRECISION CONSULTING ENGINEERING: is a professional company for consultancy services founded in 2008 in Egypt offering a wide range of technical services led by a group of highly qualified consultants and technical engineers, whose expertise in engineering projects covers all major disciplines of design and construction supervision.",
+  mission:
+    "Precision Consulting Engineering aspires to be one of the top five multi-disciplinary engineering consultancy firms in the Middle East with satisfied clients and projects portfolio from the entire region",
+  vision:
+    "Precision Consulting Engineering is committed to offer state of-the-art services to all assignments throughout the whole project life-cycle. We are dedicated to deliver Client's needs and exceed expectations by promising timely deadlines, while observing budgets and assuring quality",
   values: ["Integrity", "Innovation", "Accountability", "Responsibility", "Passion"],
 };
 
@@ -227,11 +223,11 @@ const branches = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-primary-dark">
+    <div className="">
       <PageHero title={pageHero.title} subtitle={pageHero.subtitle} breadcrumbs={pageHero.breadcrumbs} imageSrc={pageHero.imageSrc} />
 
-      <WhoWeAreSection data={whoWeAreData} />
-      <MissionVisionValues title={story.title} background={story.background} mission={story.mission} vision={story.vision} values={story.values} />
+      {/* <WhoWeAreSection data={whoWeAreData} /> */}
+      <MissionVisionValues title={story.title} background={story.background} description={story.description} mission={story.mission} vision={story.vision} values={story.values} />
 
 
       <CEOSection
