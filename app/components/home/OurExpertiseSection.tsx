@@ -63,16 +63,16 @@ export default function OurExpertiseSection({
           {items.map((item, i) => (
             <div 
               key={i} 
-              className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 ease-out border border-gray-100 hover:border-primary-medium/20"
+              className="group relative bg-white rounded-sm p-8 shadow-sm hover:shadow-xl transition-all duration-500 ease-out border border-gray-100 hover:border-primary-medium/20"
             >
               {/* Hover Background Effect */}
-              <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary-medium/5 to-secondary-light/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 rounded-sm bg-linear-to-br from-primary-medium/5 to-secondary-light/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               <div className="relative z-10 flex flex-col items-center text-center">
                 {/* Icon/Image Container - Centered and Larger */}
                 <div className="mb-8">
                   {item.imageSrc ? (
-                    <div className="w-24 h-24 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300">
+                    <div className="w-24 h-24 rounded-sm overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300">
                       <Image 
                         src={item.imageSrc} 
                         alt={item.title} 

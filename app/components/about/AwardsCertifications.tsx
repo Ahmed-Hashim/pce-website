@@ -29,7 +29,7 @@ export default function AwardsCertifications({ title, background, awards, certif
       <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         <SectionTitle title={title} background={background} outlineColor="var(--color-neutral-light)" titleColor="var(--color-primary-dark)" align="center" />
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mt-10">
-          <div className="rounded-2xl border border-secondary-dark bg-white/50 backdrop-blur-sm p-6">
+          <div className="rounded-sm border border-secondary-dark bg-white/50 backdrop-blur-sm p-6">
             <h3 className="text-lg font-semibold text-primary-medium mb-4">{labels.awards}</h3>
             <ul className="space-y-4 text-secondary-dark">
               {awards.map((a, i) => (
@@ -42,7 +42,7 @@ export default function AwardsCertifications({ title, background, awards, certif
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-secondary-dark bg-white/50 backdrop-blur-sm p-6">
+          <div className="rounded-sm border border-secondary-dark bg-white/50 backdrop-blur-sm p-6">
             <h3 className="text-lg font-semibold text-primary-medium mb-4">{labels.certifications}</h3>
             <ul className="space-y-4 text-secondary-dark">
               {certifications.map((c, i) => (

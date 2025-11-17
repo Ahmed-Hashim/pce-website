@@ -75,7 +75,7 @@ export default function CTAComponent({
           </div>
 
           {/* Right Side - Contact Information */}
-          <div className="bg-background/90 backdrop-blur-xl border border-primary-medium/50 rounded-xl md:p-8 shadow-2xl shadow-primary-dark/10 animate-fade-in-up animation-delay-200">
+          <div className="bg-background/90 backdrop-blur-xl border border-primary-medium/50 rounded-sm md:p-8 shadow-2xl shadow-primary-dark/10 animate-fade-in-up animation-delay-200">
             <div className="flex items-center justify-center pt-6">
               <div className="w-12 h-1 bg-linear-to-r from-neutral-light to-neutral-light/50 rounded-full"></div>
               <h4 className="text-primary-dark font-bold mx-4">Get In Touch</h4>
@@ -89,21 +89,21 @@ export default function CTAComponent({
                   <input
                     type="text"
                     placeholder="Your Name"
-                    className="input w-full px-3 py-2 rounded-xl placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
+                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
                   />
                 </div>
                 <div className="relative group">
                   <input
                     type="email"
                     placeholder="Your Email"
-                    className="input w-full px-3 py-2 rounded-xl placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
+                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
                   />
                 </div>
                 <div className="relative group">
                   <textarea
                     placeholder="Tell us about your project..."
                     rows={3}
-                    className="input w-full px-3 py-2 rounded-xl placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 resize-none backdrop-blur-sm"
+                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 resize-none backdrop-blur-sm"
                   />
                 </div>
                 <button

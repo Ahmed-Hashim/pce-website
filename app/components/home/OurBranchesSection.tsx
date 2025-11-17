@@ -155,7 +155,7 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
                 type="button"
                 onClick={() => setSelectedBranch(branch)}
                 aria-label={`${labels.viewDetails}: ${branch.country}`}
-                className={`group relative text-left bg-white rounded-xl p-4 shadow-sm hover:shadow-xl transition-all duration-500 ease-out border border-gray-100 hover:border-primary-medium/20 flex flex-col ${
+                className={`group relative text-left bg-white rounded-sm p-4 shadow-sm hover:shadow-xl transition-all duration-500 ease-out border border-gray-100 hover:border-primary-medium/20 flex flex-col ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 } ${branch.isHeadquarters ? "sm:col-span-2 lg:col-span-1" : ""}`}
                 style={{ transitionDelay: `${300 + index * 80}ms` }}
@@ -212,7 +212,7 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
               <div
                 role="dialog"
                 aria-modal="true"
-                className="relative w-full max-w-2xl bg-background rounded-2xl border border-secondary-dark shadow-xl"
+                className="relative w-full max-w-2xl bg-background rounded-sm border border-secondary-dark shadow-xl"
               >
                 <div className="flex items-center justify-between p-6 border-b border-secondary-dark">
                   <div className="flex items-center gap-3">

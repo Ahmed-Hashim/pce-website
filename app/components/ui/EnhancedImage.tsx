@@ -51,7 +51,7 @@ export default function EnhancedImage({
   };
 
   const getRoundedClass = () => {
-    if (rounded === true) return "rounded-2xl";
+    if (rounded === true) return "rounded-sm";
     if (typeof rounded === "string") return `rounded-${rounded}`;
     return "";
   };

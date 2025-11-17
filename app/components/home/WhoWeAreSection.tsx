@@ -16,14 +16,14 @@ const VideoErrorFallback = ({
   description,
   refreshLabel,
 }: VideoErrorFallbackProps) => (
-  <div className="w-full bg-section-light rounded-2xl border border-neutral-light">
+  <div className="w-full bg-section-light rounded-sm border border-neutral-light">
     <div className="text-center p-10 max-w-xl mx-auto">
       <h4 className="text-xl font-semibold text-primary-dark">{title}</h4>
       <p className="text-secondary-dark mt-3">{description}</p>
       <div className="mt-6">
         <button
           onClick={() => window.location.reload()}
-          className="btn-primary px-5 py-2 rounded-lg transition-colors"
+          className="btn-primary px-5 py-2 rounded-sm transition-colors"
         >
           {refreshLabel}
         </button>

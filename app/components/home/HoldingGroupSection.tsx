@@ -53,7 +53,7 @@ export default function HoldingGroupSection({
 
             {holdingHref ? (
               <Link href={holdingHref} className="block cursor-pointer">
-                <div className="relative bg-primary-dark/5 border border-white/10 rounded-xl p-6 sm:p-7 flex items-center gap-6 hover:bg-white/10 transition-colors">
+                <div className="relative bg-primary-dark/5 border border-white/10 rounded-sm p-6 sm:p-7 flex items-center gap-6 hover:bg-white/10 transition-colors">
                   <div className="absolute top-3 right-3 z-10 rounded-md bg-black/20 text-white p-1">
                     <LinkIcon size={16} />
                   </div>
@@ -85,7 +85,7 @@ export default function HoldingGroupSection({
             ) : (
               <button
                 type="button"
-                className="relative bg-primary-dark  border border-white/10 rounded-xl p-12 flex items-center gap-6 hover:bg-primary-dark/95 transition-colors cursor-pointer"
+                className="relative bg-primary-dark  border border-white/10 rounded-sm p-12 flex items-center gap-6 hover:bg-primary-dark/95 transition-colors cursor-pointer"
               >
                 <div className="absolute top-3 right-3 z-10 rounded-md bg-primary-dark/20 text-white p-1">
                   <LinkIcon size={16} />

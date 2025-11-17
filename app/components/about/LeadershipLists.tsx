@@ -28,7 +28,7 @@ export default function LeadershipLists({ title, background, directors = [] }: L
       <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         <SectionTitle title={title} background={background} outlineColor="var(--color-neutral-light)" titleColor="var(--color-primary-dark)" align="center" />
         <div className="gap-6 lg:gap-8 mt-10">
-          <div className="rounded-2xl border border-secondary-dark bg-primary-medium/10 backdrop-blur-sm p-6">
+          <div className="rounded-sm border border-secondary-dark bg-primary-medium/10 backdrop-blur-sm p-6">
             <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-4">
               {directors.map((m, i) => (
                 <LeaderCard key={`leader-${i}`} person={m} />

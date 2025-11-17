@@ -11,6 +11,8 @@ export interface SectionTitleProps {
   backgroundOpacity?: number; // 0..1 opacity for outline
   titleColor?: string; // color for the main title text
   backgroundTextColor?: string; // color for the background text (when not using outline)
+  underline?: boolean; // whether to show the underline
+  fontSize?: string; // font size in px
 }
 
 export default function SectionTitle({
@@ -18,6 +20,8 @@ export default function SectionTitle({
   align = "center",
   className = "",
   titleColor = "",
+  underline = true,
+  fontSize = "",  
 }: SectionTitleProps) {
   const alignment =
     align === "left"
@@ -29,7 +33,7 @@ export default function SectionTitle({
     <div className={`relative w-full flex flex-col ${alignment} ${className}`}>
       {/* Main title */}
       <h2
-        className="relative z-10 mt-2 md:mt-4 font-extrabold leading-tight  md:text-4xl lg:text-5xl"
+        className={`relative z-10 mt-2 md:mt-4 font-extrabold leading-tight ${fontSize || "md:text-4xl lg:text-5xl"}`}
         style={{
           color: titleColor,
           textShadow: "var(--text-shadow-soft)",
@@ -38,9 +42,11 @@ export default function SectionTitle({
         {title}
       </h2>
       {/* Subtle underline */}
-      <div className="relative z-10 mt-4 md:mt-6">
-        <div className="w-20 md:w-24 h-1 rounded-full bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
-      </div>
+      {underline && (
+        <div className="relative z-10 mt-4 md:mt-6">
+          <div className="w-20 md:w-24 h-1 rounded-full bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
+        </div>
+      )}
     </div>
   );
 }

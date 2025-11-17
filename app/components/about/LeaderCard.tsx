@@ -20,9 +20,9 @@ interface LeaderCardProps {
 
 export default function LeaderCard({ person }: LeaderCardProps) {
   return (
-    <div className="rounded-xl border border-secondary-dark p-6 bg-background shadow-sm">
+    <div className="rounded-sm border border-secondary-dark p-6 bg-background shadow-sm">
       {person.imageSrc ? (
-        <div className="relative mx-auto w-36 h-36 md:w-40 md:h-40 rounded-xl overflow-hidden shrink-0 shadow-sm">
+        <div className="relative mx-auto w-36 h-36 md:w-40 md:h-40 rounded-sm overflow-hidden shrink-0 shadow-sm">
           <Image src={person.imageSrc} alt={person.name} fill className="object-cover" />
         </div>
       ) : null}

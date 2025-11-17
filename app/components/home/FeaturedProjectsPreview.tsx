@@ -204,7 +204,7 @@ export default function FeaturedProjectsPreview({
         {/* Projects Slider */}
         <div className="relative px-4 lg:px-0">
           <div
-            className="overflow-hidden rounded-xl touch-manipulation select-none"
+            className="overflow-hidden rounded-sm touch-manipulation select-none"
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
             onPointerLeave={handlePointerLeave}
@@ -239,7 +239,7 @@ export default function FeaturedProjectsPreview({
             <button
               onClick={prevProject}
               aria-label="Previous"
-              className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
             >
               <FiChevronLeft className="w-5 h-5" />
             </button>
@@ -256,7 +256,7 @@ export default function FeaturedProjectsPreview({
             <button
               onClick={nextProject}
               aria-label="Next"
-              className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
             >
               <FiChevronRight className="w-5 h-5" />
             </button>
@@ -276,7 +276,7 @@ function ProjectHoverCard({
 }) {
   return (
     <Link href={project.link} aria-label={viewProjectLabel} className="group block">
-      <div className="relative h-88 md:h-96 lg:h-104 rounded-xl overflow-hidden border bg-secondary-dark/10 transition-all duration-300 hover:shadow-xl">
+      <div className="relative h-88 md:h-96 lg:h-104 rounded-sm overflow-hidden border bg-secondary-dark/10 transition-all duration-300 hover:shadow-xl">
         <Image
           width={800}
           height={600}
@@ -286,7 +286,7 @@ function ProjectHoverCard({
         />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors"></div>
         <div className="absolute bottom-4 left-4 right-4">
-          <div className="relative rounded-xl bg-primary-dark/90 p-5 shadow-xl">
+          <div className="relative rounded-sm bg-primary-dark/90 p-5 shadow-xl">
             <div className="absolute -left-3 bottom-5 w-2 h-12 bg-primary-medium rounded-full"></div>
             <div className="flex flex-col">
               <h6 className="text-white font-semibold" >{project.title}</h6>

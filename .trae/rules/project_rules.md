@@ -40,7 +40,7 @@ export default function HeroSection({ title, description, imageSrc, stats }: Her
       <img
         src={imageSrc}
         alt="Hero Image"
-        className="mx-auto mt-4 w-full max-w-md rounded-2xl"
+        className="mx-auto mt-4 w-full max-w-md rounded-sm"
       />
       <div className="flex justify-center gap-8 mt-6">
         {stats.map((stat, index) => (

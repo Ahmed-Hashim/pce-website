@@ -33,7 +33,7 @@ export default function CEOCard({ ceo, index = 0, className = "" }: CEOCardProps
           toggleFlip();
         }
       }}
-      className={`group relative bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-500 ease-out cursor-pointer overflow-hidden perspective-1000 ${className}`}
+      className={`group relative bg-white rounded-sm p-6 shadow-sm hover:shadow-md transition-all duration-500 ease-out cursor-pointer overflow-hidden perspective-1000 ${className}`}
     >
       {/* Flip wrapper */}
       <div
@@ -43,7 +43,7 @@ export default function CEOCard({ ceo, index = 0, className = "" }: CEOCardProps
       >
         {/* Front face */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center backface-hidden">
-          <div className="relative w-48 h-48 mb-6 rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-all duration-500">
+          <div className="relative w-48 h-48 mb-6 rounded-sm overflow-hidden shadow-sm group-hover:shadow-md transition-all duration-500">
             <Image
               src={ceo.imageSrc}
               alt={ceo.name}

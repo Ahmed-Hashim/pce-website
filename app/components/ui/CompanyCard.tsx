@@ -24,7 +24,7 @@ export default function CompanyCard({ name, logo, abbrev, href, onClick, classNa
 
   const CardInner = (
     <div
-      className={`relative bg-primary-dark/5 border border-white/10 rounded-xl overflow-hidden hover:bg-primary-dark/10 transition-colors duration-300 ${className}`}
+      className={`relative bg-primary-dark/5 border border-white/10 rounded-sm overflow-hidden hover:bg-primary-dark/10 transition-colors duration-300 ${className}`}
     >
       <div className="absolute top-2 right-2 z-10">
         <div className="rounded-md bg-black/20 text-white p-1">
@@ -38,7 +38,7 @@ export default function CompanyCard({ name, logo, abbrev, href, onClick, classNa
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <div className="w-24 h-24 rounded-lg bg-white/10 flex items-center justify-center text-neutral-light font-semibold">
+            <div className="w-24 h-24 rounded-sm bg-white/10 flex items-center justify-center text-neutral-light font-semibold">
               {abbrev || getInitials(name)}
             </div>
           </div>

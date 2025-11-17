@@ -25,9 +25,7 @@ interface CoreServicesOverviewProps {
 
 export default function CoreServicesOverview({
   title,
-  eyebrow,
   services,
-  backgroundText,
 }: CoreServicesOverviewProps) {
   return (
     <section id="core-services" className="relative overflow-hidden">
@@ -50,7 +48,6 @@ export default function CoreServicesOverview({
           <div className="text-center mb-16 sm:mb-20">
             <SectionTitle
               title={title}
-              background={backgroundText || title.split(" ").pop()}
               outlineColor="var(--color-primary-dark)"
               titleColor="heading"
               align="center"

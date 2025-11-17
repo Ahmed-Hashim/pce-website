@@ -1,9 +1,5 @@
 import PageHero from "../components/ui/PageHero";
-import SectionTitle from "../components/ui/SectionTitle";
-import Link from "next/link";
-import Image from "next/image";
 import CTAComponent from "../components/home/CTAComponent";
-import { servicesData } from "../data/services";
 import { sectionTitles } from "../data/sectionTitles";
 import Statistics from "../components/home/Statistics";
 import CoreServicesOverview from "../components/home/CoreServicesOverview";
@@ -43,10 +39,7 @@ export default function ServicesPage() {
         imageSrc={pageHero.imageSrc}
       />
 
-      <CoreServicesOverview
-
-        services={coreServicesData.services}
-      />
+      <CoreServicesOverview title={coreServicesData.title} services={coreServicesData.services} />
       <Statistics
         title={sectionTitles.statistics.title}
         eyebrow={sectionTitles.statistics.eyebrow}
@@ -62,6 +55,7 @@ export default function ServicesPage() {
         primaryButtonText={cta.primaryButtonText}
         secondaryButtonText={cta.secondaryButtonText}
       />
+
     </div>
   );
 }

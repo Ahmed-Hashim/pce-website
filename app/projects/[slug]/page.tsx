@@ -1,5 +1,4 @@
 import PageHero from "../../components/ui/PageHero";
-import SectionTitle from "../../components/ui/SectionTitle";
 import Image from "next/image";
 import { projectsData, getProjectBySlug } from "../../data/projects";
 
@@ -46,7 +45,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           {project.stats && project.stats.length > 0 ? (
             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
               {project.stats.map((s, i) => (
-                <div key={`stat-${i}`} className="rounded-xl border border-secondary-dark bg-white/60 p-4">
+                <div key={`stat-${i}`} className="rounded-sm border border-secondary-dark bg-white/60 p-4">
                   <div className="text-sm text-secondary-dark">{s.label}</div>
                   <div className="text-xl font-semibold text-primary-medium mt-1">{s.value}</div>
                 </div>
@@ -57,7 +56,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           {project.sections && project.sections.length > 0 ? (
             <div className="mt-10 grid md:grid-cols-3 gap-6">
               {project.sections.map((sec, i) => (
-                <div key={`sec-${i}`} className="rounded-2xl border border-secondary-dark bg-white/60 p-6">
+                <div key={`sec-${i}`} className="rounded-sm border border-secondary-dark bg-white/60 p-6">
                   <h3 className="text-lg font-semibold text-primary-medium">{sec.title}</h3>
                   {sec.content ? (
                     <p className="mt-3 text-secondary-dark">{sec.content}</p>

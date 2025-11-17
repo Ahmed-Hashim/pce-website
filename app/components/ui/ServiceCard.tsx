@@ -39,7 +39,7 @@ export default function ServiceCard({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-xl group cursor-pointer ${
+      className={`relative overflow-hidden rounded-sm group cursor-pointer ${
         image ? "w-full aspect-4/3 sm:aspect-video" : ""
       } ${className}`}
     >
@@ -73,34 +73,32 @@ export default function ServiceCard({
 
       {/* Content - Image Style (Bottom Left Layout) */}
       {image && (
-        <div
-          className="relative z-10 px-6 py-6 sm:px-8 sm:py-8 h-full flex flex-col justify-end
+        <Link href={`/services/${title.toLowerCase().replace(/\s+/g, "-")}`}>
+          <div
+            className="relative z-10 px-6 py-6 sm:px-8 sm:py-8 h-full flex flex-col justify-end
           bg-linear-to-t from-primary-dark via-primary-dark/80 to-transparent"
-        >
-          <div className="text-white text-4xl sm:text-5xl py-4 drop-shadow-lg">
+          >
+            <div className="text-white text-4xl sm:text-5xl py-4 drop-shadow-lg">
               {getIcon(icon)}
             </div>
-          <div className="flex items-start gap-4">
-            
-            <div className="text-left flex-1">
-              <h3 className="text-white drop-shadow-lg text-xl sm:text-2xl font-bold">
-                {title}
-              </h3>
-              <p className="mt-1 text-white/90 drop-shadow-lg text-sm sm:text-base">
-                {items[0]?.description}
-              </p>
+            <div className="flex items-start gap-4">
+              <div className="text-left flex-1">
+                <h3 className="text-white drop-shadow-lg text-xl sm:text-2xl font-bold">
+                  {title}
+                </h3>
+                <p className="mt-1 text-white/90 drop-shadow-lg text-sm sm:text-base">
+                  {items[0]?.description}
+                </p>
+              </div>
             </div>
+            {callToAction && (
+              <div className="mt-4 btn-ghost p-2 rounded-sm text-white font-medium text-sm sm:text-base hover:text-white/80 transition-colors inline-flex items-center gap-2">
+                {callToAction}
+                <RxTriangleRight />
+              </div>
+            )}
           </div>
-          {callToAction && (
-            <Link
-              href=""
-              className="mt-4 btn-ghost p-2 rounded-xl text-white font-medium text-sm sm:text-base hover:text-white/80 transition-colors inline-flex items-center gap-2"
-            >
-              {callToAction}
-              <RxTriangleRight />
-            </Link>
-          )}
-        </div>
+        </Link>
       )}
 
       {/* Content - Icon Style (Centered Layout) */}
@@ -118,7 +116,7 @@ export default function ServiceCard({
           {callToAction && (
             <Link
               href=""
-              className="mt-6 btn-ghost p-2 rounded-xl text-white font-medium text-sm sm:text-base hover:text-white/80 transition-colors inline-flex items-center justify-center gap-2"
+              className="mt-6 btn-ghost p-2 rounded-sm text-white font-medium text-sm sm:text-base hover:text-white/80 transition-colors inline-flex items-center justify-center gap-2"
             >
               {callToAction}
               <RxTriangleRight />

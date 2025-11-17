@@ -13,6 +13,7 @@ const navLinks = [
   { name: "Projects", href: "/projects" },
   { name: "Services", href: "/services" },
   { name: "Blog", href: "/blog" },
+  { name: "News", href: "/news" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -55,7 +56,7 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-4">
-          <button className="bg-primary-dark text-button-text px-5 py-2 rounded-md text-sm font-medium hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+          <button className="bg-primary-dark text-button-text px-5 py-2 rounded-sm text-sm font-medium hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
             Book a Meeting
           </button>
 
@@ -109,7 +110,7 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
-            <button className="bg-primary-medium/90 text-button-text w-full mt-4 px-6 py-2 rounded-lg hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+            <button className="bg-primary-medium/90 text-button-text w-full mt-4 px-6 py-2 rounded-sm hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
               Book a Meeting
             </button>
           </nav>

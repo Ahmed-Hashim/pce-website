@@ -7,26 +7,25 @@ import FeaturedProjectsPreview from "./components/home/FeaturedProjectsPreview";
 import CTAComponent from "./components/home/CTAComponent";
 import { whoWeAreData } from "./components/home/WhoWeAreData";
 import Statistics from "./components/home/Statistics";
-import CEOSection from "./components/home/CEOSection";
+// import CEOSection from "./components/home/CEOSection";
 import HoldingGroupSection from "./components/home/HoldingGroupSection";
 import ValuesMarqueeSection from "./components/home/ValuesMarqueeSection";
-import { FaAward, FaUsers, FaProjectDiagram, FaDollarSign ,FaDraftingCompass, FaHardHat, FaCity, FaBuilding, FaBolt, FaCogs, FaBroadcastTower, FaMapMarkedAlt } from "react-icons/fa";
+import { FaAward, FaUsers, FaProjectDiagram, FaDollarSign , FaCity, FaBuilding, FaBolt, FaCogs, FaBroadcastTower, FaMapMarkedAlt } from "react-icons/fa";
 import { sectionTitles } from "./data/sectionTitles";
 import { coreValues } from "./data/values";
 import { coreServicesData } from "./data/coreServices";
 import TriangleIcon from "./components/ui/TriangleIcon";
 import OurExpertiseSection from "./components/home/OurExpertiseSection";
-import NewsletterSection from "./components/home/NewsletterSection";
 
 
-const stats = [
+export const stats = [
   { icon: <FaAward />, value: "+ 16", label: "Years of experience" },
   { icon: <FaUsers />, value: "+ 400", label: "Staff" },
   { icon: <FaProjectDiagram />, value: "+ 600", label: "Completed Projects" },
   { icon: <FaDollarSign />, value: "10 Billion $", label: "Projects Value" },
 ];
 
-const companyDescriptions = [
+export const companyDescriptions = [
   {
     name: "PRECISION CONSULTING ENGINEERING",
     description: "Precision Consulting Engineering, founded in Egypt in 2008, is a consultancy firm providing a wide range of technical services in engineering design and construction supervision, supported by a team of highly qualified experts."
@@ -37,7 +36,7 @@ const companyDescriptions = [
   }
 ];
 
-const expertiseSection = {
+export const expertiseSection = {
   title: "Our Expertise",
   eyebrow: "Capabilities",
   background: "EXPERTISE",
@@ -45,7 +44,7 @@ const expertiseSection = {
   titleColor: "heading",
 };
 
-const expertiseItems = [
+export const expertiseItems = [
   { 
     icon: <FaMapMarkedAlt />, 
     title: "Urban & Regional Planning",
@@ -88,16 +87,9 @@ const expertiseItems = [
   },
 ];
 
-const newsletterContent = {
-  eyebrow: "Stay Updated",
-  title: "Subscribe to Our Newsletter",
-  description: "Join our mailing list to receive industry insights, project updates, and announcements.",
-  placeholder: "Enter your email",
-  buttonLabel: "Subscribe",
-  consentText: "By subscribing, you agree to our Terms & Privacy Policy.",
-};
 
-const ceos = [
+
+export const ceos = [
   {
     name: "DR. Waleed El Sweedy",
     title: "Chairman",
@@ -114,7 +106,7 @@ const ceos = [
   }
 ];
 
-const holdingCompanies = [
+export const holdingCompanies = [
   { 
     name: "Precision Consulting Engineering", 
     logo: "/logos/2.png", 
@@ -180,9 +172,7 @@ export default function Home() {
         companies={companyDescriptions}
       /> */}
       <CoreServicesOverview
-        title={sectionTitles.coreServices.title}
-        eyebrow={sectionTitles.coreServices.eyebrow}
-        backgroundText={sectionTitles.coreServices.background}
+        title={coreServicesData.title}
         services={coreServicesData.services}
       />
       
@@ -210,14 +200,7 @@ export default function Home() {
       />
       
       <CTAComponent />
-      <NewsletterSection
 
-        title={newsletterContent.title}
-        description={newsletterContent.description}
-        placeholder={newsletterContent.placeholder}
-        buttonLabel={newsletterContent.buttonLabel}
-        consentText={newsletterContent.consentText}
-      />
     </div>
   );
 }
