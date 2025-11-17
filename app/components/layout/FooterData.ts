@@ -90,13 +90,7 @@ export const footerData: FooterContent = {
         { label: "Project Management", href: "#" },
       ],
     },
-    {
-      title: "Subscribe to our newsletter",
-      newsletter: {
-        placeholder: "Enter email",
-        submitAriaLabel: "Subscribe to newsletter",
-      },
-    },
+    
   ],
   bottom: {
     copyright: "© 2025 PCE All right reserved.",

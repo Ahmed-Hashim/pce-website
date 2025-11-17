@@ -14,16 +14,10 @@ export interface SectionTitleProps {
 }
 
 export default function SectionTitle({
-  eyebrow,
   title,
-  background,
   align = "center",
   className = "",
-  outlineColor = "var(--color-primary-medium)",
-  outlineWidth = 0.5,
-  backgroundOpacity = 0.3,
   titleColor = "",
-  backgroundTextColor,
 }: SectionTitleProps) {
   const alignment =
     align === "left"
@@ -31,44 +25,11 @@ export default function SectionTitle({
       : align === "right"
       ? "items-end text-right"
       : "items-center text-center";
-
-
   return (
-    <div className={`relative w-full ${alignment} ${className}`}>
-      {/* Background word (faint luxury) */}
-      {/* {background && (
-        <span
-          aria-hidden="true"
-          className="absolute select-none pointer-events-none inset-x-0 -top-4 md:-top-6 font-extrabold tracking-widest text-[2rem] md:text-[3rem] lg:text-[4rem]"
-          style={{
-            color: "transparent",
-            WebkitTextStrokeWidth: outlineWidth,
-            WebkitTextStrokeColor: backgroundTextColor || outlineColor,
-            opacity: backgroundOpacity,
-            lineHeight: 1,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textShadow: "0 0 40px rgba(163, 140, 98, 0.05)",
-          }}
-        >
-          {background}
-        </span>
-      )} */}
-
-      {/* Eyebrow with decorative lines */}
-      {eyebrow && (
-        <div className="relative z-10 flex items-center justify-center gap-4 mb-3 md:mb-4">
-          <div className="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
-          <p className="uppercase tracking-widest text-xs md:text-sm font-medium text-neutral-light whitespace-nowrap">
-            {eyebrow}
-          </p>
-          <div className="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
-        </div>
-      )}
-
+    <div className={`relative w-full flex flex-col ${alignment} ${className}`}>
       {/* Main title */}
       <h2
-        className="relative z-10 mt-2 md:mt-4 font-extrabold leading-tight text-3xl md:text-4xl lg:text-5xl"
+        className="relative z-10 mt-2 md:mt-4 font-extrabold leading-tight  md:text-4xl lg:text-5xl"
         style={{
           color: titleColor,
           textShadow: "var(--text-shadow-soft)",
@@ -76,10 +37,9 @@ export default function SectionTitle({
       >
         {title}
       </h2>
-
       {/* Subtle underline */}
       <div className="relative z-10 mt-4 md:mt-6">
-        <div className="w-20 md:w-24 h-1 mx-auto rounded-full bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
+        <div className="w-20 md:w-24 h-1 rounded-full bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
       </div>
     </div>
   );
