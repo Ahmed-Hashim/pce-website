@@ -36,7 +36,7 @@ export default function SectionTitle({
   return (
     <div className={`relative w-full ${alignment} ${className}`}>
       {/* Background word (faint luxury) */}
-      {background && (
+      {/* {background && (
         <span
           aria-hidden="true"
           className="absolute select-none pointer-events-none inset-x-0 -top-4 md:-top-6 font-extrabold tracking-widest text-[2rem] md:text-[3rem] lg:text-[4rem]"
@@ -53,7 +53,7 @@ export default function SectionTitle({
         >
           {background}
         </span>
-      )}
+      )} */}
 
       {/* Eyebrow with decorative lines */}
       {eyebrow && (

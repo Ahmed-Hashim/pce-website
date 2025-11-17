@@ -48,7 +48,7 @@ export default function ClientsSection({ data = defaultData }: ClientsSectionPro
   const title = data.title;
 
   return (
-    <section id={data.anchorId} className="pb-0">
+    <section id={data.anchorId} className="py-0">
       <div className="mx-auto border-0 lg:border-y md:border-y lg:border-primary-medium ">
         <div className="grid grid-cols-1 lg:grid-cols-3 items-center lg:pl-10">
 

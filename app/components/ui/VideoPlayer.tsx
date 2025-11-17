@@ -49,7 +49,7 @@ export default function VideoPlayer({
   return (
     <div 
       ref={containerRef}
-      className={`relative rounded-sm overflow-hidden shadow-2xl border border-secondary-dark bg-secondary-dark/20 group ${className}`}
+      className={`relative rounded-sm overflow-hidden border border-secondary-dark bg-secondary-dark/20 group ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -59,7 +59,7 @@ export default function VideoPlayer({
           <div className="absolute inset-0 opacity-20">
             <div className="grid grid-cols-8 gap-2 p-8">
               {[...Array(32)].map((_, i) => (
-                <div key={i} className="w-2 h-2 bg-primary-medium/30 rounded-full"></div>
+                <div key={i} className="w-1 h-1 bg-primary-medium/30 rounded-full"></div>
               ))}
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function VideoPlayer({
         <div className="absolute inset-0 bg-linear-to-t from-primary-dark/60 via-transparent to-transparent z-20"></div>
         
         {/* Video Title and Info */}
-        {(title || subTitle) && (
+        {(title || subTitle) &&  (!isPlaying || isHovered) &&  (
           <div className="absolute bottom-6 left-6 right-6 z-30">
             {title && <p className="text-white font-semibold text-lg">{title}</p>}
             {subTitle && <p className="text-gray-300 text-sm">{subTitle}</p>}
@@ -98,15 +98,15 @@ export default function VideoPlayer({
           <div className="absolute inset-0 flex items-center justify-center z-25 transition-opacity duration-300">
             <button
               onClick={togglePlay}
-              className="w-16 h-16 bg-primary-medium/30 rounded-full flex items-center justify-center hover:bg-primary-medium/40 transition-all duration-300 scale-110 focus:outline-none focus:ring-2 focus:ring-primary-medium focus:ring-offset-2 focus:ring-offset-bg backdrop-blur-sm"
+              className="w-8 h-8 md:w-14 md:h-14 bg-primary-medium/30 rounded-full flex items-center justify-center hover:bg-primary-medium/40 transition-all duration-300 scale-110 focus:outline-none focus:ring-2 focus:ring-primary-medium focus:ring-offset-2 focus:ring-offset-bg backdrop-blur-sm"
               aria-label={isPlaying ? "Pause video" : "Play video"}
             >
               {isPlaying ? (
-                <svg className="w-8 h-8 text-primary-medium" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-8 h-8 md:w-12 md:h-12 text-primary-medium" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
               ) : (
-                <svg className="w-8 h-8 text-primary-medium" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-8 h-8 md:w-12 md:h-12 text-primary-medium" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                 </svg>
               )}

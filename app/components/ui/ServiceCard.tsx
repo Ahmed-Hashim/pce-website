@@ -28,7 +28,6 @@ export default function ServiceCard({
   callToAction,
   className = "",
 }: ServiceCardProps) {
-
   // Icon mapping
   const getIcon = (iconName: string) => {
     const icons: { [key: string]: React.ReactNode } = {
@@ -40,7 +39,9 @@ export default function ServiceCard({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-xl group cursor-pointer ${image ? "w-full aspect-4/3 sm:aspect-video" : ""} ${className}`}
+      className={`relative overflow-hidden rounded-xl group cursor-pointer ${
+        image ? "w-full aspect-4/3 sm:aspect-video" : ""
+      } ${className}`}
     >
       {/* Triangle on the left side pointing right */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-32 h-32 opacity-20 pointer-events-none">
@@ -65,21 +66,26 @@ export default function ServiceCard({
       )}
 
       {/* Dark Overlay - Different opacity based on image presence */}
-      <div 
+      <div
         className={`absolute inset-0 bg-primary-dark transition-opacity duration-700 
-        ${image ? "opacity-10" : "opacity-100"}`} 
+        ${image ? "opacity-10" : "opacity-100"}`}
       />
 
       {/* Content - Image Style (Bottom Left Layout) */}
       {image && (
-        <div className="relative z-10 px-6 py-6 sm:px-8 sm:py-8 h-full flex flex-col justify-end
-          bg-linear-to-t from-primary-dark via-primary-dark/80 to-transparent">
-          <div className="flex items-center gap-4">
-            <div className="text-white text-4xl sm:text-5xl drop-shadow-lg">
+        <div
+          className="relative z-10 px-6 py-6 sm:px-8 sm:py-8 h-full flex flex-col justify-end
+          bg-linear-to-t from-primary-dark via-primary-dark/80 to-transparent"
+        >
+          <div className="text-white text-4xl sm:text-5xl py-4 drop-shadow-lg">
               {getIcon(icon)}
             </div>
+          <div className="flex items-start gap-4">
+            
             <div className="text-left flex-1">
-              <h3 className="text-white drop-shadow-lg text-xl sm:text-2xl font-bold">{title}</h3>
+              <h3 className="text-white drop-shadow-lg text-xl sm:text-2xl font-bold">
+                {title}
+              </h3>
               <p className="mt-1 text-white/90 drop-shadow-lg text-sm sm:text-base">
                 {items[0]?.description}
               </p>

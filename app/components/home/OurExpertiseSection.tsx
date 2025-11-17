@@ -82,8 +82,8 @@ export default function OurExpertiseSection({
                       />
                     </div>
                   ) : (
-                    <div className="w-24 h-24 rounded-xl bg-linear-to-br from-primary-medium/10 to-secondary-light/10 flex items-center justify-center text-primary-medium group-hover:scale-110 transition-all duration-300">
-                      <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-24 h-24 flex items-center justify-center text-primary-medium group-hover:scale-110 transition-all duration-300">
+                      <div className="text-5xl group-hover:scale-110  transition-transform duration-300">
                         {item.icon}
                       </div>
                     </div>

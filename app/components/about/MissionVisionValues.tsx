@@ -53,9 +53,9 @@ export default function MissionVisionValues({ title, background, description, mi
             ) : (
               <div className="mt-4 space-y-3">
                 {vision.map((item, i) => (
-                  <div key={`v-${i}`} className="flex items-start justify-center gap-3">
+                  <div key={`v-${i}`} className="flex items-start justify-left gap-3">
                     <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium"></span>
-                    <p className="text-primary-dark text-sm md:text-base leading-tight text-center">{item}</p>
+                    <p className="text-primary-dark text-sm md:text-base leading-tight text-left">{item}</p>
                   </div>
                 ))}
               </div>
@@ -69,9 +69,9 @@ export default function MissionVisionValues({ title, background, description, mi
             </div>
             <div className="mt-4 space-y-3">
               {values.map((v, i) => (
-                <div key={`val-${i}`} className="flex items-start justify-start md:justify-center gap-3">
+                <div key={`val-${i}`} className="flex items-start justify-start gap-3">
                   <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium"></span>
-                  <p className="text-primary-dark text-sm md:text-base leading-tight text-left md:text-center">{v}</p>
+                  <p className="text-primary-dark text-sm md:text-base leading-tight text-left">{v}</p>
                 </div>
               ))}
             </div>

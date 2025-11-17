@@ -46,7 +46,7 @@ export interface StatItem {
 export const whoWeAreData: WhoWeAreData = {
   sectionTitle: "Who We Are",
   sectionSubtitle: "Driving digital transformation through strategic innovation and operational excellence",
-  sectionDescription: "As a leading technology solutions provider, we deliver enterprise-grade digital transformation services that empower organizations to achieve sustainable growth, operational efficiency, and competitive advantage in today's dynamic marketplace.",
+  sectionDescription: "PRECISION CONSULTING ENGINEERING: is a professional company for consultancy services founded in 2008 in Egypt offering a wide range of technical services led by a group of highly qualified consultants and technical engineers, whose expertise in engineering projects covers all major disciplines of design and construction supervision.",
   backgroundImage: "/bg-comp.png",
   backgroundOpacity: 0.8,
   

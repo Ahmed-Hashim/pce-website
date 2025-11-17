@@ -6,19 +6,18 @@ import ServiceCard from "../ui/ServiceCard";
 interface ServiceItem {
   title: string;
   description: string;
-  
 }
 
 interface ServiceCardData {
   title: string;
   icon: string;
-  image:string;
+  image: string;
   items: ServiceItem[];
   callToAction?: string;
 }
 
 interface CoreServicesOverviewProps {
-  title: string;
+  title?: string; // make optional
   eyebrow?: string;
   services: ServiceCardData[];
   backgroundText?: string;
@@ -33,7 +32,6 @@ export default function CoreServicesOverview({
   return (
     <section id="core-services" className="relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        
         <div className="absolute right-[-20px] top-[20%] w-64 h-64 sm:w-80 sm:h-80 opacity-10">
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full rotate-12">
             <path d="M 0 50 L 100 0 L 100 100 Z" fill="var(--color-primary-medium)" />
@@ -45,17 +43,20 @@ export default function CoreServicesOverview({
           </svg>
         </div>
       </div>
+
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16 sm:mb-20">
-          <SectionTitle
-            title={title}
-            background={backgroundText || title.split(" ").pop()}
-            outlineColor="var(--color-primary-dark)"
-            titleColor="heading"
-            align="center"
-          />
-        </div>
+        {title && (
+          <div className="text-center mb-16 sm:mb-20">
+            <SectionTitle
+              title={title}
+              background={backgroundText || title.split(" ").pop()}
+              outlineColor="var(--color-primary-dark)"
+              titleColor="heading"
+              align="center"
+            />
+          </div>
+        )}
 
         {/* Services Grid */}
         <div className="grid px-4 lg:px-0 grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">

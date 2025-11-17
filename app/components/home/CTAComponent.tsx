@@ -2,6 +2,7 @@
 
 import { FaArrowRight } from "react-icons/fa";
 import SectionTitle from "../ui/SectionTitle";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 interface ContactInfo {
@@ -42,7 +43,7 @@ export default function CTAComponent({
   }, []);
 
   return (
-    <section className="relative overflow-hidden md:px-8">
+    <section className="relative overflow-hidden md:px-8 bg-background">
       {/* Animated Background Pattern */}
 
       <div className="relative z-10 px-4 lg:px-0 mx-auto max-w-6xl">
@@ -61,15 +62,15 @@ export default function CTAComponent({
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a href="/contact" className="btn btn-primary">
+              <Link href="/contact" className="btn btn-primary">
                 <span>{primaryButtonText}</span>
                 <FaArrowRight className="btn-icon" />
-              </a>
+              </Link>
 
-              <a href="/services" className="btn btn-secondary">
+              <Link href="/services" className="btn btn-secondary">
                 <span>{secondaryButtonText}</span>
                 <FaArrowRight className="btn-icon" />
-              </a>
+              </Link>
             </div>
           </div>
 

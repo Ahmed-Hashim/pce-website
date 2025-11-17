@@ -106,7 +106,7 @@ const defaultProjects: Project[] = [
 ];
 
 export default function FeaturedProjectsPreview({
-  title = "OUR PROJECTS",
+  title = "Our Projects",
   subtitle = "",
   projects = defaultProjects,
   viewProjectLabel = "View Project",
@@ -289,7 +289,7 @@ function ProjectHoverCard({
           <div className="relative rounded-xl bg-primary-dark/90 p-5 shadow-xl">
             <div className="absolute -left-3 bottom-5 w-2 h-12 bg-primary-medium rounded-full"></div>
             <div className="flex flex-col">
-              <h6 className="text-white" >{project.title}</h6>
+              <h6 className="text-white font-semibold" >{project.title}</h6>
               <small>{project.category}</small>
             </div>
           </div>

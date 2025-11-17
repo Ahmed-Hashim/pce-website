@@ -24,9 +24,9 @@ export default function ValuesMarqueeSection({
           <div className="flex items-center gap-8 p-5">
             {items.map((label, index) => (
               <React.Fragment key={index}>
-                <span className="text-3xl font-semibold text-white mx-4">
+                <small className="text-3xl text-white mx-4">
                   {label}
-                </span>
+                </small>
 
                 {separatorIcon && index < items.length && (
                   <span

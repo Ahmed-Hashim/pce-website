@@ -120,7 +120,7 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
   );
 
   return (
-    <section id={anchorId} className="relative">
+    <section id={anchorId} className="relative md:py-10">
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/world.png')" }}

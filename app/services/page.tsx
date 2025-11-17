@@ -1,49 +1,67 @@
 import PageHero from "../components/ui/PageHero";
-import ServiceDetailSection from "../components/services/ServiceDetailSection";
-import { FaDraftingCompass, FaHardHat } from "react-icons/fa";
+import SectionTitle from "../components/ui/SectionTitle";
+import Link from "next/link";
+import Image from "next/image";
+import CTAComponent from "../components/home/CTAComponent";
+import { servicesData } from "../data/services";
+import { sectionTitles } from "../data/sectionTitles";
+import Statistics from "../components/home/Statistics";
+import CoreServicesOverview from "../components/home/CoreServicesOverview";
+import { coreServicesData } from "../data/coreServices";
 
 const pageHero = {
   title: "Services",
   subtitle: "What We Do",
-  imageSrc: "/bg-2.png",
+  imageSrc: "/2.png",
   breadcrumbs: [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services" },
   ],
 };
 
-const engineeringDesign = {
-  title: "Engineering Design",
-  background: "DESIGN",
-  items: [
-    "Concept, Preliminary and Schematic design, Detailed design and Construction documents",
-    "Specifications",
-    "Bill of materials",
-    "Value Engineering",
-  ],
-};
-
-const siteSupervision = {
-  title: "Site Supervision",
-  background: "SUPERVISION",
-  items: [
-    "Daily Project inspection and supervision",
-    "Design review",
-    "Shop drawing review",
-    "Material submittal and approval",
-    "Project specification conformity",
-    "Safety compliance",
-  ],
-};
-
 export default function ServicesPage() {
+  const stats = [
+    { value: "16+", label: "Years of experience" },
+    { value: "400+", label: "Staff" },
+    { value: "600+", label: "Completed Projects" },
+    { value: "$10B+", label: "Projects Value" },
+  ];
+  const cta = {
+    title: "Need a specialist for your next project?",
+    description:
+      "Talk to our team about engineering design, supervision, and delivery.",
+    primaryButtonText: "Get Consultation",
+    secondaryButtonText: "Explore Services",
+  };
+
   return (
-    <div className="min-h-screen bg-primary-dark">
-      <PageHero title={pageHero.title} subtitle={pageHero.subtitle} breadcrumbs={pageHero.breadcrumbs} imageSrc={pageHero.imageSrc} />
+    <div className="min-h-screen">
+      <PageHero
+        title={pageHero.title}
+        subtitle={pageHero.subtitle}
+        breadcrumbs={pageHero.breadcrumbs}
+        imageSrc={pageHero.imageSrc}
+      />
 
-      <ServiceDetailSection title={engineeringDesign.title} icon={<FaDraftingCompass />} items={engineeringDesign.items} />
+      <CoreServicesOverview
 
-      <ServiceDetailSection title={siteSupervision.title} icon={<FaHardHat />} items={siteSupervision.items} />
+        services={coreServicesData.services}
+      />
+      <Statistics
+        title={sectionTitles.statistics.title}
+        eyebrow={sectionTitles.statistics.eyebrow}
+        background={sectionTitles.statistics.background}
+        stats={stats}
+        titleColor={sectionTitles.statistics.titleColor}
+        backgroundTextColor={sectionTitles.statistics.backgroundTextColor}
+        outlineColor={sectionTitles.statistics.outlineColor}
+      />
+      <CTAComponent
+        title={cta.title}
+        description={cta.description}
+        primaryButtonText={cta.primaryButtonText}
+        secondaryButtonText={cta.secondaryButtonText}
+      />
     </div>
   );
 }
