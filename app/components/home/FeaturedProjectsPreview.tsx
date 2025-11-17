@@ -124,7 +124,7 @@ export default function FeaturedProjectsPreview({
       if (typeof window === "undefined") return;
       const w = window.innerWidth;
       if (w >= 1024) setItemsPerView(3); // lg and above
-      else if (w >= 768) setItemsPerView(2); // md
+      else if (w >= 768) setItemsPerView(1); // md
       else setItemsPerView(1); // sm
     };
     updateItemsPerView();
@@ -188,7 +188,7 @@ export default function FeaturedProjectsPreview({
       {/* <div className="absolute inset-0 bg-[url('/bg-2.png')] bg-cover bg-center opacity-20 scale-x-[-1] scale-y-[-1]"></div> */}
       <div className="container mx-auto max-w-6xl relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-6">
           <SectionTitle
             title={title}
             titleColor="heading"
@@ -202,7 +202,7 @@ export default function FeaturedProjectsPreview({
         </div>
 
         {/* Projects Slider */}
-        <div className="relative">
+        <div className="relative px-4 lg:px-0">
           <div
             className="overflow-hidden rounded-xl touch-manipulation select-none"
             onPointerDown={handlePointerDown}
@@ -286,10 +286,10 @@ function ProjectHoverCard({
         />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors"></div>
         <div className="absolute bottom-4 left-4 right-4">
-          <div className="relative rounded-xl bg-primary-dark/90 text-white p-5 shadow-xl">
+          <div className="relative rounded-xl bg-primary-dark/90 p-5 shadow-xl">
             <div className="absolute -left-3 bottom-5 w-2 h-12 bg-primary-medium rounded-full"></div>
             <div className="flex flex-col">
-              <h6 >{project.title}</h6>
+              <h6 className="text-white" >{project.title}</h6>
               <small>{project.category}</small>
             </div>
           </div>

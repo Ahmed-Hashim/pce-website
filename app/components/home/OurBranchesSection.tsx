@@ -27,6 +27,14 @@ interface OurBranchesSectionProps {
     global?: string;
     presence?: string;
   };
+  labels?: {
+    regionSuffix?: string;
+    hqBadge?: string;
+    locationsContacts?: string;
+    viewDetails?: string;
+    close?: string;
+    branchCount?: string;
+  };
 }
 
 const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
@@ -90,35 +98,39 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
     },
   ],
   anchorId = "our-branches",
+  labels = {
+    regionSuffix: "Region",
+    hqBadge: "HQ",
+    locationsContacts: "Locations & Contacts",
+    viewDetails: "View details",
+    close: "Close",
+    branchCount: "Branches",
+  },
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
+  const sortedBranches = branches.slice().sort(
+    (a, b) => (b.isHeadquarters ? 1 : 0) - (a.isHeadquarters ? 1 : 0)
+  );
+
   return (
-    <section id={anchorId} className="relative bg-white overflow-hidden">
-      {/* Parallax World Map Background */}
+    <section id={anchorId} className="relative">
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-fixed bg-no-repeat"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/world.png')" }}
       />
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-linear-to-br from-background via-background/90 to-background/70" />
-      {/* Top Divider - positioned above background but below content */}
-      <div className="relative mb-10 z-10">
-        {/* <hr className="h-4 bg-primary-medium border-none" /> */}
-      </div>
-      {/* **All background layers stay inside this section** */}
+      <div className="absolute inset-0 bg-linear-to-br from-background/70 to-background/90" />
 
-      {/* Actual content */}
-      <div className="relative z-20 max-w-7xl mx-auto pt-6 md:pt-8 lg:pt-10 px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${
+          className={`text-center mb-4 md:mb-4 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -129,145 +141,129 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
             background={sectionTitle.split(" ").pop()}
             align="center"
           />
-          <p className="mt-3 md:mt-4 text-lg md:text-xl text-primary-medium max-w-3xl mx-auto leading-relaxed px-4">
+
+          <p className="mt-3 md:mt-4 text-primary-medium max-w-3xl mx-auto leading-relaxed px-4">
             {sectionSubtitle}
           </p>
         </div>
 
-        {/* Branches Grid - First Row (3 cards) */}
-        <div className="flex justify-center mb-6 md:mb-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 w-full">
-            {branches.slice(0, 3).map((branch, index) => (
-              <div
+        <div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 px-4 sm:px-0 lg:grid-cols-5 gap-4 w-full">
+            {sortedBranches.map((branch, index) => (
+              <button
                 key={`${branch.country}-${index}`}
-                className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-secondary-dark transition-all duration-500 hover:border-primary-medium hover:scale-105 hover:shadow-2xl flex flex-col touch-manipulation ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: `${300 + index * 100}ms` }}
+                type="button"
+                onClick={() => setSelectedBranch(branch)}
+                aria-label={`${labels.viewDetails}: ${branch.country}`}
+                className={`group relative text-left bg-white rounded-xl p-4 shadow-sm hover:shadow-xl transition-all duration-500 ease-out border border-gray-100 hover:border-primary-medium/20 flex flex-col ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                } ${branch.isHeadquarters ? "sm:col-span-2 lg:col-span-1" : ""}`}
+                style={{ transitionDelay: `${300 + index * 80}ms` }}
               >
-                {/* Headquarters Badge */}
                 {branch.isHeadquarters && (
-                  <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 z-10 bg-primary-medium text-button-text px-2 py-1 md:px-3 md:py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
-                    HQ
+                  <div className="absolute top-3 right-3 z-10 bg-primary-medium text-button-text px-3 py-1 rounded-full font-semibold tracking-wide">
+                    {labels.hqBadge}
                   </div>
                 )}
 
-                {/* Country Header with Circular Flag */}
-                <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
-                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-secondary-dark transition-colors duration-300 shrink-0">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border border-secondary-dark shrink-0">
                     <Image
                       width={250}
                       height={250}
                       src={branch.flagImage}
                       alt={`${branch.country} flag`}
-                      className="w-full h-full transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-full"
                     />
                   </div>
+
                   <div className="min-w-0">
-                    <h3 className="text-lg md:text-xl font-bold text-primary-medium truncate">
+                    <p className="font-semibold text-primary-dark ">
                       {branch.country}
-                    </h3>
-                    <p className="text-xs md:text-sm text-secondary-dark capitalize">
-                      {branch.region} Region
                     </p>
+                    <small className="text-secondary-dark capitalize">
+                      {branch.region} {labels.regionSuffix}
+                    </small>
                   </div>
                 </div>
 
-                {/* Locations with Contact Info */}
-                <div className="mb-3 flex-1">
-                  <h4 className="text-xs md:text-sm font-semibold text-secondary-dark mb-2 md:mb-3 uppercase tracking-wide">
-                    Locations & Contact
-                  </h4>
-                  <div className="space-y-2 md:space-y-3">
-                    {branch.locations.map((location, idx) => (
-                      <div
-                        key={`${branch.country}-location-${idx}`}
-                        className="border-l-2 border-primary-medium pl-2 md:pl-3"
-                      >
-                        <div className="text-primary-dark text-xs md:text-sm leading-relaxed mb-1">
-                          {location}
-                        </div>
-                        {branch.contacts[idx] && (
-                          <div className="flex items-center gap-2">
-                            <svg
-                              className="w-3 h-3 text-primary-medium shrink-0"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-                            </svg>
-                            <span className="text-primary-medium text-xs font-medium break-all">
-                              {branch.contacts[idx]}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                <div className="mt-auto flex items-center justify-between">
+                  <small className="text-secondary-dark">
+                    {branch.branchCount} {labels.branchCount}
+                  </small>
+                  <small className="text-primary-medium">
+                    {labels.viewDetails}
+                  </small>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>
 
-        {/* Branches Grid - Second Row (2 cards centered) */}
-        <div className="flex justify-center pb-12 md:pb-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 lg:gap-8 w-full max-w-4xl">
-            {branches.slice(3, 5).map((branch, index) => (
+        {selectedBranch && (
+          <div className="fixed inset-0 z-50">
+            <div
+              role="presentation"
+              onClick={() => setSelectedBranch(null)}
+              className="absolute inset-0 bg-black/60 transition-opacity"
+            />
+
+            <div className="absolute inset-0 flex items-center justify-center p-4">
               <div
-                key={`${branch.country}-${index + 3}`}
-                className={`group relative bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-secondary-dark transition-all duration-500 hover:border-primary-medium hover:scale-105 hover:shadow-2xl flex flex-col touch-manipulation ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: `${600 + index * 100}ms` }}
+                role="dialog"
+                aria-modal="true"
+                className="relative w-full max-w-2xl bg-background rounded-2xl border border-secondary-dark shadow-xl"
               >
-                {/* Headquarters Badge */}
-                {branch.isHeadquarters && (
-                  <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 z-10 bg-primary-medium text-button-text px-2 py-1 md:px-3 md:py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
-                    HQ
-                  </div>
-                )}
+                <div className="flex items-center justify-between p-6 border-b border-secondary-dark">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full overflow-hidden border border-secondary-dark">
+                      <Image
+                        width={80}
+                        height={80}
+                        src={selectedBranch.flagImage}
+                        alt={`${selectedBranch.country} flag`}
+                        className="w-full h-full"
+                      />
+                    </div>
 
-                {/* Country Header with Circular Flag */}
-                <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
-                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-secondary-dark transition-colors duration-300 shrink-0">
-                    <Image
-                      width={250}
-                      height={250}
-                      src={branch.flagImage}
-                      alt={`${branch.country} flag`}
-                      className="w-full h-full transition-transform duration-300 group-hover:scale-110"
-                    />
+                    <div>
+                      <h3 className="font-semibold text-primary-medium">
+                        {selectedBranch.country}
+                      </h3>
+                      <p className="text-secondary-dark capitalize">
+                        {selectedBranch.region} {labels.regionSuffix}
+                      </p>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <h3 className="text-lg md:text-xl font-bold text-primary-medium truncate">
-                      {branch.country}
-                    </h3>
-                    <p className="text-xs md:text-sm text-secondary-dark capitalize">
-                      {branch.region} Region
-                    </p>
-                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedBranch(null)}
+                    aria-label={labels.close}
+                    className="px-3 py-2 rounded-md border border-secondary-dark text-secondary-dark hover:text-primary-medium hover:border-primary-medium transition-colors"
+                  >
+                    {labels.close}
+                  </button>
                 </div>
 
-                {/* Locations with Contact Info */}
-                <div className="mb-3 flex-1">
-                  <h4 className="text-xs md:text-sm font-semibold text-secondary-dark mb-2 md:mb-3 uppercase tracking-wide">
-                    Locations & Contact
+                <div className="p-6">
+                  <div className="mb-4 text-secondary-dark">
+                    {selectedBranch.branchCount} {labels.branchCount}
+                  </div>
+
+                  <h4 className="font-semibold text-secondary-dark mb-3 tracking-wide uppercase">
+                    {labels.locationsContacts}
                   </h4>
-                  <div className="space-y-2 md:space-y-3">
-                    {branch.locations.map((location, idx) => (
+
+                  <div className="space-y-3">
+                    {selectedBranch.locations.map((location, idx) => (
                       <div
-                        key={`${branch.country}-location-${idx}`}
-                        className="border-l-2 border-primary-medium pl-2 md:pl-3"
+                        key={`${selectedBranch.country}-location-${idx}`}
+                        className="border-l-2 border-primary-medium pl-3"
                       >
-                        <div className="text-primary-dark text-xs md:text-sm leading-relaxed mb-1">
-                          {location}
-                        </div>
-                        {branch.contacts[idx] && (
+                        <div className="text-primary-dark mb-1">{location}</div>
+
+                        {selectedBranch.contacts[idx] && (
                           <div className="flex items-center gap-2">
                             <svg
                               className="w-3 h-3 text-primary-medium shrink-0"
@@ -276,8 +272,9 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
                             >
                               <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                             </svg>
-                            <span className=" text-xs font-medium text-primary-medium break-all">
-                              {branch.contacts[idx]}
+
+                            <span className="text-primary-medium font-medium break-all">
+                              {selectedBranch.contacts[idx]}
                             </span>
                           </div>
                         )}
@@ -286,9 +283,9 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

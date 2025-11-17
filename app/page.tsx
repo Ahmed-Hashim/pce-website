@@ -10,11 +10,13 @@ import Statistics from "./components/home/Statistics";
 import CEOSection from "./components/home/CEOSection";
 import HoldingGroupSection from "./components/home/HoldingGroupSection";
 import ValuesMarqueeSection from "./components/home/ValuesMarqueeSection";
-import { FaAward, FaUsers, FaProjectDiagram, FaDollarSign } from "react-icons/fa";
+import { FaAward, FaUsers, FaProjectDiagram, FaDollarSign ,FaDraftingCompass, FaHardHat, FaCity, FaBuilding, FaBolt, FaCogs, FaBroadcastTower, FaMapMarkedAlt } from "react-icons/fa";
 import { sectionTitles } from "./data/sectionTitles";
 import { coreValues } from "./data/values";
 import { coreServicesData } from "./data/coreServices";
 import TriangleIcon from "./components/ui/TriangleIcon";
+import OurExpertiseSection from "./components/home/OurExpertiseSection";
+
 
 const stats = [
   { icon: <FaAward />, value: "16+", label: "Years of experience" },
@@ -32,6 +34,57 @@ const companyDescriptions = [
     name: "PCE INDUSTRIAL",
     description: "PCE Industrial focuses on optimizing industrial processes and systems, aiming to boost efficiency, productivity, and sustainability through innovative engineering solutions. Key Offerings: Process Optimization and Systems Engineering."
   }
+];
+
+const expertiseSection = {
+  title: "Our Expertise",
+  eyebrow: "Capabilities",
+  background: "EXPERTISE",
+  outlineColor: "var(--color-primary-dark)",
+  titleColor: "heading",
+};
+
+const expertiseItems = [
+  { 
+    icon: <FaMapMarkedAlt />, 
+    title: "Urban & Regional Planning",
+    description: "Strategic urban development and regional infrastructure planning"
+  },
+  { 
+    icon: <FaBuilding />, 
+    title: "Architectural Design",
+    description: "Innovative architectural solutions for modern structures"
+  },
+  { 
+    icon: <FaCity />, 
+    title: "Structural Engineering",
+    description: "Advanced structural analysis and engineering solutions"
+  },
+  { 
+    icon: <FaCogs />, 
+    title: "Infrastructure Development",
+    description: "Comprehensive infrastructure planning and implementation"
+  },
+  { 
+    icon: <FaBolt />, 
+    title: "Electrical Systems",
+    description: "Smart electrical systems and power distribution networks"
+  },
+  { 
+    icon: <FaCogs />, 
+    title: "Mechanical Engineering",
+    description: "Advanced mechanical systems design and optimization"
+  },
+  { 
+    icon: <FaBroadcastTower />, 
+    title: "Telecommunications",
+    description: "Modern telecom infrastructure and network solutions"
+  },
+  { 
+    icon: <FaProjectDiagram />, 
+    title: "Project Management",
+    description: "Comprehensive project oversight and management services"
+  },
 ];
 
 const ceos = [
@@ -97,6 +150,15 @@ export default function Home() {
       />
       <WhoWeAreSection data={whoWeAreData} />
       <ClientsSection />
+
+      <OurExpertiseSection
+        title={expertiseSection.title}
+        eyebrow={expertiseSection.eyebrow}
+        background={expertiseSection.background}
+        outlineColor={expertiseSection.outlineColor}
+        titleColor={expertiseSection.titleColor}
+        items={expertiseItems}
+      />
       
       {/* <CEOSection
         eyebrow={sectionTitles.ceos.eyebrow}

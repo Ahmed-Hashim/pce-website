@@ -211,7 +211,7 @@ const HeroSection = () => {
                   : "opacity-0 translate-y-8"
               }`}
             >
-              <h1 className=" mb-3 sm:mb-4 animate-fade-in-up drop-shadow-lg">
+              <h1 className=" mb-3 sm:mb-4 text-white animate-fade-in-up drop-shadow-lg">
                 {slide.title}
               </h1>
               <p className=" text-shadow-2xs text-white mb-4 sm:mb-6 animate-fade-in-up animation-delay-200 max-w-2xl mx-auto leading-relaxed px-2">

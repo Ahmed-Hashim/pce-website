@@ -89,18 +89,19 @@ const Statistics: React.FC<StatisticsProps> = ({
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-primary-dark">
       <TriangleIcon className="absolute left-6 top-6 w-6 h-6 text-white/10" />
-      <TriangleIcon className="absolute right-6 bottom-6 w-6 h-6 text-white/10 rotate-180" />
+      <TriangleIcon className="absolute right-7 bottom-6 w-7 h-7 text-white/10" />
+      <TriangleIcon className="absolute right-6 bottom-6 w-6 h-6 text-white/10" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-12">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <p className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+              <h3 className="font-extrabold text-white tracking-tight">
                 {displayValues[index]}
-              </p>
-              <p className="mt-2 text-sm uppercase tracking-wide text-white/60">
+              </h3>
+              <small className="uppercase text-xs md:text-lg tracking-wide text-white/60">
                 {stat.label}
-              </p>
+              </small>
             </div>
           ))}
         </div>

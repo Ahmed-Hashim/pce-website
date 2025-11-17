@@ -6,11 +6,13 @@ import ServiceCard from "../ui/ServiceCard";
 interface ServiceItem {
   title: string;
   description: string;
+  
 }
 
 interface ServiceCardData {
   title: string;
   icon: string;
+  image:string;
   items: ServiceItem[];
   callToAction?: string;
 }
@@ -28,18 +30,10 @@ export default function CoreServicesOverview({
   services,
   backgroundText,
 }: CoreServicesOverviewProps) {
-  const spineOffsets = ["10%", "35%", "60%", "85%"];
-
   return (
     <section id="core-services" className="relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        {spineOffsets.map((top, i) => (
-          <div key={i} className="absolute left-0" style={{ top }}>
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-10 h-10 sm:w-12 sm:h-12 opacity-15">
-              <path d="M 0 50 L 100 0 L 100 100 Z" fill="none" stroke="var(--color-secondary-light)" strokeWidth="1.5" />
-            </svg>
-          </div>
-        ))}
+        
         <div className="absolute right-[-20px] top-[20%] w-64 h-64 sm:w-80 sm:h-80 opacity-10">
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full rotate-12">
             <path d="M 0 50 L 100 0 L 100 100 Z" fill="var(--color-primary-medium)" />
@@ -51,7 +45,7 @@ export default function CoreServicesOverview({
           </svg>
         </div>
       </div>
-      <div className="max-w-6xl mx-auto ">
+      <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 sm:mb-20">
           <SectionTitle
@@ -64,12 +58,13 @@ export default function CoreServicesOverview({
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+        <div className="grid px-4 lg:px-0 grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
           {services.map((service, index) => (
             <ServiceCard
               key={index}
               title={service.title}
               icon={service.icon}
+              image={service.image}
               items={service.items}
               callToAction={service.callToAction}
             />

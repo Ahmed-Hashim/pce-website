@@ -42,13 +42,10 @@ export default function CTAComponent({
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-background hover-effect">
+    <section className="relative overflow-hidden md:px-8">
       {/* Animated Background Pattern */}
-      <div className="absolute inset-0 z-0 opacity-5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--color-primary-medium)_1px,transparent_1px)] bg-size-[20px_20px]"></div>
-      </div>
 
-      <div className="relative z-10 container mx-auto max-w-6xl">
+      <div className="relative z-10 px-4 lg:px-0 mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - CTA Content */}
           <div className="text-center lg:text-left animate-fade-in-up">
@@ -56,9 +53,7 @@ export default function CTAComponent({
               titleColor="accent"
               outlineColor="var(--color-primary-dark)"
               title={title}
-              // background={title.split(" ").pop()}
-              align="left"
-              className="mb-6"
+              className="text-center md:text-left items-center md:items-start mb-6"
             />
             <p className="text-base md:text-xl text-primary-dark leading-relaxed mb-8 font-light">
               {description}
@@ -79,43 +74,41 @@ export default function CTAComponent({
           </div>
 
           {/* Right Side - Contact Information */}
-          <div className="bg-background/90 backdrop-blur-xl border border-primary-medium/50 rounded-2xl p-6 md:p-8 shadow-2xl shadow-primary-dark/10 animate-fade-in-up animation-delay-200">
-            <div className="flex items-center justify-center mb-6">
-          <div className="w-12 h-1 bg-linear-to-r from-neutral-light to-neutral-light/50 rounded-full"></div>
-          <h4 className="text-primary-dark font-bold mx-4">
-            Get In Touch
-          </h4>
-          <div className="w-12 h-1 bg-linear-to-l from-neutral-light to-neutral-light/50 rounded-full"></div>
+          <div className="bg-background/90 backdrop-blur-xl border border-primary-medium/50 rounded-xl md:p-8 shadow-2xl shadow-primary-dark/10 animate-fade-in-up animation-delay-200">
+            <div className="flex items-center justify-center pt-6">
+              <div className="w-12 h-1 bg-linear-to-r from-neutral-light to-neutral-light/50 rounded-full"></div>
+              <h4 className="text-primary-dark font-bold mx-4">Get In Touch</h4>
+              <div className="w-12 h-1 bg-linear-to-l from-neutral-light to-neutral-light/50 rounded-full"></div>
             </div>
 
             {/* Quick Contact Form */}
-            <div className="mt-8 pt-6 ">
-              <form className="space-y-4">
+            <div className="mt-4">
+              <form className="space-y-4 p-4">
                 <div className="relative group">
                   <input
                     type="text"
                     placeholder="Your Name"
-                    className="input w-full px-4 py-3 rounded-xl placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
+                    className="input w-full px-3 py-2 rounded-xl placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
                   />
-                  
                 </div>
                 <div className="relative group">
                   <input
                     type="email"
                     placeholder="Your Email"
-                    className="input w-full px-4 py-3 rounded-xl placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
+                    className="input w-full px-3 py-2 rounded-xl placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
                   />
-                  
                 </div>
                 <div className="relative group">
                   <textarea
                     placeholder="Tell us about your project..."
                     rows={3}
-                    className="input w-full px-4 py-3 rounded-xl placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 resize-none backdrop-blur-sm"
+                    className="input w-full px-3 py-2 rounded-xl placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 resize-none backdrop-blur-sm"
                   />
-                  
                 </div>
-                <button type="submit" className="btn btn-primary cursor-pointer btn-block">
+                <button
+                  type="submit"
+                  className="btn btn-primary cursor-pointer btn-block"
+                >
                   <span className="flex items-center justify-center gap-2">
                     Send Inquiry
                     <FaArrowRight className="btn-icon-sm" />

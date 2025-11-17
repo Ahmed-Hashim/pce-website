@@ -48,9 +48,10 @@ export default function ClientsSection({ data = defaultData }: ClientsSectionPro
   const title = data.title;
 
   return (
-    <section id={data.anchorId} className="">
-      <div className="mx-auto border-0 lg:border-y md:border-y lg:border-primary-medium">
-        <div className="grid grid-cols-1 lg:grid-cols-3  items-center pl-10">
+    <section id={data.anchorId} className="pb-0">
+      <div className="mx-auto border-0 lg:border-y md:border-y lg:border-primary-medium ">
+        <div className="grid grid-cols-1 lg:grid-cols-3 items-center lg:pl-10">
+
           {/* Left Column: Title/Copy */}
           <div className="lg:col-span-1 relative border-0 lg:border-r lg:border-primary-medium text-center ">
             <SectionTitle
@@ -68,7 +69,7 @@ export default function ClientsSection({ data = defaultData }: ClientsSectionPro
           </div>
 
           {/* Right Column: Wide Marquee of Logos */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2  py-4 my-4 md:py-0 md:my-0 ">
             <div className="relative">
               <Marquee
                 pauseOnHover={true}

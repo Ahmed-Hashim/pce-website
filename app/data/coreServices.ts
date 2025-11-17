@@ -6,6 +6,7 @@ export const coreServicesData = {
     {
       title: "Engineering Design",
       icon: "FaDraftingCompass",
+      image:"bg-card.jpg",
       items: [
         {
           title: "Concept & Preliminary Design",
@@ -25,6 +26,7 @@ export const coreServicesData = {
     {
       title: "Site Supervision",
       icon: "FaHardHat",
+      image:"bg-card2.jpg",
       items: [
         {
           title: "Daily Project Inspection",

@@ -11,7 +11,11 @@ interface VideoErrorFallbackProps {
   refreshLabel: string;
 }
 
-const VideoErrorFallback = ({ title, description, refreshLabel }: VideoErrorFallbackProps) => (
+const VideoErrorFallback = ({
+  title,
+  description,
+  refreshLabel,
+}: VideoErrorFallbackProps) => (
   <div className="w-full bg-section-light rounded-2xl border border-neutral-light">
     <div className="text-center p-10 max-w-xl mx-auto">
       <h4 className="text-xl font-semibold text-primary-dark">{title}</h4>
@@ -36,47 +40,64 @@ export default function WhoWeAreSection({ data }: { data: WhoWeAreDataType }) {
     <section className="relative overflow-hidden">
       {/* Background image with overlay */}
       {/* LEFT side triangle 1 (center) */}
-  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-40 h-40 opacity-20 pointer-events-none">
-    <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
-      <path d="M 0 50 L 100 0 L 100 100 Z" fill="var(--color-primary-medium)" />
-    </svg>
-  </div>
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-40 h-40 opacity-20 pointer-events-none">
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          className="w-full h-full"
+        >
+          <path
+            d="M 0 50 L 100 0 L 100 100 Z"
+            fill="var(--color-primary-medium)"
+          />
+        </svg>
+      </div>
 
-      
       {/* Triangle SVG background in top left corner pointing right */}
-     <div className="absolute top-0 right-0 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 opacity-20 pointer-events-none">
-{/* Triangle on the left side pointing right */}
-<div className="absolute left-0 top-1/2 -translate-y-1/2 w-32 h-32 opacity-20 pointer-events-none">
-  <svg
-    viewBox="0 0 100 100"
-    preserveAspectRatio="none"
-    className="w-full h-full"
-  >
-    {/* Triangle pointing → */}
-    <path
-      d="M 0 50 L 100 0 L 100 100 Z"
-      fill="var(--color-primary-medium)"
-    />
-  </svg>
-</div>
-<div className="absolute left-0 bottom-10 w-28 h-28 opacity-20 pointer-events-none">
-  <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
-    <path d="M 0 50 L 100 0 L 100 100 Z" fill="var(--color-primary-medium)" />
-  </svg>
-</div>
-<div className="absolute left-0 bottom-10 w-28 h-28 opacity-20 pointer-events-none">
-  <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
-    <path d="M 0 50 L 100 0 L 100 100 Z" fill="var(--color-primary-medium)" />
-  </svg>
-</div>
+      <div className="absolute top-0 right-0 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 opacity-20 pointer-events-none">
+        {/* Triangle on the left side pointing right */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-32 h-32 opacity-20 pointer-events-none">
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            className="w-full h-full"
+          >
+            {/* Triangle pointing → */}
+            <path
+              d="M 0 50 L 100 0 L 100 100 Z"
+              fill="var(--color-primary-medium)"
+            />
+          </svg>
+        </div>
+        <div className="absolute left-0 bottom-10 w-28 h-28 opacity-20 pointer-events-none">
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            className="w-full h-full"
+          >
+            <path
+              d="M 0 50 L 100 0 L 100 100 Z"
+              fill="var(--color-primary-medium)"
+            />
+          </svg>
+        </div>
+        <div className="absolute left-0 bottom-10 w-28 h-28 opacity-20 pointer-events-none">
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            className="w-full h-full"
+          >
+            <path
+              d="M 0 50 L 100 0 L 100 100 Z"
+              fill="var(--color-primary-medium)"
+            />
+          </svg>
+        </div>
+      </div>
 
-</div>
-      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
         {/* Using a larger gap to match the visual spacing in the image */}
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          
           {/* Left Column - Title and Description */}
           {/* CHANGED: Removed text-center to align content to the left */}
           <div className="space-y-6">
@@ -86,13 +107,10 @@ export default function WhoWeAreSection({ data }: { data: WhoWeAreDataType }) {
               // CHANGED: Underline color now uses the accent color to match the design
               outlineColor="var(--color-primary-medium)"
               background={data.sectionTitle}
-              // CHANGED: Alignment is now 'left' to match the design
-              align="left"
+              className="text-center md:text-left items-center md:items-start mb-6"
             />
             {/* This text is now left-aligned by default */}
-            <p className=" max-w-lg">
-              {data.sectionDescription}
-            </p>
+            <p className=" max-w-lg">{data.sectionDescription}</p>
           </div>
 
           {/* Right Column - Video */}

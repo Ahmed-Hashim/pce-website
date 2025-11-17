@@ -37,7 +37,6 @@ export default function HoldingGroupSection({
   holdingEstablished,
   holdingHref,
 }: HoldingGroupProps) {
-
   return (
     <section className="bg-neutral-light/20">
       <div className="max-w-6xl mx-auto px-(--space-section-x-mobile) sm:px-(--space-section-x-sm) md:px-(--space-section-x-md) lg:px-(--space-section-x-lg) py-12">
@@ -48,7 +47,7 @@ export default function HoldingGroupSection({
               background={title.split(" ").pop()}
               outlineColor="var(--color-primary-medium)"
               titleColor="accent"
-              align="left"
+              align="center"
               className="mb-4 md:mb-6"
             />
 
@@ -59,38 +58,59 @@ export default function HoldingGroupSection({
                     <LinkIcon size={16} />
                   </div>
                   <div className="relative w-24 h-24 md:w-32 md:h-32">
-                    <Image src={holdingLogo} alt={holdingAlt} fill className="object-contain" />
+                    <Image
+                      src={holdingLogo}
+                      alt={holdingAlt}
+                      fill
+                      className="object-contain"
+                    />
                   </div>
                   <div className="flex-1">
                     {holdingName && (
                       <h5 className="font-bold tracking-wide">{holdingName}</h5>
                     )}
                     {holdingEstablished && (
-                      <p className="text-primary-dark text-sm mt-1">{holdingEstablished}</p>
+                      <p className="text-primary-dark text-sm mt-1">
+                        {holdingEstablished}
+                      </p>
                     )}
                     {holdingDescription && (
-                      <p className="text-primary-dark  leading-relaxed">{holdingDescription}</p>
+                      <p className="text-primary-dark text-left leading-ti">
+                        {holdingDescription}
+                      </p>
                     )}
                   </div>
                 </div>
               </Link>
             ) : (
-              <button type="button" className="relative bg-primary-dark/5 border border-white/10 rounded-xl p-6 sm:p-7 flex items-center gap-6 hover:bg-primary-dark/10 transition-colors cursor-pointer">
+              <button
+                type="button"
+                className="relative bg-primary-dark/5 border border-white/10 rounded-xl p-6 sm:p-6 flex items-center gap-6 hover:bg-primary-dark/10 transition-colors cursor-pointer"
+              >
                 <div className="absolute top-3 right-3 z-10 rounded-md bg-black/20 text-white p-1">
                   <LinkIcon size={16} />
                 </div>
                 <div className="relative w-24 h-24 md:w-32 md:h-32">
-                  <Image src={holdingLogo} alt={holdingAlt} fill className="object-contain" />
+                  <Image
+                    src={holdingLogo}
+                    alt={holdingAlt}
+                    fill
+                    className="object-contain"
+                  />
                 </div>
                 <div className="flex-1">
                   {holdingName && (
-                    <h5 className="font-bold tracking-wide ">{holdingName}</h5>
+                    <h5 className="text-left text-primary-dark font-bold tracking-wide ">
+                      {holdingName}
+                    </h5>
                   )}
                   {holdingEstablished && (
-                    <p className=" mt-1">{holdingEstablished}</p>
+                    <p className="text-left mt-1">{holdingEstablished}</p>
                   )}
                   {holdingDescription && (
-                    <p className="mt-3 leading-relaxed">{holdingDescription}</p>
+                    <p className="text-left mt-3 leading-tight">
+                      {holdingDescription}
+                    </p>
                   )}
                 </div>
               </button>

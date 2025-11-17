@@ -128,7 +128,7 @@ const Footer: React.FC<FooterProps> = ({ data = footerData }) => {
                   type="email"
                   aria-label={data.columns[3].newsletter.placeholder}
                   placeholder={data.columns[3].newsletter.placeholder}
-                  className="w-full h-12 px-4 rounded-l-xl bg-background/40 border border-secondary-dark text-primary-dark placeholder:text-secondary-dark focus:outline-none focus:ring-2 focus:ring-primary-medium"
+                  className="w-full h-12 px-4 rounded-l-xl bg-background border border-secondary-dark text-primary-dark placeholder:text-secondary-dark focus:outline-none focus:ring-2 focus:ring-primary-medium"
                 />
                 <button
                   type="button"
