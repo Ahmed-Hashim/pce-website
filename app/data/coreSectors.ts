@@ -1,7 +1,7 @@
-export const coreServicesData = {
-  title: "Core Services",
+export const coreSectorsData = {
+  title: "Core Sectors",
   eyebrow: "What We Do",
-  backgroundText: "SERVICES",
+  backgroundText: "SECTORS",
   services: [
     {
       title: "Engineering Design",

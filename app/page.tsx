@@ -13,7 +13,7 @@ import ValuesMarqueeSection from "./components/home/ValuesMarqueeSection";
 import { FaAward, FaUsers, FaProjectDiagram, FaDollarSign , FaCity, FaBuilding, FaBolt, FaCogs, FaBroadcastTower, FaMapMarkedAlt } from "react-icons/fa";
 import { sectionTitles } from "./data/sectionTitles";
 import { coreValues } from "./data/values";
-import { coreServicesData } from "./data/coreServices";
+import { coreSectorsData } from "./data/coreSectors";
 import TriangleIcon from "./components/ui/TriangleIcon";
 import OurExpertiseSection from "./components/home/OurExpertiseSection";
 
@@ -28,7 +28,7 @@ export const stats = [
 export const companyDescriptions = [
   {
     name: "PRECISION CONSULTING ENGINEERING",
-    description: "Precision Consulting Engineering, founded in Egypt in 2008, is a consultancy firm providing a wide range of technical services in engineering design and construction supervision, supported by a team of highly qualified experts."
+    description: "Precision Consulting Engineering, founded in Egypt in 2008, is a consultancy firm providing a wide range of technical sectors in engineering design and construction supervision, supported by a team of highly qualified experts."
   },
   {
     name: "PCE INDUSTRIAL",
@@ -83,7 +83,7 @@ export const expertiseItems = [
   { 
     icon: <FaProjectDiagram />, 
     title: "Project Management",
-    description: "Comprehensive project oversight and management services"
+    description: "Comprehensive project oversight and management sectors"
   },
 ];
 
@@ -172,8 +172,8 @@ export default function Home() {
         companies={companyDescriptions}
       /> */}
       <CoreServicesOverview
-        title={coreServicesData.title}
-        services={coreServicesData.services}
+        title={coreSectorsData.title}
+        services={coreSectorsData.services}
       />
       
       <FeaturedProjectsPreview />

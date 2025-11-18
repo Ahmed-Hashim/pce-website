@@ -3,19 +3,19 @@ import CTAComponent from "../components/home/CTAComponent";
 import { sectionTitles } from "../data/sectionTitles";
 import Statistics from "../components/home/Statistics";
 import CoreServicesOverview from "../components/home/CoreServicesOverview";
-import { coreServicesData } from "../data/coreServices";
+import { coreSectorsData } from "../data/coreSectors";
 
 const pageHero = {
-  title: "Services",
+  title: "Sectors",
   subtitle: "What We Do",
   imageSrc: "/2.png",
   breadcrumbs: [
     { label: "Home", href: "/" },
-    { label: "Services", href: "/services" },
+    { label: "Sectors", href: "/sectors" },
   ],
 };
 
-export default function ServicesPage() {
+export default function SectorsPage() {
   const stats = [
     { value: "16+", label: "Years of experience" },
     { value: "400+", label: "Staff" },
@@ -27,7 +27,7 @@ export default function ServicesPage() {
     description:
       "Talk to our team about engineering design, supervision, and delivery.",
     primaryButtonText: "Get Consultation",
-    secondaryButtonText: "Explore Services",
+    secondaryButtonText: "Explore Sectors",
   };
 
   return (
@@ -39,7 +39,7 @@ export default function ServicesPage() {
         imageSrc={pageHero.imageSrc}
       />
 
-      <CoreServicesOverview title={coreServicesData.title} services={coreServicesData.services} />
+      <CoreServicesOverview title={coreSectorsData.title} services={coreSectorsData.services} />
       <Statistics
         title={sectionTitles.statistics.title}
         eyebrow={sectionTitles.statistics.eyebrow}

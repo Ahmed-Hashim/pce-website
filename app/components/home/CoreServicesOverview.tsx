@@ -28,7 +28,7 @@ export default function CoreServicesOverview({
   services,
 }: CoreServicesOverviewProps) {
   return (
-    <section id="core-services" className="relative overflow-hidden">
+    <section id="core-sectors" className="relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute right-[-20px] top-[20%] w-64 h-64 sm:w-80 sm:h-80 opacity-10">
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full rotate-12">

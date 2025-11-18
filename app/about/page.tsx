@@ -1,12 +1,10 @@
 import PageHero from "../components/ui/PageHero";
-import WhoWeAreSection from "../components/home/WhoWeAreSection";
 import CEOSection from "../components/home/CEOSection";
 import Statistics from "../components/home/Statistics";
 import OurBranchesSection from "../components/home/OurBranchesSection";
 import MissionVisionValues from "../components/about/MissionVisionValues";
 import LeadershipLists from "../components/about/LeadershipLists";
 import AwardsCertifications from "../components/about/AwardsCertifications";
-import { whoWeAreData } from "../components/home/WhoWeAreData";
 import { sectionTitles } from "../data/sectionTitles";
 import { FaAward, FaUsers, FaProjectDiagram, FaDollarSign } from "react-icons/fa";
 
@@ -50,11 +48,11 @@ const story = {
   title: "Our Philosophy",
   background: "Philosophy",
   description:
-    "PRECISION CONSULTING ENGINEERING: is a professional company for consultancy services founded in 2008 in Egypt offering a wide range of technical services led by a group of highly qualified consultants and technical engineers, whose expertise in engineering projects covers all major disciplines of design and construction supervision.",
+    "PRECISION CONSULTING ENGINEERING: is a professional company for consultancy sectors founded in 2008 in Egypt offering a wide range of technical sectors led by a group of highly qualified consultants and technical engineers, whose expertise in engineering projects covers all major disciplines of design and construction supervision.",
   mission:
     "Precision Consulting Engineering aspires to be one of the top five multi-disciplinary engineering consultancy firms in the Middle East with satisfied clients and projects portfolio from the entire region",
   vision:
-    "Precision Consulting Engineering is committed to offer state of-the-art services to all assignments throughout the whole project life-cycle. We are dedicated to deliver Client's needs and exceed expectations by promising timely deadlines, while observing budgets and assuring quality",
+    "Precision Consulting Engineering is committed to offer state of-the-art sectors to all assignments throughout the whole project life-cycle. We are dedicated to deliver Client's needs and exceed expectations by promising timely deadlines, while observing budgets and assuring quality",
   values: ["Integrity", "Innovation", "Accountability", "Responsibility", "Passion"],
 };
 
@@ -138,7 +136,7 @@ const directors = [
     title: "Tendering Division Head",
     imageSrc: "/Moamen-Mohamed.png",
     description: "Leads tendering and bids across sectors ensuring competitive propositions.",
-    stats: { projects: 60, scope: ["Industrial", "Commercial", "Hospitality", "Sports", "Touristic", "Infrastructure", "Administrative", "Medical", "Residential"] },
+    stats: { projects: 60,years: 0, scope: ["Industrial", "Commercial", "Hospitality", "Sports", "Touristic", "Infrastructure", "Administrative", "Medical", "Residential"] },
     locations: ["Egypt"],
   },
   {
@@ -153,14 +151,17 @@ const directors = [
 ];
 
 const awards = [
-  { year: "2021", title: "Excellence in Engineering", issuer: "Regional Council" },
-  { year: "2022", title: "Top Supervision Firm", issuer: "Industry Association" },
+  {
+    year: "2025",
+    title: "Architecture Firm of the Year at the Big 5 Egypt Impact Awards",
+    issuer: "Big 5 Global",
+    imageSrc: "/award.png",
+  }
 ];
 
 const certifications = [
-  { code: "ISO 9001", title: "Quality Management", issuer: "Certified Body" },
-  { code: "ISO 14001", title: "Environmental Management", issuer: "Certified Body" },
-  { code: "ISO 45001", title: "Occupational Health & Safety", issuer: "Certified Body" },
+  { code: "ISO 45001:2018", title: "Occupational Health and Safety Management System", issuer: "IAS Accredited", imageSrc: "/isa.png", year: "2018" },
+  { code: "ISO 9001:2015", title: "Quality Management System", issuer: "IAF Member", imageSrc: "/iso2.png", year: "2015" },
 ];
 
 const branches = [
@@ -223,7 +224,7 @@ const branches = [
 
 export default function AboutPage() {
   return (
-    <div className="">
+    <>
       <PageHero title={pageHero.title} subtitle={pageHero.subtitle} breadcrumbs={pageHero.breadcrumbs} imageSrc={pageHero.imageSrc} />
 
       {/* <WhoWeAreSection data={whoWeAreData} /> */}
@@ -247,6 +248,6 @@ export default function AboutPage() {
         sectionSubtitle="Strategic locations across key markets"
         branches={branches}
       />
-    </div>
+    </>
   );
 }

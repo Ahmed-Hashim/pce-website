@@ -4,27 +4,27 @@ import Section from "../../components/ui/Section";
 import SectionTitle from "../../components/ui/SectionTitle";
 import ContentGrid from "../../components/ui/ContentGrid";
 import Image from "next/image";
-import { getServiceBySlug, servicesData } from "../../data/services";
+import { getSectorBySlug, sectorsData } from "../../data/sectors";
 import { projectsData } from "../../data/projects";
 import { getOtherNews } from "../../data/news";
 import { getOtherBlogs } from "../../data/blog";
 
-export default async function ServicePage({
+export default async function SectorPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const service = getSectorBySlug(slug);
 
   if (!service) {
     const pageHero = {
-      title: "Service Not Found",
+      title: "Sector Not Found",
       subtitle: "",
       imageSrc: "/2.png",
       breadcrumbs: [
         { label: "Home", href: "/" },
-        { label: "Services", href: "/services" },
+        { label: "Sectors", href: "/sectors" },
       ],
     };
     return (
@@ -45,15 +45,15 @@ export default async function ServicePage({
     imageSrc: service.heroImage,
     breadcrumbs: [
       { label: "Home", href: "/" },
-      { label: "Services", href: "/services" },
-      { label: service.title, href: `/services/${service.slug}` },
+      { label: "Sectors", href: "/sectors" },
+      { label: service.title, href: `/sectors/${service.slug}` },
     ],
   };
 
-  const overviewTitle = "Service Overview";
+  const overviewTitle = "Sector Overview";
   const overviewGroups = [
     {
-      title: "What the service covers",
+      title: "What the sector covers",
       items: [
         "End-to-end delivery across core disciplines",
         "Standards compliance and stakeholder coordination",
@@ -122,7 +122,7 @@ export default async function ServicePage({
     ],
   };
 
-  const capabilitiesTitle = "Capabilities / Services Included";
+  const capabilitiesTitle = "Capabilities / Sectors Included";
   const capabilitySections = [
     {
       title: "Operations",
@@ -149,7 +149,7 @@ export default async function ServicePage({
       items: ["Scope definition", "Risk controls", "Milestone governance"],
     },
     {
-      title: "Support Services",
+      title: "Support Sectors",
       items: ["Documentation", "Training", "Stakeholder communications"],
     },
   ];
@@ -495,7 +495,7 @@ export default async function ServicePage({
               )}
               {service.cta.secondaryText && (
                 <a
-                  href={service.cta.secondaryHref || "/services"}
+                  href={service.cta.secondaryHref || "/sectors"}
                   className="inline-flex items-center justify-center h-12 px-6 rounded-sm border border-secondary-dark text-primary-dark hover:text-primary-medium transition-colors"
                 >
                   {service.cta.secondaryText}
@@ -510,5 +510,5 @@ export default async function ServicePage({
 }
 
 export function generateStaticParams() {
-  return servicesData.map((s) => ({ slug: s.slug }));
+  return sectorsData.map((s) => ({ slug: s.slug }));
 }

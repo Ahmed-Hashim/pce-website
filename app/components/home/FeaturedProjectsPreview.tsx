@@ -1,9 +1,9 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import SectionTitle from "../ui/SectionTitle";
+import ProjectCard from "../ui/ProjectCard";
+import { projectsData } from "../../data/projects";
 
 interface Project {
   id: number;
@@ -30,86 +30,21 @@ interface FeaturedProjectsPreviewProps {
   viewAllLabel?: string;
 }
 
-const defaultProjects: Project[] = [
-  {
-    id: 1,
-    title: "Commercial Complex Development",
-    description:
-      "Modern commercial complex featuring sustainable design and cutting-edge infrastructure.",
-    image: "/1.png",
-    category: "Commercial",
-    location: "Dubai, UAE",
-    year: "2024",
-    link: "/projects/commercial-complex",
-    identity: { name: "PCE Team", role: "Project Lead", company: "PCE" },
-  },
-  {
-    id: 2,
-    title: "Industrial Manufacturing Facility",
-    description:
-      "State-of-the-art manufacturing facility with advanced automation systems.",
-    image: "/2.png",
-    category: "Industrial",
-    location: "Abu Dhabi, UAE",
-    year: "2023",
-    link: "/projects/manufacturing-facility",
-    identity: { name: "PCE Team", role: "Site Supervisor", company: "PCE" },
-  },
-  {
-    id: 3,
-    title: "Residential Tower Project",
-    description:
-      "Luxury residential tower with premium amenities and smart home integration.",
-    image: "/3.png",
-    category: "Residential",
-    location: "Sharjah, UAE",
-    year: "2024",
-    link: "/projects/residential-tower",
-    identity: { name: "PCE Team", role: "Design Manager", company: "PCE" },
-  },
-  {
-    id: 4,
-    title: "Infrastructure Development",
-    description:
-      "Large-scale infrastructure project improving urban connectivity and efficiency.",
-    image: "/4.png",
-    category: "Infrastructure",
-    location: "Dubai, UAE",
-    year: "2023",
-    link: "/projects/infrastructure-development",
-    identity: { name: "PCE Team", role: "Operations", company: "PCE" },
-  },
-  {
-    id: 5,
-    title: "Residential Tower Project",
-    description:
-      "Luxury residential tower with premium amenities and smart home integration.",
-    image: "/3.png",
-    category: "Residential",
-    location: "Sharjah, UAE",
-    year: "2024",
-    link: "/projects/residential-tower",
-    identity: { name: "PCE Team", role: "Design Manager", company: "PCE" },
-  },
-  {
-    id: 6,
-    title: "Infrastructure Development",
-    description:
-      "Large-scale infrastructure project improving urban connectivity and efficiency.",
-    image: "/4.png",
-    category: "Infrastructure",
-    location: "Dubai, UAE",
-    year: "2023",
-    link: "/projects/infrastructure-development",
-    identity: { name: "PCE Team", role: "Operations", company: "PCE" },
-  },
-];
+const defaultProjects: Project[] = projectsData.map((p, i) => ({
+  id: i + 1,
+  title: p.title,
+  description: p.description,
+  image: p.heroImage,
+  category: p.category,
+  location: p.location,
+  year: p.year,
+  link: `/projects/${p.slug}`,
+}));
 
 export default function FeaturedProjectsPreview({
   title = "Our Projects",
   subtitle = "",
   projects = defaultProjects,
-  viewProjectLabel = "View Project",
 }: FeaturedProjectsPreviewProps) {
   const [currentProject, setCurrentProject] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(1);
@@ -228,7 +163,13 @@ export default function FeaturedProjectsPreview({
                       isCenter ? "scale-[1.02]" : "scale-[0.95]"
                     }`}
                   >
-                    <ProjectHoverCard project={project} viewProjectLabel={viewProjectLabel} />
+                    <ProjectCard
+                      href={project.link}
+                      title={project.title}
+                      category={project.category}
+                      year={project.year}
+                      imageSrc={project.image}
+                    />
                   </div>
                 );
               })}
@@ -264,37 +205,5 @@ export default function FeaturedProjectsPreview({
         </div>
       </div>
     </section>
-  );
-}
-
-function ProjectHoverCard({
-  project,
-  viewProjectLabel,
-}: {
-  project: Project;
-  viewProjectLabel: string;
-}) {
-  return (
-    <Link href={project.link} aria-label={viewProjectLabel} className="group block">
-      <div className="relative h-88 md:h-96 lg:h-104 rounded-sm overflow-hidden border bg-secondary-dark/10 transition-all duration-300 hover:shadow-xl">
-        <Image
-          width={800}
-          height={600}
-          src={project.image}
-          alt={project.title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors"></div>
-        <div className="absolute bottom-4 left-4 right-4">
-          <div className="relative rounded-sm bg-primary-dark/90 p-5 shadow-xl">
-            <div className="absolute -left-3 bottom-5 w-2 h-12 bg-primary-medium rounded-full"></div>
-            <div className="flex flex-col">
-              <h6 className="text-white font-semibold" >{project.title}</h6>
-              <small>{project.category}</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Link>
   );
 }

@@ -14,13 +14,13 @@ interface ProjectsGridProps {
   className?: string;
 }
 
-export default function ProjectsGrid({ items, gridClass = "mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2", className = "" }: ProjectsGridProps) {
+export default function ProjectsGrid({ items, gridClass = " grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2" }: ProjectsGridProps) {
   return (
-    <section className={className}>
+    <section className="max-w-7xl mx-auto px-4">
       <div className={gridClass}>
-        {items.map((p) => (
+        {items.map((p,index) => (
           <ProjectCard
-            key={p.slug}
+            key={index}
             href={`/projects/${p.slug}`}
             title={p.title}
             category={p.category}

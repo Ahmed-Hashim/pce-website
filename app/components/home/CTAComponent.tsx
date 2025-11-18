@@ -25,7 +25,7 @@ export default function CTAComponent({
   title = "Ready to Start Your Next Project?",
   description = "Get in touch with our expert team to discuss your project requirements and discover how we can bring your vision to life.",
   primaryButtonText = "Get Consultation",
-  secondaryButtonText = "View Our Services",
+  secondaryButtonText = "View Our Sectors",
 }: CTAComponentProps) {
   const parallaxRef = useRef<HTMLDivElement>(null);
 
@@ -67,7 +67,7 @@ export default function CTAComponent({
                 <FaArrowRight className="btn-icon" />
               </Link>
 
-              <Link href="/services" className="btn btn-secondary">
+              <Link href="/sectors" className="btn btn-secondary">
                 <span>{secondaryButtonText}</span>
                 <FaArrowRight className="btn-icon" />
               </Link>

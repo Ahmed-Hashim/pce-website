@@ -1,7 +1,5 @@
-"use client";
 
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
 import { FaDraftingCompass, FaHardHat } from "react-icons/fa";
 import { RxTriangleRight } from "react-icons/rx";
 
@@ -73,7 +71,7 @@ export default function ServiceCard({
 
       {/* Content - Image Style (Bottom Left Layout) */}
       {image && (
-        <Link href={`/services/${title.toLowerCase().replace(/\s+/g, "-")}`}>
+        <Link href={`/sectors/${title.toLowerCase().replace(/\s+/g, "-")}`}>
           <div
             className="relative z-10 px-6 py-6 sm:px-8 sm:py-8 h-full flex flex-col justify-end
           bg-linear-to-t from-primary-dark via-primary-dark/80 to-transparent"

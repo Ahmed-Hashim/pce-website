@@ -33,7 +33,7 @@ export default function CEOSection({
 }: CEOSectionProps) {
   return (
     <section className="bg-linear-to-br from-accent/30 to-heading/20">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4">
         <SectionTitle
           title={title}
           background={background}

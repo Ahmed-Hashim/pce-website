@@ -83,7 +83,7 @@ export const footerData: FooterContent = {
       ],
     },
     {
-      title: "Services",
+      title: "Sectors",
       links: [
         { label: "Engineering Design", href: "#" },
         { label: "Site Supervision", href: "#" },

@@ -16,14 +16,14 @@ export interface ServiceItemData {
   cta?: { primaryText?: string; primaryHref?: string; secondaryText?: string; secondaryHref?: string };
 }
 
-export const servicesData: ServiceItemData[] = [
+export const sectorsData: ServiceItemData[] = [
   {
     slug: "engineering-design",
     title: "Engineering Design",
     subtitle: "Concept to Detailed Delivery",
     heroImage: "/2.png",
     description:
-      "Comprehensive engineering design services from concept and schematic stages to detailed construction documentation.",
+      "Comprehensive engineering design sectors from concept and schematic stages to detailed construction documentation.",
     stats: [
       { label: "Disciplines", value: "6+" },
       { label: "Projects Delivered", value: "250+" },
@@ -69,7 +69,7 @@ export const servicesData: ServiceItemData[] = [
       "Project specification conformity",
       "Safety compliance",
     ],
-    cta: { primaryText: "Speak to an Expert", primaryHref: "/contact", secondaryText: "View Services", secondaryHref: "/services" },
+    cta: { primaryText: "Speak to an Expert", primaryHref: "/contact", secondaryText: "View Sectors", secondaryHref: "/sectors" },
     sections: [
       {
         title: "Scope",
@@ -85,5 +85,5 @@ export const servicesData: ServiceItemData[] = [
   },
 ];
 
-export const getServiceBySlug = (slug: string) =>
-  servicesData.find((s) => s.slug === slug);
+export const getSectorBySlug = (slug: string) =>
+  sectorsData.find((s) => s.slug === slug);
