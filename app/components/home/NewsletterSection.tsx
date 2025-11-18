@@ -16,7 +16,7 @@ export default function NewsletterSection({
 }: NewsletterSectionProps) {
   return (
     <section
-      className="py-(--space-section-y-md) bg-neutral-light"
+      className=" bg-neutral-light"
       style={{
         background: "url(/pat-bg.png) no-repeat center center / cover",
       }}

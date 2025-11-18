@@ -40,11 +40,11 @@ export default function CEOSection({
           outlineColor="var(--color-neutral-light)"
           titleColor="bg"
           align="center"
-          className="mb-16"
+          
         />
     
         {/* CEO Profiles */}
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-16 mt-4">
           {ceos.map((ceo, index) => (
             <CEOCard
               key={index}

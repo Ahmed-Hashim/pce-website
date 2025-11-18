@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Section from "../ui/Section";
+import type { ComponentProps } from "react";
 
 const slides = [
   {
@@ -35,7 +37,11 @@ const navLabels = {
   next: "Next slide",
 };
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
+}
+
+const HeroSection = ({ sectionProps }: HeroSectionProps) => {
   const [current, setCurrent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -170,14 +176,15 @@ const HeroSection = () => {
   }, [current]);
 
   return (
-    <section
-     ref={heroRef}
-      className="relative w-full overflow-hidden text-white select-none cursor-grab active:cursor-grabbing"
+    <Section
+      ref={heroRef}
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`relative w-full overflow-hidden text-white select-none cursor-grab active:cursor-grabbing ${sectionProps?.className || ""}`}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerLeave}
       onPointerMove={(e) => {
-        // Prevent default to avoid page scroll during swipe
         if (isDragging.current) {
           e.preventDefault();
         }
@@ -271,7 +278,7 @@ const HeroSection = () => {
           style={{ width: `${progress}%`, transform: `translateX(${progress === 0 ? '-100%' : '0%'})` }}
         ></div>
       </div>
-    </section>
+    </Section>
   );
 };
 

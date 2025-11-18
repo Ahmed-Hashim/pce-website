@@ -4,6 +4,8 @@ import { FaArrowRight } from "react-icons/fa";
 import SectionTitle from "../ui/SectionTitle";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import type { ComponentProps } from "react";
+import Section from "../ui/Section";
 
 interface ContactInfo {
   icon: React.ReactNode;
@@ -19,6 +21,7 @@ interface CTAComponentProps {
   primaryButtonText?: string;
   secondaryButtonText?: string;
   contactInfo?: ContactInfo[];
+  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
 export default function CTAComponent({
@@ -26,6 +29,7 @@ export default function CTAComponent({
   description = "Get in touch with our expert team to discuss your project requirements and discover how we can bring your vision to life.",
   primaryButtonText = "Get Consultation",
   secondaryButtonText = "View Our Sectors",
+  sectionProps,
 }: CTAComponentProps) {
   const parallaxRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +47,11 @@ export default function CTAComponent({
   }, []);
 
   return (
-    <section className="relative overflow-hidden md:px-8 bg-background">
+    <Section
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`relative overflow-hidden md:px-8 bg-background ${sectionProps?.className || ""}`}
+    >
       {/* Animated Background Pattern */}
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,6 +146,6 @@ export default function CTAComponent({
         className="absolute bottom-10 right-10 w-3 h-3 bg-primary-medium/35"
         style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
       ></div>
-    </section>
+    </Section>
   );
 }

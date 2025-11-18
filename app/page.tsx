@@ -155,14 +155,19 @@ export const holdingCompanies = [
 export default function Home() {
   return (
     <div className=" relative min-h-screen items-center justify-center ">
-      <HeroSection />
+      <HeroSection sectionProps={{ container: false }} />
+
+      {/* Section props passed for consistency */}
       <ValuesMarqueeSection
         items={coreValues}
         separatorIcon={<TriangleIcon />}
         speed={100}
       />
-      <WhoWeAreSection data={whoWeAreData} />
-      <ClientsSection />
+      <WhoWeAreSection
+        data={whoWeAreData}
+        sectionProps={{ container: false }}
+      />
+      <ClientsSection sectionProps={{ container: false }} />
 
       <OurExpertiseSection
         title={expertiseSection.title}
@@ -171,6 +176,7 @@ export default function Home() {
         outlineColor={expertiseSection.outlineColor}
         titleColor={expertiseSection.titleColor}
         items={expertiseItems}
+        sectionProps={{ container: false }}
       />
 
       {/* <CEOSection
@@ -185,11 +191,12 @@ export default function Home() {
       <CoreServicesOverview
         title={coreSectorsData.title}
         services={coreSectorsData.services}
+        sectionProps={{ container: false }}
       />
-  
 
-      <FeaturedProjectsPreview />
-      <OurBranchesSection />
+      <FeaturedProjectsPreview sectionProps={{ container: false, className: "bg-neutral-light/20" }} />
+
+      <OurBranchesSection sectionProps={{ container: false }} />
 
       <Statistics
         title={sectionTitles.statistics.title}
@@ -199,6 +206,7 @@ export default function Home() {
         titleColor={sectionTitles.statistics.titleColor}
         backgroundTextColor={sectionTitles.statistics.backgroundTextColor}
         outlineColor={sectionTitles.statistics.outlineColor}
+        sectionProps={{ container: false, className: "bg-primary-dark" }}
       />
 
       <HoldingGroupSection
@@ -209,9 +217,10 @@ export default function Home() {
         holdingName="PRECISION HOLDING"
         holdingDescription="A diversified holding company driving excellence across engineering, consulting, and development sectors throughout the MENA region."
         holdingEstablished="Est. 2008"
+        sectionProps={{ container: false }}
       />
 
-      <CTAComponent />
+      <CTAComponent sectionProps={{ container: false }} />
     </div>
   );
 }

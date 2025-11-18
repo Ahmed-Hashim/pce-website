@@ -3,16 +3,16 @@ import React from "react";
 export interface SectionTitleProps {
   eyebrow?: string;
   title: string;
-  background?: string; // large faint word behind
+  background?: string;
   align?: "left" | "center" | "right";
   className?: string;
-  outlineColor?: string; // stroke color for background word
-  outlineWidth?: number; // stroke width in px
-  backgroundOpacity?: number; // 0..1 opacity for outline
-  titleColor?: string; // color for the main title text
-  backgroundTextColor?: string; // color for the background text (when not using outline)
-  underline?: boolean; // whether to show the underline
-  fontSize?: string; // font size in px
+  outlineColor?: string;
+  outlineWidth?: number;
+  backgroundOpacity?: number;
+  titleColor?: string;
+  backgroundTextColor?: string;
+  underline?: boolean;
+  fontSize?: string;
 }
 
 export default function SectionTitle({
@@ -29,22 +29,31 @@ export default function SectionTitle({
       : align === "right"
       ? "items-end text-right"
       : "items-center text-center";
+  
   return (
     <div className={`relative w-full flex flex-col ${alignment} ${className}`}>
-      {/* Main title */}
+      {/* Title with NO margins */}
       <h2
-        className={`relative z-10 mt-2 md:mt-4 font-extrabold leading-tight ${fontSize || "md:text-4xl lg:text-5xl"}`}
+        className={`relative z-10 font-extrabold leading-tight ${fontSize || "md:text-4xl lg:text-5xl"}`}
         style={{
-          color: titleColor,
+          color: titleColor || undefined,
           textShadow: "var(--text-shadow-soft)",
+          margin: 0, // ✅ Force zero margin
+          padding:0,
         }}
       >
         {title}
       </h2>
-      {/* Subtle underline */}
+      
+      {/* Underline - minimal spacing */}
       {underline && (
-        <div className="relative z-10 mt-4 md:mt-6">
-          <div className="w-20 md:w-24 h-1 rounded-full bg-linear-to-r from-transparent via-(--color-primary-medium) to-transparent" />
+        <div className="relative z-10 mt-2">
+          <div 
+            className="w-20 md:w-24 h-1 rounded-full"
+            style={{
+              background: `linear-gradient(to right, transparent, var(--color-primary-medium), transparent)`
+            }}
+          />
         </div>
       )}
     </div>

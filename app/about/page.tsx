@@ -19,9 +19,9 @@ const pageHero = {
 };
 
 const stats = [
-  { icon: <FaAward />, value: "16+", label: "Years of experience" },
-  { icon: <FaUsers />, value: "400+", label: "Staff" },
-  { icon: <FaProjectDiagram />, value: "600+", label: "Completed Projects" },
+  { icon: <FaAward />, value: "+ 16", label: "Years of experience" },
+  { icon: <FaUsers />, value: "+ 400", label: "Staff" },
+  { icon: <FaProjectDiagram />, value: "+ 600", label: "Completed Projects" },
   { icon: <FaDollarSign />, value: "10 Billion $", label: "Projects Value" },
 ];
 
@@ -241,7 +241,7 @@ export default function AboutPage() {
 
       <AwardsCertifications title="Awards & Certifications" background="AWARDS" awards={awards} certifications={certifications} />
 
-      <Statistics title={sectionTitles.statistics.title} stats={stats} />
+      <Statistics sectionProps={{ container: false, className: "bg-primary-dark" }} title={sectionTitles.statistics.title} stats={stats} />
 
       <OurBranchesSection
         sectionTitle="Global Presence"

@@ -4,6 +4,8 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import SectionTitle from "../ui/SectionTitle";
 import ProjectCard from "../ui/ProjectCard";
 import { projectsData } from "../../data/projects";
+import Section from "../ui/Section";
+import type { ComponentProps } from "react";
 
 interface Project {
   id: number;
@@ -28,6 +30,11 @@ interface FeaturedProjectsPreviewProps {
   tagText?: string;
   viewProjectLabel?: string;
   viewAllLabel?: string;
+  maxWidthClass?: string;
+  paddingXClass?: string;
+  itemsPerViewConfig?: { sm: number; md: number; lg: number };
+  cardAspectClass?: string;
+  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
 const defaultProjects: Project[] = projectsData.map((p, i) => ({
@@ -45,6 +52,11 @@ export default function FeaturedProjectsPreview({
   title = "Our Projects",
   subtitle = "",
   projects = defaultProjects,
+  maxWidthClass = "max-w-7xl",
+  paddingXClass = "mx-8",
+  itemsPerViewConfig = { sm: 1, md: 1, lg: 3 },
+  cardAspectClass = "aspect-4/3",
+  sectionProps,
 }: FeaturedProjectsPreviewProps) {
   const [currentProject, setCurrentProject] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(1);
@@ -58,14 +70,14 @@ export default function FeaturedProjectsPreview({
     const updateItemsPerView = () => {
       if (typeof window === "undefined") return;
       const w = window.innerWidth;
-      if (w >= 1024) setItemsPerView(3); // lg and above
-      else if (w >= 768) setItemsPerView(1); // md
-      else setItemsPerView(1); // sm
+      if (w >= 1024) setItemsPerView(itemsPerViewConfig.lg);
+      else if (w >= 768) setItemsPerView(itemsPerViewConfig.md);
+      else setItemsPerView(itemsPerViewConfig.sm);
     };
     updateItemsPerView();
     window.addEventListener("resize", updateItemsPerView);
     return () => window.removeEventListener("resize", updateItemsPerView);
-  }, []);
+  }, [itemsPerViewConfig.lg, itemsPerViewConfig.md, itemsPerViewConfig.sm]);
 
   const goToProject = (index: number) => {
     const maxIndex = Math.max(0, projects.length - itemsPerView);
@@ -122,97 +134,96 @@ export default function FeaturedProjectsPreview({
   }, [projects.length, itemsPerView]);
 
   return (
-    <section className="relative overflow-hidden bg-neutral-light/20">
-      {/* <div className="absolute inset-0 bg-[url('/bg-2.png')] bg-cover bg-center opacity-20 scale-x-[-1] scale-y-[-1]"></div> */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className=" relative overflow-hidden">
-          {/* Section Header */}
-          <div className="text-center mb-6">
-            <SectionTitle
-              title={title}
-              titleColor="heading"
-              outlineColor="var(--color-neutral-light)"
-              background={title.split(" ").pop()}
-              align="center"
-            />
-            {subtitle && (
-              <p className="mt-4 text-lg text-secondary-dark max-w-2xl mx-auto">
-                {subtitle}
-              </p>
-            )}
-          </div>
+    <Section
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`${sectionProps?.className || ""}`}
+    >
+      {/* Section Header */}
+      <div className="text-center mb-12">
+        <SectionTitle
+          title={title}
+          titleColor="heading"
+          outlineColor="var(--color-neutral-light)"
+          background={title.split(" ").pop()}
+          align="center"
+        />
+        {subtitle && (
+          <p className="mt-4 text-lg text-secondary-dark max-w-2xl mx-auto">
+            {subtitle}
+          </p>
+        )}
+      </div>
 
-         {/* Projects Slider */}
-
+      {/* Projects Slider */}
+      <div
+        className={`${maxWidthClass} mx-auto ${paddingXClass} overflow-hidden`}
+      >
+        <div
+          className="rounded-sm touch-manipulation select-none "
+          onPointerDown={handlePointerDown}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerLeave}
+        >
           <div
-            className="rounded-sm touch-manipulation select-none overflow-hidden"
-            onPointerDown={handlePointerDown}
-            onPointerUp={handlePointerUp}
-            onPointerLeave={handlePointerLeave}
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${
+                currentProject * (100 / itemsPerView)
+              }%)`,
+            }}
           >
-            <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{
-                transform: `translateX(-${
-                  currentProject * (100 / itemsPerView)
-                }%)`,
-              }}
-            >
-              {projects.map((project, index) => {
-                const centerIndex =
-                  currentProject + Math.floor(itemsPerView / 2);
-                const isCenter = index === centerIndex;
-                return (
-                  <div
-                    key={project.id}
-                    style={{ width: `${100 / itemsPerView}%` }}
-                    className={`shrink-0 transition-transform duration-500 ${
-                      isCenter ? "scale-[1.02]" : "scale-[0.95]"
-                    }`}
-                  >
-                    <ProjectCard
-                      href={project.link}
-                      title={project.title}
-                      category={project.category}
-                      year={project.year}
-                      imageSrc={project.image}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="flex items-center justify-center gap-6 mt-6">
-            <button
-              onClick={prevProject}
-              aria-label="Previous"
-              className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
-            >
-              <FiChevronLeft className="w-5 h-5" />
-            </button>
-            {(() => {
-              const totalPages = Math.max(
-                1,
-                projects.length - itemsPerView + 1
-              );
-              const currentPage = Math.min(currentProject + 1, totalPages);
-              const pad = (n: number) => n.toString().padStart(2, "0");
+            {projects.map((project, index) => {
+              const centerIndex = currentProject + Math.floor(itemsPerView / 2);
+              const isCenter = index === centerIndex;
               return (
-                <span className="text-sm tracking-widest text-secondary-dark">
-                  {pad(currentPage)} / {pad(totalPages)}
-                </span>
+                <div
+                  key={project.id}
+                  style={{ width: `${100 / itemsPerView}%` }}
+                  className={`shrink-0 transition-transform duration-500 ${
+                    isCenter ? "scale-[1.02]" : "scale-[0.90]"
+                  }`}
+                >
+                  <ProjectCard
+                    href={project.link}
+                    title={project.title}
+                    category={project.category}
+                    year={project.year}
+                    imageSrc={project.image}
+                    aspectClass={cardAspectClass}
+                  />
+                </div>
               );
-            })()}
-            <button
-              onClick={nextProject}
-              aria-label="Next"
-              className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
-            >
-              <FiChevronRight className="w-5 h-5" />
-            </button>
+            })}
           </div>
         </div>
+        <div className="flex items-center justify-center gap-6 mt-6">
+          <button
+            onClick={prevProject}
+            aria-label="Previous"
+            className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
+          >
+            <FiChevronLeft className="w-5 h-5" />
+          </button>
+          {(() => {
+            const totalPages = Math.max(1, projects.length - itemsPerView + 1);
+            const currentPage = Math.min(currentProject + 1, totalPages);
+            const pad = (n: number) => n.toString().padStart(2, "0");
+            return (
+              <span className="text-sm tracking-widest text-secondary-dark">
+                {pad(currentPage)} / {pad(totalPages)}
+              </span>
+            );
+          })()}
+          <button
+            onClick={nextProject}
+            aria-label="Next"
+            className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
+          >
+            <FiChevronRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -1,14 +1,19 @@
 import PageHero from "../../components/ui/PageHero";
-import ProjectsGrid from "../../components/ui/ProjectsGrid";
-import Section from "../../components/ui/Section";
-import SectionTitle from "../../components/ui/SectionTitle";
-import ContentGrid from "../../components/ui/ContentGrid";
-import Image from "next/image";
-import LeadershipLists from "../../components/about/LeadershipLists";
+// Removed direct UI imports moved into subcomponents
 import { getSectorBySlug, sectorsData } from "../../data/sectors";
 import { projectsData } from "../../data/projects";
 import { getOtherNews } from "../../data/news";
 import { getOtherBlogs } from "../../data/blog";
+// Removed unused UI helpers now encapsulated in subcomponents
+import SectorDescriptionSection from "../../components/sectors/SectorDescriptionSection";
+import SectorOverviewSection from "../../components/sectors/SectorOverviewSection";
+import SectorMetricsSection from "../../components/sectors/SectorMetricsSection";
+import SectorFeaturedImageSection from "../../components/sectors/SectorFeaturedImageSection";
+import SectorApproachSection from "../../components/sectors/SectorApproachSection";
+import SectorCapabilitiesSection from "../../components/sectors/SectorCapabilitiesSection";
+import SectorTeamSection from "../../components/sectors/SectorTeamSection";
+import SectorFeaturedProjectsSection from "../../components/sectors/SectorFeaturedProjectsSection";
+import SectorInsightsSection from "../../components/sectors/SectorInsightsSection";
 
 export default async function SectorPage({
   params,
@@ -149,10 +154,6 @@ export default async function SectorPage({
       title: "Strategy & Planning",
       items: ["Scope definition", "Risk controls", "Milestone governance"],
     },
-    {
-      title: "Support Sectors",
-      items: ["Documentation", "Training", "Stakeholder communications"],
-    },
   ];
 
   const teamTitle = "Team Members / Experts";
@@ -163,8 +164,12 @@ export default async function SectorPage({
       title: "Discipline Lead",
       imageSrc: "/1.png",
       description: "Leads multi-disciplinary coordination and delivery.",
-      stats: { projects: 120, years: 12, scope: ["Design", "Coordination", "QA/QC"] },
-      locations: ["Egypt", "UAE", "KSA"]
+      stats: {
+        projects: 120,
+        years: 12,
+        scope: ["Design", "Coordination", "QA/QC"],
+      },
+      locations: ["Egypt", "UAE", "KSA"],
     },
     {
       name: "Site Supervisor",
@@ -172,8 +177,12 @@ export default async function SectorPage({
       title: "Field Operations",
       imageSrc: "/2.png",
       description: "Ensures quality, safety, and compliance on site.",
-      stats: { projects: 90, years: 10, scope: ["Supervision", "Safety", "Compliance"] },
-      locations: ["Egypt", "KSA"]
+      stats: {
+        projects: 90,
+        years: 10,
+        scope: ["Supervision", "Safety", "Compliance"],
+      },
+      locations: ["Egypt", "KSA"],
     },
     {
       name: "Design Manager",
@@ -181,8 +190,12 @@ export default async function SectorPage({
       title: "Design Governance",
       imageSrc: "/3.png",
       description: "Oversees design reviews and specifications.",
-      stats: { projects: 110, years: 11, scope: ["Specifications", "Reviews", "Documentation"] },
-      locations: ["Egypt", "UAE"]
+      stats: {
+        projects: 110,
+        years: 11,
+        scope: ["Specifications", "Reviews", "Documentation"],
+      },
+      locations: ["Egypt", "UAE"],
     },
     {
       name: "Project Controls",
@@ -190,8 +203,12 @@ export default async function SectorPage({
       title: "Planning & Reporting",
       imageSrc: "/4.png",
       description: "Tracks progress and performance metrics.",
-      stats: { projects: 75, years: 9, scope: ["Scheduling", "Cost", "Performance"] },
-      locations: ["Egypt"]
+      stats: {
+        projects: 75,
+        years: 9,
+        scope: ["Scheduling", "Cost", "Performance"],
+      },
+      locations: ["Egypt"],
     },
   ];
 
@@ -223,233 +240,32 @@ export default async function SectorPage({
         imageSrc={pageHero.imageSrc}
       />
 
-      <Section background="bg-background" className=" py-(--space-section-y-md)">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-0">
-          {service.description ? (
-            <p className="text-secondary-dark leading-tight">
-              {service.description}
-            </p>
-          ) : null}
-        </div>
-      </Section>
+      {/* SectorDescriptionSection */}
+      <SectorDescriptionSection description={service.description} sectionProps={{ background: "bg-background"}} />
 
-      <Section background="bg-background" className="pt-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <SectionTitle
-            title={overviewTitle}
-            titleColor="var(--color-primary-dark)"
-            align="left"
-            className="mb-8"
-            fontSize="md:text-3xl lg:text-4xl"
-            underline={false}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {overviewGroups.map((group, i) => (
-              <div key={`ov-${i}`}>
-                <h3 className="text-base md:text-lg font-semibold text-primary-dark">
-                  {group.title}
-                </h3>
-                <ul className="mt-3 space-y-2 text-secondary-dark">
-                  {group.items.map((it, idx) => (
-                    <li key={`ov-${i}-${idx}`} className="flex items-start">
-                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium mr-3"></span>
-                      <span>{it}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
+      {/* SectorOverviewSection */}
+      <SectorOverviewSection title={overviewTitle} groups={overviewGroups} sectionProps={{ background: "bg-neutral-light/20"}} />
 
-      {metricsStats && metricsStats.length > 0 ? (
-        <section className="bg-primary-dark ">
-          <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className={`grid ${metricsGridClass} gap-8`}>
-              {metricsStats.map((stat, index) => (
-                <div key={`metric-${index}`} className="text-center">
-                  <h3 className="text-white font-extrabold tracking-tight">
-                    {stat.value}
-                  </h3>
-                  <div className="text-white/70 uppercase tracking-wide mt-1">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : null}
+      {/* SectorMetricsSection */}
+      <SectorMetricsSection stats={metricsStats} gridClass={metricsGridClass} />
 
-      <Section background="bg-background" className="py-(--space-section-y-md)">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="rounded-sm overflow-hidden border border-secondary-dark">
-            <div className="relative h-64 md:h-80 lg:h-96">
-              <Image
-                src={featuredImageSrc}
-                alt={service.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-          {featuredImageCaption ? (
-            <p className="mt-4 text-secondary-dark text-sm md:text-base">
-              {featuredImageCaption}
-            </p>
-          ) : null}
-        </div>
-      </Section>
+      {/* SectorFeaturedImageSection */}
+      <SectorFeaturedImageSection imageSrc={featuredImageSrc} alt={service.title} caption={featuredImageCaption} sectionProps={{ background: "bg-background"}} />
 
-      <Section background="bg-background" className="py-(--space-section-y-md)">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <SectionTitle
-            title={approachTitle}
-            titleColor="var(--color-primary-dark)"
-            align="left"
-            className="mb-8"
-            fontSize="md:text-3xl lg:text-4xl"
-            underline={false}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
-            <div>
-              <h4 className="text-primary-dark font-semibold">Methodology</h4>
-              <ul className="mt-3 space-y-2 text-secondary-dark">
-                {approach.methodology.map((it, i) => (
-                  <li key={`m-${i}`} className="flex items-start">
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium mr-3"></span>
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-primary-dark font-semibold">Process</h4>
-              <ul className="mt-3 space-y-2 text-secondary-dark">
-                {approach.process.map((it, i) => (
-                  <li key={`p-${i}`} className="flex items-start">
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium mr-3"></span>
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-primary-dark font-semibold">Philosophy</h4>
-              <ul className="mt-3 space-y-2 text-secondary-dark">
-                {approach.philosophy.map((it, i) => (
-                  <li key={`ph-${i}`} className="flex items-start">
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium mr-3"></span>
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-primary-dark font-semibold">Steps</h4>
-              <ul className="mt-3 space-y-2 text-secondary-dark">
-                {approach.steps.map((it, i) => (
-                  <li key={`s-${i}`} className="flex items-start">
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium mr-3"></span>
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </Section>
+      {/* SectorApproachSection */}
+      <SectorApproachSection title={approachTitle} approach={approach} sectionProps={{ background: "bg-neutral-light/20"}} />
 
-      <Section background="bg-background" className="py-(--space-section-y-md)">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <SectionTitle
-            title={capabilitiesTitle}
-            titleColor="var(--color-primary-dark)"
-            align="left"
-            className="mb-8"
-            fontSize="md:text-3xl lg:text-4xl"
-            underline={false}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {capabilitySections.map((sec, i) => (
-              <div key={`cap-${i}`}>
-                <h4 className="text-primary-dark font-semibold">{sec.title}</h4>
-                <ul className="mt-3 space-y-2 text-secondary-dark">
-                  {sec.items.map((it, idx) => (
-                    <li key={`cap-${i}-${idx}`} className="flex items-start">
-                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium mr-3"></span>
-                      <span>{it}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
+      {/* SectorCapabilitiesSection */}
+      <SectorCapabilitiesSection title={capabilitiesTitle} sections={capabilitySections} sectionProps={{ background: "bg-background"}} />
 
-      <LeadershipLists title={teamTitle} directors={teamMembers} />
+      {/* SectorTeamSection */}
+      <SectorTeamSection title={teamTitle} members={teamMembers} sectionProps={{ background: "bg-neutral-light/20"}} />
+      {/* SectorFeaturedProjectsSection */}
+      <SectorFeaturedProjectsSection title={featuredProjectsTitle} items={featuredProjects} />
 
-      <Section background="bg-background" className="py-(--space-section-y-md)">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <SectionTitle
-            title={featuredProjectsTitle}
-            titleColor="var(--color-primary-dark)"
-            align="left"
-            className="mb-8"
-            fontSize="md:text-3xl lg:text-4xl"
-            underline={false}
-          />
-          <ProjectsGrid
-            items={featuredProjects}
-            gridClass="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-          />
-        </div>
-      </Section>
-
-      {insightsItems.length > 0 ? (
-        <Section
-          background="bg-background"
-          className="py-(--space-section-y-md)"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <SectionTitle
-              title={insightsTitle}
-              titleColor="var(--color-primary-dark)"
-              align="left"
-              className="mb-8"
-              fontSize="md:text-3xl lg:text-4xl"
-            />
-            <ContentGrid items={insightsItems} ctaLabel={insightsCta} />
-          </div>
-        </Section>
-      ) : null}
-{/* 
-      {service.cta && (service.cta.primaryText || service.cta.secondaryText) ? (
-        <section className=" bg-background">
-          <div className="container mx-auto max-w-7xl px-4 sm:px-6">
-            <div className="flex flex-col sm:flex-row gap-4">
-              {service.cta.primaryText && (
-                <a
-                  href={service.cta.primaryHref || "/contact"}
-                  className="inline-flex items-center justify-center h-12 px-6 rounded-sm bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
-                >
-                  {service.cta.primaryText}
-                </a>
-              )}
-              {service.cta.secondaryText && (
-                <a
-                  href={service.cta.secondaryHref || "/sectors"}
-                  className="inline-flex items-center justify-center h-12 px-6 rounded-sm border border-secondary-dark text-primary-dark hover:text-primary-medium transition-colors"
-                >
-                  {service.cta.secondaryText}
-                </a>
-              )}
-            </div>
-          </div>
-        </section>
-      ) : null} */}
+      {/* SectorInsightsSection */}
+      <SectorInsightsSection title={insightsTitle} items={insightsItems} ctaLabel={insightsCta} sectionProps={{ background: "bg-neutral-light/20" }} />
+     
     </div>
   );
 }

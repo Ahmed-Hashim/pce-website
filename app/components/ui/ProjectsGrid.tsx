@@ -16,7 +16,7 @@ interface ProjectsGridProps {
 
 export default function ProjectsGrid({ items, gridClass = " grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2" }: ProjectsGridProps) {
   return (
-    <section className="max-w-7xl mx-auto px-4">
+    <div className="">
       <div className={gridClass}>
         {items.map((p,index) => (
           <ProjectCard
@@ -29,7 +29,7 @@ export default function ProjectsGrid({ items, gridClass = " grid grid-cols-1 md:
           />
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 

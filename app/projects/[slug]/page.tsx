@@ -38,7 +38,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
     <div className="min-h-screen bg-primary-dark">
       <PageHero title={pageHero.title} subtitle={pageHero.subtitle} breadcrumbs={pageHero.breadcrumbs} imageSrc={pageHero.imageSrc} />
 
-      <section className="py-(--space-section-y-md) bg-background">
+      <section className="bg-background">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           {/* <SectionTitle title={project.title} background={project.category.toUpperCase()} outlineColor="var(--color-neutral-light)" titleColor="var(--color-primary-dark)" align="left" /> */}
 

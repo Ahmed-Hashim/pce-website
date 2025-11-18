@@ -49,7 +49,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
     <div className="min-h-screen">
       <PageHero title={hero.title} subtitle={hero.subtitle} breadcrumbs={hero.breadcrumbs} imageSrc={hero.imageSrc} />
 
-      <section className="py-(--space-section-y-md) bg-background">
+      <section className="bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <SectionTitle
             title="Role Overview"
@@ -81,7 +81,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
         </div>
       </section>
 
-      <section className="py-(--space-section-y-md) bg-background">
+      <section className="bg-background">
         <SectionTitle
           title="Apply Now"
           titleColor="var(--color-primary-dark)"

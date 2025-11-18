@@ -3,6 +3,8 @@ import { useState } from "react";
 import { WhoWeAreData as WhoWeAreDataType } from "./WhoWeAreData";
 import VideoPlayer from "../ui/VideoPlayer";
 import SectionTitle from "../ui/SectionTitle";
+import Section from "../ui/Section";
+import type { ComponentProps } from "react";
 
 // No changes to the fallback component are needed
 interface VideoErrorFallbackProps {
@@ -32,12 +34,20 @@ const VideoErrorFallback = ({
   </div>
 );
 
-export default function WhoWeAreSection({ data }: { data: WhoWeAreDataType }) {
+interface WhoWeAreSectionProps {
+  data: WhoWeAreDataType;
+  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
+}
+
+export default function WhoWeAreSection({ data, sectionProps }: WhoWeAreSectionProps) {
   const [videoError, setVideoError] = useState(false);
 
   return (
-    // The section will have a dark background from a parent layout component (e.g., <body class="bg-main">)
-    <section className="relative overflow-hidden">
+    <Section
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`relative overflow-hidden ${sectionProps?.className || ""}`}
+    >
       {/* Background image with overlay */}
       {/* LEFT side triangle 1 (center) */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-40 h-40 opacity-20 pointer-events-none">
@@ -130,6 +140,6 @@ export default function WhoWeAreSection({ data }: { data: WhoWeAreDataType }) {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

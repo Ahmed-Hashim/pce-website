@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import SectionTitle from "../ui/SectionTitle";
+import Section from "../ui/Section";
+import type { ComponentProps } from "react";
 
 interface ExpertiseItem {
   icon?: React.ReactNode;
@@ -20,18 +22,22 @@ interface OurExpertiseSectionProps {
   outlineColor?: string;
   titleColor?: string;
   items: ExpertiseItem[];
+  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
 export default function OurExpertiseSection({
   title,
-  eyebrow,
-  background,
   outlineColor = "var(--color-primary-dark)",
   titleColor = "heading",
   items,
+  sectionProps,
 }: OurExpertiseSectionProps) {
   return (
-    <section className="relative  bg-linear-to-br from-white via-gray-50 to-gray-100">
+    <Section
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`relative  bg-linear-to-br from-white via-gray-50 to-gray-100 ${sectionProps?.className || ""}`}
+    >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,var(--color-primary-medium)_0%,transparent_50%),radial-gradient(circle_at_75%_75%,var(--color-secondary-light)_0%,transparent_50%)]" />
@@ -39,7 +45,7 @@ export default function OurExpertiseSection({
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="text-center mb-16 lg:mb-20">
+        <div className="text-center mb-16">
           <SectionTitle
             title={title}
             outlineColor={outlineColor}
@@ -99,6 +105,6 @@ export default function OurExpertiseSection({
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

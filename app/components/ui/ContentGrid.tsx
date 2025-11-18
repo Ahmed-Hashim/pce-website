@@ -18,7 +18,7 @@ interface ContentGridProps {
 
 export default function ContentGrid({ items, gridClass = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8", className = "", ctaLabel }: ContentGridProps) {
   return (
-    <section className={className}>
+    <div className={className}>
       <div className={gridClass}>
         {items.map((item, i) => (
           <ContentCard
@@ -33,6 +33,6 @@ export default function ContentGrid({ items, gridClass = "grid grid-cols-1 md:gr
           />
         ))}
       </div>
-    </section>
+    </div>
   );
 }

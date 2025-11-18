@@ -2,6 +2,8 @@
 
 import SectionTitle from "../ui/SectionTitle";
 import ServiceCard from "../ui/ServiceCard";
+import Section from "../ui/Section";
+import type { ComponentProps } from "react";
 
 interface ServiceItem {
   title: string;
@@ -21,14 +23,21 @@ interface CoreServicesOverviewProps {
   eyebrow?: string;
   services: ServiceCardData[];
   backgroundText?: string;
+  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
 export default function CoreServicesOverview({
   title,
   services,
+  sectionProps,
 }: CoreServicesOverviewProps) {
   return (
-    <section id="core-sectors" className="relative overflow-hidden ">
+    <Section
+      id="core-sectors"
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`relative overflow-hidden ${sectionProps?.className || ""}`}
+    >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute right-[-20px] top-[20%] w-64 h-64 sm:w-80 sm:h-80 opacity-10">
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full rotate-12">
@@ -69,6 +78,6 @@ export default function CoreServicesOverview({
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

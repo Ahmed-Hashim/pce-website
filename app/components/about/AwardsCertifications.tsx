@@ -52,10 +52,11 @@ export default function AwardsCertifications({
       imageSrc: c.imageSrc,
       sortYear: parseInt((c.year || "0") as string, 10) || 0,
     })),
-  ].sort((a, b) => b.sortYear - a.sortYear);
+  ].sort((a, b) => a.sortYear - b.sortYear);
+
 
   return (
-    <section className="py-(--space-section-y-md) bg-background">
+    <section className="bg-neutral-light/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title={title} background={background} className="mb-16" />
 

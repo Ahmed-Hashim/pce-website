@@ -5,6 +5,8 @@ import SectionTitle from "../ui/SectionTitle";
 import CompanyCard from "../ui/CompanyCard";
 import Link from "next/link";
 import { Link as LinkIcon } from "lucide-react";
+import Section from "../ui/Section";
+import type { ComponentProps } from "react";
 
 interface Company {
   name: string;
@@ -25,6 +27,7 @@ interface HoldingGroupProps {
   holdingDescription?: string;
   holdingEstablished?: string;
   holdingHref?: string;
+  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
 export default function HoldingGroupSection({
@@ -36,10 +39,15 @@ export default function HoldingGroupSection({
   holdingDescription,
   holdingEstablished,
   holdingHref,
+  sectionProps,
 }: HoldingGroupProps) {
   return (
-    <section className="bg-neutral-light/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <Section
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`bg-neutral-light/20 ${sectionProps?.className || ""}`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-end">
           <div className="flex flex-col gap-6">
             <SectionTitle
@@ -126,6 +134,6 @@ export default function HoldingGroupSection({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

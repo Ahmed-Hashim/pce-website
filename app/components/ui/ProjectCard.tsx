@@ -8,12 +8,13 @@ export interface ProjectCardProps {
   year: string;
   imageSrc: string;
   className?: string;
+  aspectClass?: string;
 }
 
-export default function ProjectCard({ href, title, category, year, imageSrc, className = "" }: ProjectCardProps) {
+export default function ProjectCard({ href, title, category, year, imageSrc, className = "", aspectClass = "aspect-4/3" }: ProjectCardProps) {
   return (
     <Link href={href} className={`group block ${className}`}>
-      <div className="relative aspect-4/3 rounded-sm overflow-hidden border bg-secondary-dark/10 transition-all duration-300 hover:shadow-xl">
+      <div className={`relative ${aspectClass} rounded-sm overflow-hidden border bg-secondary-dark/10 transition-all duration-300 hover:shadow-xl`}>
 
         <Image
           src={imageSrc}

@@ -44,7 +44,7 @@ export default function CareersPage() {
         imageSrc={pageHero.imageSrc}
       />
 
-      <section className="py-(--space-section-y-md) bg-background">
+      <section className="bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <SectionTitle
             title={intro.title}
@@ -58,7 +58,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="py-(--space-section-y-md) bg-background">
+      <section className="bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <SectionTitle
             title="Open Positions"
@@ -101,7 +101,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="py-(--space-section-y-md) bg-background">
+      <section className="bg-background">
         <CareersForm
           buttonLabel={buttonLabel}
           submitLabel={submitLabel}

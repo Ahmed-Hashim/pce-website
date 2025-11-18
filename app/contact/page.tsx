@@ -59,7 +59,7 @@ export default function ContactPage() {
         secondaryButtonText={cta.secondaryButtonText}
       />
 
-      <section className="py-(--space-section-y-md) bg-background">
+      <section className="bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <SectionTitle
             title="Office Contacts"
@@ -95,7 +95,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="py-(--space-section-y-md) bg-background">
+      <section className="bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <SectionTitle
             title="Direct Contacts"

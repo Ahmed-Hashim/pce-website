@@ -1,5 +1,7 @@
 import SectionTitle from "../ui/SectionTitle";
 import LeaderCard from "../ui/LeaderCard";
+import Section from "../ui/Section";
+import type { ComponentProps } from "react";
 
 interface PersonItem {
   name: string;
@@ -19,15 +21,21 @@ interface LeadershipListsProps {
   title: string;
   background?: string;
   directors: PersonItem[];
+  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
 export default function LeadershipLists({
   title,
   background,
   directors = [],
+  sectionProps,
 }: LeadershipListsProps) {
   return (
-    <section className="py-(--space-section-y-md) bg-background">
+    <Section
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`bg-background ${sectionProps?.className || ""}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle
           title={title}
@@ -35,9 +43,8 @@ export default function LeadershipLists({
           outlineColor="var(--color-neutral-light)"
           titleColor="var(--color-primary-dark)"
           align="center"
-          className="mb-8"
         />
-        <div className="mt-10">
+        <div className="mt-4">
           <div className="grid sm:grid-cols-3 lg:grid-cols-5 gap-7 justify-items-center">
             {directors.map((m, i) => (
               <LeaderCard key={`leader-${i}`} person={m} />
@@ -45,6 +52,6 @@ export default function LeadershipLists({
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

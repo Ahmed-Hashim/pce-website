@@ -2,6 +2,8 @@
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import SectionTitle from "../ui/SectionTitle";
+import Section from "../ui/Section";
+import type { ComponentProps } from "react";
 
 interface Client {
   id: string;
@@ -20,6 +22,7 @@ interface ClientsSectionData {
 
 interface ClientsSectionProps {
   data?: ClientsSectionData;
+  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
 const defaultData: ClientsSectionData = {
@@ -44,11 +47,16 @@ const defaultData: ClientsSectionData = {
   gradientWidth: 25
 };
 
-export default function ClientsSection({ data = defaultData }: ClientsSectionProps) {
+export default function ClientsSection({ data = defaultData, sectionProps }: ClientsSectionProps) {
   const title = data.title;
 
   return (
-    <section id={data.anchorId} className="py-0">
+    <Section
+      id={data.anchorId}
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`py-0 ${sectionProps?.className || ""}`}
+    >
       <div className="mx-auto border-0 lg:border-y md:border-y lg:border-primary-medium ">
         <div className="grid grid-cols-1 lg:grid-cols-3 items-center lg:pl-10">
 
@@ -96,6 +104,6 @@ export default function ClientsSection({ data = defaultData }: ClientsSectionPro
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

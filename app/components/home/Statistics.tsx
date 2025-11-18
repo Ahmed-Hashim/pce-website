@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import TriangleIcon from "../ui/TriangleIcon";
+import Section from "../ui/Section";
+import type { ComponentProps } from "react";
 
 interface Stat {
   icon?: React.ReactNode;
@@ -17,21 +19,19 @@ interface StatisticsProps {
   backgroundTextColor?: string;
   outlineColor?: string;
   backgroundOpacity?: number;
+  sectionProps?: Omit<ComponentProps<typeof Section>, "children">;
 }
 
 const Statistics: React.FC<StatisticsProps> = ({
-  title,
-  eyebrow,
-  background,
   stats,
-  titleColor,
-  backgroundTextColor,
-  outlineColor,
-  backgroundOpacity,
+
+  sectionProps,
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
-  const [displayValues, setDisplayValues] = useState<string[]>(stats.map((s) => s.value));
+  const [displayValues, setDisplayValues] = useState<string[]>(
+    stats.map((s) => s.value)
+  );
   const hasAnimated = useRef(false);
 
   useEffect(() => {
@@ -59,7 +59,12 @@ const Statistics: React.FC<StatisticsProps> = ({
       return { prefix: m[1] || "", target: Number(m[2]), suffix: m[3] || "" };
     };
 
-    const animate = (from: number, to: number, duration: number, update: (v: number) => void) => {
+    const animate = (
+      from: number,
+      to: number,
+      duration: number,
+      update: (v: number) => void
+    ) => {
       const start = performance.now();
       const step = (now: number) => {
         const p = Math.min((now - start) / duration, 1);
@@ -87,7 +92,14 @@ const Statistics: React.FC<StatisticsProps> = ({
   }, [inView, stats]);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-primary-dark">
+    <Section
+      ref={sectionRef}
+      {...sectionProps}
+      container={sectionProps?.container ?? false}
+      className={`relative overflow-hidden  ${
+        sectionProps?.className || ""
+      }`}
+    >
       <TriangleIcon className="absolute left-6 top-6 w-6 h-6 text-white/10" />
       <TriangleIcon className="absolute right-7 bottom-6 w-7 h-7 text-white/10" />
       <TriangleIcon className="absolute right-6 bottom-6 w-6 h-6 text-white/10" />
@@ -106,7 +118,7 @@ const Statistics: React.FC<StatisticsProps> = ({
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 
