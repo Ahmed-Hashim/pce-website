@@ -46,7 +46,7 @@ export default function CTAComponent({
     <section className="relative overflow-hidden md:px-8 bg-background">
       {/* Animated Background Pattern */}
 
-      <div className="relative z-10 px-4 lg:px-0 mx-auto max-w-6xl">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - CTA Content */}
           <div className="text-center lg:text-left animate-fade-in-up">

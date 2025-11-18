@@ -104,7 +104,7 @@ export default function WhoWeAreSection({ data }: { data: WhoWeAreDataType }) {
             <SectionTitle
               title={data.sectionTitle}
               titleColor="text-white"
-              className="text-center md:text-left items-center  mb-6"
+              className="text-center md:text-left items-center md:items-start mb-6"
             />
             {/* This text is now left-aligned by default */}
             <p className=" max-w-lg">{data.sectionDescription}</p>

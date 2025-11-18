@@ -77,9 +77,9 @@ export const footerData: FooterContent = {
     {
       title: "Resources",
       links: [
-        { label: "Contact us", href: "#" },
-        { label: "Careers", href: "#" },
-        { label: "Blog", href: "#" },
+        { label: "Contact us", href: "/contact" },
+        { label: "Careers", href: "/careers" },
+        { label: "Blog", href: "/blog" },
       ],
     },
     {

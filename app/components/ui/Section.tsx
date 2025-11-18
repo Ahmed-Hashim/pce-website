@@ -29,7 +29,7 @@ export default function Section({
   }
   return (
     <section id={id} className={sectionClasses}>
-      <div className={`container mx-auto ${maxWidthClass} ${paddingXClass}`}>
+      <div className={` mx-auto ${maxWidthClass} ${paddingXClass}`}>
         {children}
       </div>
     </section>

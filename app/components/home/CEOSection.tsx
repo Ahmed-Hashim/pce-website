@@ -33,7 +33,7 @@ export default function CEOSection({
 }: CEOSectionProps) {
   return (
     <section className="bg-linear-to-br from-accent/30 to-heading/20">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle
           title={title}
           background={background}
@@ -44,7 +44,7 @@ export default function CEOSection({
         />
     
         {/* CEO Profiles */}
-        <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16">
           {ceos.map((ceo, index) => (
             <CEOCard
               key={index}

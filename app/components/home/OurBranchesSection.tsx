@@ -36,11 +36,7 @@ interface OurBranchesSectionProps {
     branchCount?: string;
   };
 }
-
-const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
-  sectionTitle = "Global Presence",
-  sectionSubtitle = "Strategic locations across key markets, delivering excellence worldwide",
-  branches = [
+export const branches = [
     {
       country: "Egypt",
       flag: "🇪🇬",
@@ -96,7 +92,11 @@ const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
       branchCount: 1,
       region: "mena",
     },
-  ],
+  ];
+const OurBranchesSection: React.FC<OurBranchesSectionProps> = ({
+  sectionTitle = "Global Presence",
+  sectionSubtitle = "Strategic locations across key markets, delivering excellence worldwide",
+  branches = [],
   anchorId = "our-branches",
   labels = {
     regionSuffix: "Region",

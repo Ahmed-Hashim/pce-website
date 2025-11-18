@@ -17,7 +17,7 @@ interface MissionVisionValuesProps {
 export default function MissionVisionValues({ title, background, description, mission, vision, values, labels = { mission: "Mission", vision: "Vision", values: "Values" } }: MissionVisionValuesProps) {
   return (
     <section>
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle title={title} background={background} outlineColor="var(--color-neutral-light)" titleColor="var(--color-primary-dark)" align="center" />
         {description ? (
           <p className="mt-4 max-w-3xl mx-auto text-left text-secondary-dark text-sm md:text-base leading-tight">{description}</p>

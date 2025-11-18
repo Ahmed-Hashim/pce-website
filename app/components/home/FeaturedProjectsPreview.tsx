@@ -51,8 +51,8 @@ export default function FeaturedProjectsPreview({
   const dragStartX = useRef<number | null>(null);
   const dragStartTime = useRef<number>(0);
   const isDragging = useRef<boolean>(false);
-  const SWIPE_THRESHOLD_PX = 50;
-  const SWIPE_MAX_DURATION_MS = 600;
+  const SWIPE_THRESHOLD_PX = 100;
+  const SWIPE_MAX_DURATION_MS = 2000;
 
   useEffect(() => {
     const updateItemsPerView = () => {
@@ -89,7 +89,10 @@ export default function FeaturedProjectsPreview({
     }
     const deltaX = e.clientX - dragStartX.current;
     const duration = performance.now() - dragStartTime.current;
-    if (Math.abs(deltaX) > SWIPE_THRESHOLD_PX && duration < SWIPE_MAX_DURATION_MS) {
+    if (
+      Math.abs(deltaX) > SWIPE_THRESHOLD_PX &&
+      duration < SWIPE_MAX_DURATION_MS
+    ) {
       if (deltaX < 0) {
         nextProject();
       } else {
@@ -121,25 +124,28 @@ export default function FeaturedProjectsPreview({
   return (
     <section className="relative overflow-hidden bg-neutral-light/20">
       {/* <div className="absolute inset-0 bg-[url('/bg-2.png')] bg-cover bg-center opacity-20 scale-x-[-1] scale-y-[-1]"></div> */}
-      <div className="container mx-auto max-w-6xl relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-6">
-          <SectionTitle
-            title={title}
-            titleColor="heading"
-            outlineColor="var(--color-neutral-light)"
-            background={title.split(" ").pop()}
-            align="center"
-          />
-          {subtitle && (
-            <p className="mt-4 text-lg text-secondary-dark max-w-2xl mx-auto">{subtitle}</p>
-          )}
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className=" relative overflow-hidden">
+          {/* Section Header */}
+          <div className="text-center mb-6">
+            <SectionTitle
+              title={title}
+              titleColor="heading"
+              outlineColor="var(--color-neutral-light)"
+              background={title.split(" ").pop()}
+              align="center"
+            />
+            {subtitle && (
+              <p className="mt-4 text-lg text-secondary-dark max-w-2xl mx-auto">
+                {subtitle}
+              </p>
+            )}
+          </div>
 
-        {/* Projects Slider */}
-        <div className="relative px-4 lg:px-0">
+         {/* Projects Slider */}
+
           <div
-            className="overflow-hidden rounded-sm touch-manipulation select-none"
+            className="rounded-sm touch-manipulation select-none overflow-hidden"
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
             onPointerLeave={handlePointerLeave}
@@ -153,13 +159,14 @@ export default function FeaturedProjectsPreview({
               }}
             >
               {projects.map((project, index) => {
-                const centerIndex = currentProject + Math.floor(itemsPerView / 2);
+                const centerIndex =
+                  currentProject + Math.floor(itemsPerView / 2);
                 const isCenter = index === centerIndex;
                 return (
                   <div
                     key={project.id}
                     style={{ width: `${100 / itemsPerView}%` }}
-                    className={`shrink-0 p-2 transition-transform duration-500 ${
+                    className={`shrink-0 transition-transform duration-500 ${
                       isCenter ? "scale-[1.02]" : "scale-[0.95]"
                     }`}
                   >
@@ -175,7 +182,6 @@ export default function FeaturedProjectsPreview({
               })}
             </div>
           </div>
-
           <div className="flex items-center justify-center gap-6 mt-6">
             <button
               onClick={prevProject}
@@ -185,7 +191,10 @@ export default function FeaturedProjectsPreview({
               <FiChevronLeft className="w-5 h-5" />
             </button>
             {(() => {
-              const totalPages = Math.max(1, projects.length - itemsPerView + 1);
+              const totalPages = Math.max(
+                1,
+                projects.length - itemsPerView + 1
+              );
               const currentPage = Math.min(currentProject + 1, totalPages);
               const pad = (n: number) => n.toString().padStart(2, "0");
               return (

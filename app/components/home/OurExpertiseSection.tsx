@@ -40,18 +40,8 @@ export default function OurExpertiseSection({
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-16 lg:mb-20">
-          {/* {eyebrow && (
-            <div className="inline-flex items-center gap-4 mb-6">
-              <div className="h-px w-12 bg-linear-to-br from-transparent to-primary-medium" />
-              <span className="text-sm font-medium text-primary-medium uppercase tracking-widest">
-                {eyebrow}
-              </span>
-              <div className="h-px w-12 bg-linear-to-br from-primary-medium to-transparent" />
-            </div>
-          )} */}
           <SectionTitle
             title={title}
-            background={background || title.split(" ").pop()}
             outlineColor={outlineColor}
             titleColor={titleColor}
             align="center"
@@ -59,7 +49,7 @@ export default function OurExpertiseSection({
         </div>
 
         {/* Expertise Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 lg:gap-8">
           {items.map((item, i) => (
             <div 
               key={i} 
@@ -72,7 +62,7 @@ export default function OurExpertiseSection({
                 {/* Icon/Image Container - Centered and Larger */}
                 <div className="mb-8">
                   {item.imageSrc ? (
-                    <div className="w-24 h-24 rounded-sm overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300">
+                    <div className="rounded-sm overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300">
                       <Image 
                         src={item.imageSrc} 
                         alt={item.title} 
@@ -93,7 +83,7 @@ export default function OurExpertiseSection({
                 {/* Content */}
                 <div className="space-y-4">
                   {/* Title */}
-                  <h3 className="text-lg font-bold text-primary-dark group-hover:text-primary-medium transition-colors duration-300">
+                  <h3 className="md:text-lg text-sm  font-bold text-primary-dark group-hover:text-primary-medium transition-colors duration-300">
                     {item.title}
                   </h3>
 

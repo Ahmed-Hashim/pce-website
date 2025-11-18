@@ -10,13 +10,23 @@ import Statistics from "./components/home/Statistics";
 // import CEOSection from "./components/home/CEOSection";
 import HoldingGroupSection from "./components/home/HoldingGroupSection";
 import ValuesMarqueeSection from "./components/home/ValuesMarqueeSection";
-import { FaAward, FaUsers, FaProjectDiagram, FaDollarSign , FaCity, FaBuilding, FaBolt, FaCogs, FaBroadcastTower, FaMapMarkedAlt } from "react-icons/fa";
+import {
+  FaAward,
+  FaUsers,
+  FaProjectDiagram,
+  FaDollarSign,
+  FaCity,
+  FaBuilding,
+  FaBolt,
+  FaCogs,
+  FaBroadcastTower,
+  FaMapMarkedAlt,
+} from "react-icons/fa";
 import { sectionTitles } from "./data/sectionTitles";
 import { coreValues } from "./data/values";
 import { coreSectorsData } from "./data/coreSectors";
 import TriangleIcon from "./components/ui/TriangleIcon";
 import OurExpertiseSection from "./components/home/OurExpertiseSection";
-
 
 export const stats = [
   { icon: <FaAward />, value: "+ 16", label: "Years of experience" },
@@ -28,12 +38,14 @@ export const stats = [
 export const companyDescriptions = [
   {
     name: "PRECISION CONSULTING ENGINEERING",
-    description: "Precision Consulting Engineering, founded in Egypt in 2008, is a consultancy firm providing a wide range of technical sectors in engineering design and construction supervision, supported by a team of highly qualified experts."
+    description:
+      "Precision Consulting Engineering, founded in Egypt in 2008, is a consultancy firm providing a wide range of technical sectors in engineering design and construction supervision, supported by a team of highly qualified experts.",
   },
   {
     name: "PCE INDUSTRIAL",
-    description: "PCE Industrial focuses on optimizing industrial processes and systems, aiming to boost efficiency, productivity, and sustainability through innovative engineering solutions. Key Offerings: Process Optimization and Systems Engineering."
-  }
+    description:
+      "PCE Industrial focuses on optimizing industrial processes and systems, aiming to boost efficiency, productivity, and sustainability through innovative engineering solutions. Key Offerings: Process Optimization and Systems Engineering.",
+  },
 ];
 
 export const expertiseSection = {
@@ -45,106 +57,105 @@ export const expertiseSection = {
 };
 
 export const expertiseItems = [
-  { 
-    icon: <FaMapMarkedAlt />, 
+  {
+    icon: <FaMapMarkedAlt />,
     title: "Urban & Regional Planning",
-    description: "Strategic urban development and regional infrastructure planning"
+    description:
+      "Strategic urban development and regional infrastructure planning",
   },
-  { 
-    icon: <FaBuilding />, 
+  {
+    icon: <FaBuilding />,
     title: "Architectural Design",
-    description: "Innovative architectural solutions for modern structures"
+    description: "Innovative architectural solutions for modern structures",
   },
-  { 
-    icon: <FaCity />, 
+  {
+    icon: <FaCity />,
     title: "Structural Engineering",
-    description: "Advanced structural analysis and engineering solutions"
+    description: "Advanced structural analysis and engineering solutions",
   },
-  { 
-    icon: <FaCogs />, 
+  {
+    icon: <FaCogs />,
     title: "Infrastructure Development",
-    description: "Comprehensive infrastructure planning and implementation"
+    description: "Comprehensive infrastructure planning and implementation",
   },
-  { 
-    icon: <FaBolt />, 
+  {
+    icon: <FaBolt />,
     title: "Electrical Systems",
-    description: "Smart electrical systems and power distribution networks"
+    description: "Smart electrical systems and power distribution networks",
   },
-  { 
-    icon: <FaCogs />, 
+  {
+    icon: <FaCogs />,
     title: "Mechanical Engineering",
-    description: "Advanced mechanical systems design and optimization"
+    description: "Advanced mechanical systems design and optimization",
   },
-  { 
-    icon: <FaBroadcastTower />, 
+  {
+    icon: <FaBroadcastTower />,
     title: "Telecommunications",
-    description: "Modern telecom infrastructure and network solutions"
+    description: "Modern telecom infrastructure and network solutions",
   },
-  { 
-    icon: <FaProjectDiagram />, 
+  {
+    icon: <FaProjectDiagram />,
     title: "Project Management",
-    description: "Comprehensive project oversight and management sectors"
+    description: "Comprehensive project oversight and management sectors",
   },
 ];
-
-
 
 export const ceos = [
   {
     name: "DR. Waleed El Sweedy",
     title: "Chairman",
     company: "PCE Consulting",
-    description: "Our roots are important to us as we evolve and grow. We understand that maintaining the integrity of our past through a commitment to quality service, employees appreciation, and delivering innovative. Practical solutions to our clients is the key to our success.",
-    imageSrc: "/man-1.png"
+    description:
+      "Our roots are important to us as we evolve and grow. We understand that maintaining the integrity of our past through a commitment to quality service, employees appreciation, and delivering innovative. Practical solutions to our clients is the key to our success.",
+    imageSrc: "/man-1.png",
   },
   {
     name: "ENG. MOHAMED IBRAHIM",
     title: "Chief Executive Officer",
     company: "PCE Industrial",
-    description: "We have earned the trust and respect of our clients because we have great and hard working people who serve all client needs in all aspects ,They are experts in their fields bringing a strong service ethos to everything they do. Our clients are fully aware that we have the skills, resources and expertise, and most importantly, the ability to complete their projects to the highest standards on time and on budget.",
-    imageSrc: "/man-2.png"
-  }
+    description:
+      "We have earned the trust and respect of our clients because we have great and hard working people who serve all client needs in all aspects ,They are experts in their fields bringing a strong service ethos to everything they do. Our clients are fully aware that we have the skills, resources and expertise, and most importantly, the ability to complete their projects to the highest standards on time and on budget.",
+    imageSrc: "/man-2.png",
+  },
 ];
 
 export const holdingCompanies = [
-  { 
-    name: "Precision Consulting Engineering", 
-    logo: "/logos/2.png", 
-    abbrev: "PCE", 
+  {
+    name: "Precision Consulting Engineering",
+    logo: "/logos/2.png",
+    abbrev: "PCE",
   },
-  { 
-    name: "PCE Industrial", 
-    logo: "/logos/3.png", 
-    abbrev: "PCE", 
+  {
+    name: "PCE Industrial",
+    logo: "/logos/3.png",
+    abbrev: "PCE",
   },
-  { 
-    name: "Greenfield Consulting Corporation", 
-    logo: "/logos/4.png", 
-    abbrev: "GCC", 
+  {
+    name: "Greenfield Consulting Corporation",
+    logo: "/logos/4.png",
+    abbrev: "GCC",
   },
-  { 
-    name: "Hospitality & Facility Management", 
-    logo: "/logos/6.png", 
-    abbrev: "HFM", 
+  {
+    name: "Hospitality & Facility Management",
+    logo: "/logos/6.png",
+    abbrev: "HFM",
   },
-  { 
-    name: "PCE Academy", 
-    logo: "/logos/5.png", 
-    abbrev: "PCE", 
+  {
+    name: "PCE Academy",
+    logo: "/logos/5.png",
+    abbrev: "PCE",
   },
-  { 
-    name: "Precision Development", 
-    logo: "/logos/7.png", 
-    abbrev: "PD", 
-  }
+  {
+    name: "Precision Development",
+    logo: "/logos/7.png",
+    abbrev: "PD",
+  },
 ];
-
-
 
 export default function Home() {
   return (
-    <div className=" min-h-screen items-center justify-center ">
-      <HeroSection/>
+    <div className=" relative min-h-screen items-center justify-center ">
+      <HeroSection />
       <ValuesMarqueeSection
         items={coreValues}
         separatorIcon={<TriangleIcon />}
@@ -161,7 +172,7 @@ export default function Home() {
         titleColor={expertiseSection.titleColor}
         items={expertiseItems}
       />
-      
+
       {/* <CEOSection
         eyebrow={sectionTitles.ceos.eyebrow}
         title={sectionTitles.ceos.title}
@@ -175,11 +186,12 @@ export default function Home() {
         title={coreSectorsData.title}
         services={coreSectorsData.services}
       />
-      
+  
+
       <FeaturedProjectsPreview />
       <OurBranchesSection />
-      
-      <Statistics 
+
+      <Statistics
         title={sectionTitles.statistics.title}
         eyebrow={sectionTitles.statistics.eyebrow}
         background={sectionTitles.statistics.background}
@@ -188,7 +200,7 @@ export default function Home() {
         backgroundTextColor={sectionTitles.statistics.backgroundTextColor}
         outlineColor={sectionTitles.statistics.outlineColor}
       />
-      
+
       <HoldingGroupSection
         title={sectionTitles.holdingGroup.title}
         subtitle="Corporate Portfolio"
@@ -198,9 +210,8 @@ export default function Home() {
         holdingDescription="A diversified holding company driving excellence across engineering, consulting, and development sectors throughout the MENA region."
         holdingEstablished="Est. 2008"
       />
-      
-      <CTAComponent />
 
+      <CTAComponent />
     </div>
   );
 }

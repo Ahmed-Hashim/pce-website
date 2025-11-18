@@ -26,7 +26,7 @@ const Footer: React.FC<FooterProps> = ({ data = footerData }) => {
       {/* Overlay to ensure readability over background image */}
       <div className="absolute inset-0 bg-neutral-light/95 pointer-events-none" />
 
-      <div className="relative z-10 container mx-auto px-6 py-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Main Columns */}
         <div className="pt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Our company */}
