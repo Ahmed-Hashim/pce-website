@@ -14,9 +14,9 @@ interface ProjectsGridProps {
   className?: string;
 }
 
-export default function ProjectsGrid({ items, gridClass = " grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2" }: ProjectsGridProps) {
+export default function ProjectsGrid({ items, gridClass = "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2", className = "" }: ProjectsGridProps) {
   return (
-    <div className="">
+    <div className={className}>
       <div className={gridClass}>
         {items.map((p,index) => (
           <ProjectCard
@@ -32,4 +32,3 @@ export default function ProjectsGrid({ items, gridClass = " grid grid-cols-1 md:
     </div>
   );
 }
-

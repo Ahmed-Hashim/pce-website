@@ -1,8 +1,8 @@
 import PageHero from "../components/ui/PageHero";
 import CTAComponent from "../components/home/CTAComponent";
 import OurBranchesSection, { branches } from "../components/home/OurBranchesSection";
-import SectionTitle from "../components/ui/SectionTitle";
-import Image from "next/image";
+import OfficeContactsSection from "../components/contact/OfficeContactsSection";
+import DirectContactsSection from "../components/contact/DirectContactsSection";
 import { footerData } from "../components/layout/FooterData";
 
 const pageHero = {
@@ -22,6 +22,12 @@ const cta = {
   primaryButtonText: "Get Consultation",
   secondaryButtonText: "Explore Sectors",
 };
+
+const officeSectionTitle = "Office Contacts";
+const officeBackgroundText = "OFFICES";
+
+const directContactsTitle = "Direct Contacts";
+const directContactsBackgroundText = "CONTACT";
 
 const contactChannels = [
   { label: "General", value: "info@pce.com", href: "mailto:info@pce.com" },
@@ -59,95 +65,21 @@ export default function ContactPage() {
         secondaryButtonText={cta.secondaryButtonText}
       />
 
-      <section className="bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <SectionTitle
-            title="Office Contacts"
-            background="OFFICES"
-            outlineColor="var(--color-neutral-light)"
-            titleColor="var(--color-primary-dark)"
-            align="left"
-            className="mb-8"
-            fontSize="md:text-3xl lg:text-4xl"
-            underline={false}
-          />
+      <OfficeContactsSection
+        title={officeSectionTitle}
+        backgroundText={officeBackgroundText}
+        offices={footerData.offices}
+        sectionProps={{ background: "bg-background" }}
+      />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {footerData.offices.map((office, i) => (
-              <div
-                key={`office-${i}`}
-                className="rounded-sm border border-secondary-dark/40 bg-background p-6"
-              >
-                <h4 className="text-primary-dark font-semibold tracking-tight">
-                  {office.title}
-                </h4>
-                <div className="mt-3 text-secondary-dark space-y-1">
-                  {office.addressLines.map((line, idx) => (
-                    <div key={`addr-${i}-${idx}`}>{line}</div>
-                  ))}
-                </div>
-                <div className="mt-4 text-primary-dark">
-                  {office.phone}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <SectionTitle
-            title="Direct Contacts"
-            background="CONTACT"
-            outlineColor="var(--color-neutral-light)"
-            titleColor="var(--color-primary-dark)"
-            align="left"
-            className="mb-8"
-            fontSize="md:text-3xl lg:text-4xl"
-            underline={false}
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {contactChannels.map((c, i) => (
-              <a
-                key={`cc-${i}`}
-                href={c.href}
-                className="group block rounded-sm border border-secondary-dark/40 bg-background p-5 hover:border-primary-medium/50 transition-colors"
-              >
-                <div className="text-xs uppercase tracking-wide text-secondary-dark/80">
-                  {c.label}
-                </div>
-                <div className="mt-1 text-primary-dark font-semibold">
-                  {c.value}
-                </div>
-              </a>
-            ))}
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="rounded-sm border border-secondary-dark/40 bg-background p-6">
-              <h4 className="text-primary-dark font-semibold tracking-tight">
-                {hours.title}
-              </h4>
-              <div className="mt-3 space-y-2">
-                {hours.items.map((h, i) => (
-                  <div key={`hr-${i}`} className="flex items-center justify-between">
-                    <div className="text-secondary-dark">{h.label}</div>
-                    <div className="text-primary-dark font-medium">{h.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-sm overflow-hidden border border-secondary-dark">
-              <div className="relative h-64 md:h-80 lg:h-96">
-                <Image src={mapImage} alt="Map" fill className="object-cover" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <DirectContactsSection
+        title={directContactsTitle}
+        backgroundText={directContactsBackgroundText}
+        contactChannels={contactChannels}
+        hours={hours}
+        mapImage={mapImage}
+        sectionProps={{ background: "bg-background" }}
+      />
 
       <OurBranchesSection
         sectionTitle="Global Presence"
@@ -157,4 +89,3 @@ export default function ContactPage() {
     </div>
   );
 }
-

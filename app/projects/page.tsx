@@ -1,9 +1,10 @@
 "use client";
 import { useMemo, useState } from "react";
 import PageHero from "../components/ui/PageHero";
-import ProjectsGrid from "../components/ui/ProjectsGrid";
 import { projectsData } from "../data/projects";
-import { FiChevronDown, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import ProjectsFiltersSection from "../components/projects/ProjectsFiltersSection";
+import ProjectsGridSection from "../components/projects/ProjectsGridSection";
+import ProjectsPaginationSection from "../components/projects/ProjectsPaginationSection";
 
 const pageHero = {
   title: "Projects",
@@ -63,7 +64,9 @@ export default function ProjectsPage() {
     startIndex + paginationConfig.itemsPerPage
   );
 
-  const pad = (n: number) => n.toString().padStart(2, "0");
+  const prevLabel = "Previous";
+  const nextLabel = "Next";
+  const padLength = 2;
   const resetFilters = () => {
     setSelectedLocation("all");
     setSelectedSectorTag("all");
@@ -80,107 +83,36 @@ export default function ProjectsPage() {
         imageSrc={pageHero.imageSrc}
       />
 
-      <section className="pb-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="rounded-sm border border-secondary-dark/30 bg-primary-dark/5 p-4 md:p-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-end">
-              <div>
-                <label className="block text-xs tracking-wide text-secondary-dark mb-2">
-                  {filterLabels.location}
-                </label>
-                <div className="relative">
-                  <select
-                    value={selectedLocation}
-                    onChange={(e) => setSelectedLocation(e.target.value)}
-                    className="w-full h-11 rounded-sm border border-secondary-dark/40 bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-secondary-dark focus:border-primary-medium focus:outline-none"
-                  >
-                    <option value="all">{filterLabels.all}</option>
-                    {locations.map((loc) => (
-                      <option key={loc} value={loc}>
-                        {loc}
-                      </option>
-                    ))}
-                  </select>
-                  <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-secondary-dark/70" />
-                </div>
-              </div>
-              <div>
-              <label className="block text-xs tracking-wide text-secondary-dark mb-2">
-                {filterLabels.sectorTag}
-              </label>
-              <div className="relative">
-                <select
-                    value={selectedSectorTag}
-                    onChange={(e) => setSelectedSectorTag(e.target.value)}
-                    className="w-full h-11 rounded-sm border border-secondary-dark/40 bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-secondary-dark focus:border-primary-medium focus:outline-none"
-                  >
-                    <option value="all">{filterLabels.all}</option>
-                    {sectorTags.map((s) => (
-                      <option key={s.slug} value={s.slug}>
-                        {s.title}
-                      </option>
-                    ))}
-                  </select>
-                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-secondary-dark/70" />
-              </div>
-              </div>
-              <div>
-                <label className="block text-xs tracking-wide text-secondary-dark mb-2">
-                  {filterLabels.sector}
-                </label>
-                <div className="relative">
-                  <select
-                    value={selectedSector}
-                    onChange={(e) => setSelectedSector(e.target.value)}
-                    className="w-full h-11 rounded-sm border border-secondary-dark/40 bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-secondary-dark focus:border-primary-medium focus:outline-none"
-                  >
-                    <option value="all">{filterLabels.all}</option>
-                    {sectors.map((sec) => (
-                      <option key={sec} value={sec}>
-                        {sec}
-                      </option>
-                    ))}
-                  </select>
-                  <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-secondary-dark/70" />
-                </div>
-              </div>
-              <div className="flex md:justify-end">
-                <button
-                  type="button"
-                  onClick={resetFilters}
-                  className="inline-flex items-center justify-center h-11 px-4 rounded-sm border border-secondary-dark/40 bg-white/60 text-primary-dark hover:bg-white/80 transition-colors"
-                >
-                  {filterLabels.reset}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ProjectsFiltersSection */}
+      <ProjectsFiltersSection
+        filterLabels={filterLabels}
+        locations={locations}
+        sectorTags={sectorTags}
+        sectors={sectors}
+        selectedLocation={selectedLocation}
+        selectedSectorTag={selectedSectorTag}
+        selectedSector={selectedSector}
+        onChangeLocation={setSelectedLocation}
+        onChangeSectorTag={setSelectedSectorTag}
+        onChangeSector={setSelectedSector}
+        onReset={resetFilters}
+      />
 
-      <ProjectsGrid items={paginatedProjects} className="px-4 md:px-0 pt-0" />
+      {/* ProjectsGridSection */}
+      <ProjectsGridSection items={paginatedProjects} gridClass="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2" sectionProps={{ className: "pt-0" }} />
 
-      <section className="flex items-center justify-center gap-6 pt-0">
-        <button
-          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-          aria-label="Previous"
-          className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
-          disabled={currentPage <= 1}
-        >
-          <FiChevronLeft className="w-5 h-5" />
-        </button>
-        <span className="text-sm tracking-widest text-secondary-dark">
-          {pad(page)} / {pad(totalPages)}
-        </span>
-        <button
-          onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-          aria-label="Next"
-          className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
-          disabled={page >= totalPages}
-        >
-          <FiChevronRight className="w-5 h-5" />
-        </button>
-      </section>
+      {/* ProjectsPaginationSection */}
+      <ProjectsPaginationSection
+        page={page}
+        totalPages={totalPages}
+        prevLabel={prevLabel}
+        nextLabel={nextLabel}
+        padLength={padLength}
+        onPrev={() => setCurrentPage((p) => Math.max(1, p - 1))}
+        onNext={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+        isPrevDisabled={currentPage <= 1}
+        isNextDisabled={page >= totalPages}
+      />
     </>
   );
 }
