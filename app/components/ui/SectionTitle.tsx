@@ -34,9 +34,9 @@ export default function SectionTitle({
     <div className={`relative w-full flex flex-col ${alignment} ${className}`}>
       {/* Title with NO margins */}
       <h2
-        className={`relative z-10 font-extrabold leading-tight ${fontSize || "md:text-4xl lg:text-5xl"}`}
+        className={`relative z-10 font-extrabold ${titleColor} leading-tight ${fontSize || "md:text-4xl lg:text-5xl"}`}
         style={{
-          color: titleColor || undefined,
+          
           textShadow: "var(--text-shadow-soft)",
           margin: 0, // ✅ Force zero margin
           padding:0,

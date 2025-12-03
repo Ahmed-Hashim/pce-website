@@ -48,62 +48,15 @@ export default function WhoWeAreSection({ data, sectionProps }: WhoWeAreSectionP
       container={sectionProps?.container ?? false}
       className={`relative overflow-hidden ${sectionProps?.className || ""}`}
     >
-      {/* Background image with overlay */}
-      {/* LEFT side triangle 1 (center) */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-40 h-40 opacity-20 pointer-events-none">
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          className="w-full h-full"
-        >
-          <path
-            d="M 0 50 L 100 0 L 100 100 Z"
-            fill="var(--color-primary-medium)"
-          />
-        </svg>
-      </div>
+      {/* Parallax background layer */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
+        style={{
+          backgroundImage: `url("./Cover.png")`,
+        }}
+      />
 
-      {/* Triangle SVG background in top left corner pointing right */}
-      <div className="absolute top-0 right-0 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 opacity-20 pointer-events-none">
-        {/* Triangle on the left side pointing right */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-32 h-32 opacity-20 pointer-events-none">
-          <svg
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            className="w-full h-full"
-          >
-            {/* Triangle pointing → */}
-            <path
-              d="M 0 50 L 100 0 L 100 100 Z"
-              fill="var(--color-primary-medium)"
-            />
-          </svg>
-        </div>
-        <div className="absolute left-0 bottom-10 w-28 h-28 opacity-20 pointer-events-none">
-          <svg
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            className="w-full h-full"
-          >
-            <path
-              d="M 0 50 L 100 0 L 100 100 Z"
-              fill="var(--color-primary-medium)"
-            />
-          </svg>
-        </div>
-        <div className="absolute left-0 bottom-10 w-28 h-28 opacity-20 pointer-events-none">
-          <svg
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            className="w-full h-full"
-          >
-            <path
-              d="M 0 50 L 100 0 L 100 100 Z"
-              fill="var(--color-primary-medium)"
-            />
-          </svg>
-        </div>
-      </div>
+ 
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Using a larger gap to match the visual spacing in the image */}
@@ -117,7 +70,7 @@ export default function WhoWeAreSection({ data, sectionProps }: WhoWeAreSectionP
               className="text-center md:text-left items-center md:items-start mb-6"
             />
             {/* This text is now left-aligned by default */}
-            <p className=" max-w-lg">{data.sectionDescription}</p>
+            <p className=" max-w-lg text-white">{data.sectionDescription}</p>
           </div>
 
           {/* Right Column - Video */}

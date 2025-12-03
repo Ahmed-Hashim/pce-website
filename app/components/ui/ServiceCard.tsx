@@ -3,16 +3,13 @@ import Link from "next/link";
 import { FaDraftingCompass, FaHardHat } from "react-icons/fa";
 import { RxTriangleRight } from "react-icons/rx";
 
-interface ServiceItem {
-  title: string;
-  description: string;
-}
+
 
 interface ServiceCardProps {
   title: string;
   icon: string;
   image: string;
-  items: ServiceItem[];
+  short_description: string;
   callToAction?: string;
   backgroundImage?: string;
   className?: string;
@@ -21,7 +18,7 @@ interface ServiceCardProps {
 export default function ServiceCard({
   title,
   icon,
-  items,
+  short_description,
   image,
   callToAction,
   className = "",
@@ -71,10 +68,10 @@ export default function ServiceCard({
 
       {/* Content - Image Style (Bottom Left Layout) */}
       {image && (
-        <Link href={`/sectors/${title.toLowerCase().replace(/\s+/g, "-")}`}>
+        <Link href={`/services/${title.toLowerCase().replace(/\s+/g, "-")}`}>
           <div
             className="relative z-10 px-6 py-6 sm:px-8 sm:py-8 h-full flex flex-col justify-end
-          bg-linear-to-t from-primary-dark via-primary-dark/80 to-transparent"
+          bg-linear-to-t from-primary-dark/50 via-primary-dark/10 to-transparent"
           >
             <div className="text-white text-4xl sm:text-5xl py-4 drop-shadow-lg">
               {getIcon(icon)}
@@ -85,7 +82,7 @@ export default function ServiceCard({
                   {title}
                 </h3>
                 <p className="mt-1 text-white/90 drop-shadow-lg text-sm sm:text-base">
-                  {items[0]?.description}
+                  {short_description}
                 </p>
               </div>
             </div>
@@ -109,7 +106,7 @@ export default function ServiceCard({
           </div>
           <h3 className="mt-6 text-white drop-shadow-lg">{title}</h3>
           <p className="mt-3 text-white/90 drop-shadow-lg">
-            {items[0]?.description}
+            {short_description}
           </p>
           {callToAction && (
             <Link

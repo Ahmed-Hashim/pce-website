@@ -1,8 +1,9 @@
+"use cache";
 import ContentDetail from "../../components/ui/ContentDetail";
 import ContentGrid from "../../components/ui/ContentGrid";
 import Section from "../../components/ui/Section";
 import SectionTitle from "../../components/ui/SectionTitle";
-import { getNewsBySlug, getOtherNews } from "../../data/news";
+import { getNewsBySlug, getOtherNews, newsItems } from "../../data/news";
 
 export default async function NewsDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -43,3 +44,6 @@ export default async function NewsDetail({ params }: { params: Promise<{ slug: s
   );
 }
 
+export async function generateStaticParams() {
+  return newsItems.map((n) => ({ slug: n.slug }));
+}

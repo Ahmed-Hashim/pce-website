@@ -4,6 +4,8 @@ import { sectionTitles } from "../data/sectionTitles";
 import Statistics from "../components/home/Statistics";
 import CoreServicesOverview from "../components/home/CoreServicesOverview";
 import { coreSectorsData } from "../data/coreSectors";
+import { Suspense } from "react";
+import { cacheLife } from "next/cache";
 
 const pageHero = {
   title: "Sectors",
@@ -15,13 +17,17 @@ const pageHero = {
   ],
 };
 
-export default function SectorsPage() {
-  const stats = [
-    { value: "16+", label: "Years of experience" },
-    { value: "400+", label: "Staff" },
-    { value: "600+", label: "Completed Projects" },
-    { value: "$10B+", label: "Projects Value" },
-  ];
+async function getStats() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stats/`, {
+    method: "GET",
+  });
+  return res.json();
+}
+
+export default async function SectorsPage() {
+  "use cache";
+  cacheLife("hours");
+  // const [services, stats] = await Promise.all([ getStats()]);
   const cta = {
     title: "Need a specialist for your next project?",
     description:
@@ -29,7 +35,6 @@ export default function SectorsPage() {
     primaryButtonText: "Get Consultation",
     secondaryButtonText: "Explore Sectors",
   };
-
   return (
     <div className="min-h-screen">
       <PageHero
@@ -39,23 +44,15 @@ export default function SectorsPage() {
         imageSrc={pageHero.imageSrc}
       />
 
-      <CoreServicesOverview title={coreSectorsData.title} services={coreSectorsData.services} />
-      <Statistics
-        title={sectionTitles.statistics.title}
-        eyebrow={sectionTitles.statistics.eyebrow}
-        background={sectionTitles.statistics.background}
-        stats={stats}
-        titleColor={sectionTitles.statistics.titleColor}
-        backgroundTextColor={sectionTitles.statistics.backgroundTextColor}
-        outlineColor={sectionTitles.statistics.outlineColor}
-      />
+      <CoreServicesOverview />
+
+      <Statistics />
       <CTAComponent
         title={cta.title}
         description={cta.description}
         primaryButtonText={cta.primaryButtonText}
         secondaryButtonText={cta.secondaryButtonText}
       />
-
     </div>
   );
 }

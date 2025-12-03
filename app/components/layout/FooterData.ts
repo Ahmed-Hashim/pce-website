@@ -83,11 +83,10 @@ export const footerData: FooterContent = {
       ],
     },
     {
-      title: "Sectors",
+      title: "Services",
       links: [
-        { label: "Engineering Design", href: "#" },
-        { label: "Site Supervision", href: "#" },
-        { label: "Project Management", href: "#" },
+        { label: "Engineering Design", href: "/services/engineering-design" },
+        { label: "Site Supervision", href: "/services/site-supervision" },
       ],
     },
     
@@ -95,8 +94,8 @@ export const footerData: FooterContent = {
   bottom: {
     copyright: "© 2025 PCE All right reserved.",
     links: [
-      { label: "Policy & privacy", href: "#" },
-      { label: "Terms & conditions", href: "#" },
+      { label: "Policy & privacy", href: "/policy-privacy" },
+      { label: "Terms & conditions", href: "/terms-and-conditions" },
     ],
   },
 };

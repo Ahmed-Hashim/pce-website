@@ -1,110 +1,96 @@
-"use client";
-
-import Image from "next/image";
+import { Suspense } from "react";
 import SectionTitle from "../ui/SectionTitle";
 import Section from "../ui/Section";
+import { createClient } from "@/utils/supabase/supabaseServer";
+import ExpertiseGrid, { ExpertiseItem } from "./ExpertiseGrid";
 import type { ComponentProps } from "react";
 
-interface ExpertiseItem {
-  icon?: React.ReactNode;
-  imageSrc?: string;
-  title: string;
-  description?: string;
-  metric?: string;
-  metricValue?: string;
-  progress?: number;
-}
-
-interface OurExpertiseSectionProps {
-  title: string;
-  eyebrow?: string;
-  background?: string;
-  outlineColor?: string;
-  titleColor?: string;
-  items: ExpertiseItem[];
-  sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
-}
-
+// 1. Main Component (Synchronous Wrapper)
 export default function OurExpertiseSection({
-  title,
-  outlineColor = "var(--color-primary-dark)",
-  titleColor = "heading",
-  items,
+  title = "Our Expertise",
   sectionProps,
-}: OurExpertiseSectionProps) {
+}: {
+  title?: string;
+  sectionProps?: Omit<ComponentProps<typeof Section>, "children">;
+}) {
   return (
     <Section
       {...sectionProps}
       container={sectionProps?.container ?? false}
-      className={`relative  bg-linear-to-br from-white via-gray-50 to-gray-100 ${sectionProps?.className || ""}`}
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,var(--color-primary-medium)_0%,transparent_50%),radial-gradient(circle_at_75%_75%,var(--color-secondary-light)_0%,transparent_50%)]" />
+      className={`relative bg-linear-to-br from-white via-gray-50 to-gray-100 ${
+        sectionProps?.className || ""
+      }`}
+    > <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,var(--color-primary-dark)_0%,transparent_50%),radial-gradient(circle_at_75%_75%,var(--color-secondary-light)_0%,transparent_50%)]" />
       </div>
-      
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Background Pattern */}
+     
         {/* Header Section */}
         <div className="text-center mb-16">
           <SectionTitle
             title={title}
-            outlineColor={outlineColor}
-            titleColor={titleColor}
+            outlineColor="var(--color-primary-dark)"
+            titleColor="heading"
             align="center"
           />
         </div>
 
-        {/* Expertise Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 lg:gap-8">
-          {items.map((item, i) => (
-            <div 
-              key={i} 
-              className="group relative bg-white rounded-sm p-8 shadow-sm hover:shadow-xl transition-all duration-500 ease-out border border-gray-100 hover:border-primary-medium/20"
-            >
-              {/* Hover Background Effect */}
-              <div className="absolute inset-0 rounded-sm bg-linear-to-br from-primary-medium/5 to-secondary-light/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="relative z-10 flex flex-col items-center text-center">
-                {/* Icon/Image Container - Centered and Larger */}
-                <div className="mb-8">
-                  {item.imageSrc ? (
-                    <div className="rounded-sm overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300">
-                      <Image 
-                        src={item.imageSrc} 
-                        alt={item.title} 
-                        width={96} 
-                        height={96} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-24 h-24 flex items-center justify-center text-primary-medium group-hover:scale-110 transition-all duration-300">
-                      <div className="text-5xl group-hover:scale-110  transition-transform duration-300">
-                        {item.icon}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="space-y-4">
-                  {/* Title */}
-                  <h3 className="md:text-lg text-sm  font-bold text-primary-dark group-hover:text-primary-medium transition-colors duration-300">
-                    {item.title}
-                  </h3>
-
-                  {/* Description
-                  {item.description && (
-                    <p className="text-sm text-gray-600 leading-tight group-hover:text-gray-700 transition-colors duration-300">
-                      {item.description}
-                    </p>
-                  )} */}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Async Content */}
+        <Suspense fallback={<ExpertiseSkeleton />}>
+          <ExpertiseDataContent />
+        </Suspense>
       </div>
     </Section>
+  );
+}
+
+// 2. The Async Content (Fetches ONCE)
+async function ExpertiseDataContent() {
+  "use cache";
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("expertise")
+    .select("*")
+    .order("id", { ascending: true });
+
+  if (error) {
+    console.error("Error fetching expertise:", error);
+    return null;
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="text-center py-10 text-gray-500">
+        No expertise items found.
+      </div>
+    );
+  }
+
+  // Map to ExpertiseItem interface
+  const items: ExpertiseItem[] = data.map((item) => ({
+    id: item.id,
+    title: item.name,
+    iconUrl: item.icon_url || "",
+  }));
+
+  return <ExpertiseGrid items={items} />;
+}
+
+// 3. Loading State
+function ExpertiseSkeleton() {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 lg:gap-8">
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+        <div
+          key={i}
+          className="bg-white rounded-sm p-8 shadow-sm border border-gray-100 flex flex-col items-center"
+        >
+          <div className="w-24 h-24 bg-gray-200 animate-pulse rounded-sm mb-8" />
+          <div className="h-6 w-3/4 bg-gray-200 animate-pulse rounded" />
+        </div>
+      ))}
+    </div>
   );
 }

@@ -6,7 +6,6 @@ import MissionVisionValues from "../components/about/MissionVisionValues";
 import LeadershipLists from "../components/about/LeadershipLists";
 import AwardsCertifications from "../components/about/AwardsCertifications";
 import { sectionTitles } from "../data/sectionTitles";
-import { FaAward, FaUsers, FaProjectDiagram, FaDollarSign } from "react-icons/fa";
 
 const pageHero = {
   title: "About Us",
@@ -18,12 +17,7 @@ const pageHero = {
   ],
 };
 
-const stats = [
-  { icon: <FaAward />, value: "+ 16", label: "Years of experience" },
-  { icon: <FaUsers />, value: "+ 400", label: "Staff" },
-  { icon: <FaProjectDiagram />, value: "+ 600", label: "Completed Projects" },
-  { icon: <FaDollarSign />, value: "10 Billion $", label: "Projects Value" },
-];
+
 
 const leaders = [
   {
@@ -164,63 +158,7 @@ const certifications = [
   { code: "ISO 9001:2015", title: "Quality Management System", issuer: "IAF Member", imageSrc: "/iso2.png", year: "2015" },
 ];
 
-const branches = [
-  {
-    country: "Egypt",
-    flag: "🇪🇬",
-    flagImage: "https://flagcdn.com/w320/eg.png",
-    locations: [
-      "39 Babel St from Shooting club St., Dokki, Giza",
-      "New Administrative Capital, Golden Tower 6th floor Office 615",
-    ],
-    contacts: ["+20 100 686 8963", "+20 100 012 7211"],
-    branchCount: 2,
-    isHeadquarters: true,
-    region: "mena",
-  },
-  {
-    country: "Saudi Arabia",
-    flag: "🇸🇦",
-    flagImage: "https://flagcdn.com/w320/sa.png",
-    locations: [
-      "4321 Othman Ibn Affan, Al Tawun, Riyadh",
-      "3910-8349, Qabbani Tower, Al-Dubbat, Riyadh",
-    ],
-    contacts: ["+966 55 587 2422", "+966 55 587 2422"],
-    branchCount: 2,
-    region: "mena",
-  },
-  {
-    country: "UAE",
-    flag: "🇦🇪",
-    flagImage: "https://flagcdn.com/w320/ae.png",
-    locations: [
-      "1502 Al Taawun St, Al-Maha, A-Block 15 Floor, Sharjah",
-      "Sharjah Media City, Sharjah",
-    ],
-    contacts: ["+971 52 420 3858", "+971 56 933 9189"],
-    branchCount: 2,
-    region: "mena",
-  },
-  {
-    country: "Italy",
-    flag: "🇮🇹",
-    flagImage: "https://flagcdn.com/w320/it.png",
-    locations: ["100/3 VAI DON ELOI MONARI, Modena, Italy"],
-    contacts: ["+39 3200477680"],
-    branchCount: 1,
-    region: "europe",
-  },
-  {
-    country: "Iraq",
-    flag: "🇮🇶",
-    flagImage: "https://flagcdn.com/w320/iq.png",
-    locations: ["Ainkawa 44003, Erbil, Iraq"],
-    contacts: ["+964 7508310697"],
-    branchCount: 1,
-    region: "mena",
-  },
-];
+
 
 export default function AboutPage() {
   return (
@@ -241,13 +179,9 @@ export default function AboutPage() {
 
       <AwardsCertifications title="Awards & Certifications" background="AWARDS" awards={awards} certifications={certifications} />
 
-      <Statistics sectionProps={{ container: false, className: "bg-primary-dark" }} title={sectionTitles.statistics.title} stats={stats} />
+      <Statistics />
 
-      <OurBranchesSection
-        sectionTitle="Global Presence"
-        sectionSubtitle="Strategic locations across key markets"
-        branches={branches}
-      />
+      <OurBranchesSection/>
     </>
   );
 }

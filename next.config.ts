@@ -9,8 +9,15 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'pce-consultants.b-cdn.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
+  cacheComponents:true,
 };
 
 export default nextConfig;

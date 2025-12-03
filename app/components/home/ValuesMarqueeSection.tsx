@@ -1,46 +1,40 @@
-"use client";
+import { Suspense } from "react";
+import { createClient } from "@/utils/supabase/supabaseServer";
+import MarqueeContent from "./MarqueeContent";
+import { coreValues } from "@/app/data/values";
 
-import React from "react";
-import Marquee from "react-fast-marquee";
-
-
-interface ValuesMarqueeSectionProps {
-  items: string[];
-  separatorIcon?: React.ReactNode;
-  speed?: number;
-  title?: string;
-  eyebrow?: string;
-  background?: string;
-}
-
-export default function ValuesMarqueeSection({
-  items,
-  separatorIcon,
-  speed = 22,
-}: ValuesMarqueeSectionProps) {
+export default function ValuesMarqueeSection() {
   return (
- 
-        <Marquee speed={speed} autoFill={true} pauseOnHover={true} gradient={false} className="bg-primary-dark">
-          <div className="flex items-center gap-8 p-5">
-            {items.map((label, index) => (
-              <React.Fragment key={index}>
-                <small className="text-3xl text-white mx-4">
-                  {label}
-                </small>
-
-                {separatorIcon && index < items.length && (
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex items-center justify-center animate-spin"
-                    style={{ animationDuration: '4s' }}
-                  >
-                    {separatorIcon}
-                  </span>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        </Marquee>
-
+    <div className="w-full">
+      <Suspense fallback={<ValuesSkeleton />}>
+        <ValuesList />
+      </Suspense>
+    </div>
   );
 }
+
+function ValuesSkeleton() {
+  return (
+    <div className="w-full h-24 bg-primary-dark animate-pulse flex items-center justify-center">
+      <div className="w-1/2 h-8 bg-white/20 rounded"></div>
+    </div>
+  );
+}
+
+async function ValuesList() {
+  "use cache";
+  const supabase = createClient();
+  const { data: aboutData } = await supabase
+    .from("about")
+    .select("values")
+    .limit(1)
+    .single();
+
+  const values =
+    aboutData?.values && Array.isArray(aboutData.values)
+      ? (aboutData.values as string[])
+      : coreValues;
+
+  return <MarqueeContent items={values} />;
+}
+

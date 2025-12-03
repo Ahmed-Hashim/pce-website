@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface Breadcrumb {
   label: string;
@@ -15,12 +16,22 @@ interface PageHeroProps {
 export default function PageHero({ title, subtitle, breadcrumbs, imageSrc }: PageHeroProps) {
   return (
     <section className="relative h-[48vh] md:h-[40vh] overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${imageSrc})` }}
+  
+      <Image
+        src={imageSrc}
+        alt={title}
+        fill
+        priority={true}
+        className="object-cover z-0"
+        sizes="100vw"
+        quality={75} // Optional: slightly lower quality for speed, default is 75
       />
-      <div className="absolute inset-0 bg-linear-to-b from-primary-dark/90 to-primary-dark/80" />
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-10">
+
+      {/* Overlay - Adjusted z-index to sit on top of image but below text */}
+      <div className="absolute inset-0 bg-linear-to-b from-primary-dark/90 to-primary-dark/80 z-10" />
+
+      {/* Content - High z-index to sit on top of everything */}
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-10">
         <nav aria-label="Breadcrumb" className="mb-4">
           <ol className="flex items-center gap-2 text-sm">
             {breadcrumbs.map((bc, i) => (
@@ -43,4 +54,3 @@ export default function PageHero({ title, subtitle, breadcrumbs, imageSrc }: Pag
     </section>
   );
 }
-

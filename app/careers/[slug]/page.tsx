@@ -1,3 +1,4 @@
+"use cache";
 import PageHero from "../../components/ui/PageHero";
 import SectionTitle from "../../components/ui/SectionTitle";
 import CareersForm from "../../components/careers/CareersForm";
@@ -103,7 +104,6 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
   );
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return jobsData.map((j) => ({ slug: j.slug }));
 }
-

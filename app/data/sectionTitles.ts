@@ -10,7 +10,7 @@ export const sectionTitles = {
   statistics: {
     eyebrow: "By the Numbers",
     title: "Key Statistics",
-    background: "STATISTICS",
+    background: "bg-primary",
     outlineColor: "var(--color-primary-dark)", // navy outline
     titleColor: "var(--color-primary-dark)", // navy title text
     backgroundTextColor: "var(--color-primary-dark)", // solid color instead of outline

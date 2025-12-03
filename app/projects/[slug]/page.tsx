@@ -1,3 +1,4 @@
+"use cache";
 import PageHero from "../../components/ui/PageHero";
 import Image from "next/image";
 import { projectsData, getProjectBySlug } from "../../data/projects";
@@ -91,6 +92,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   );
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return projectsData.map((p) => ({ slug: p.slug }));
 }

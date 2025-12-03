@@ -11,10 +11,7 @@ import Statistics from "./components/home/Statistics";
 import HoldingGroupSection from "./components/home/HoldingGroupSection";
 import ValuesMarqueeSection from "./components/home/ValuesMarqueeSection";
 import {
-  FaAward,
-  FaUsers,
   FaProjectDiagram,
-  FaDollarSign,
   FaCity,
   FaBuilding,
   FaBolt,
@@ -22,18 +19,11 @@ import {
   FaBroadcastTower,
   FaMapMarkedAlt,
 } from "react-icons/fa";
-import { sectionTitles } from "./data/sectionTitles";
-import { coreValues } from "./data/values";
-import { coreSectorsData } from "./data/coreSectors";
-import TriangleIcon from "./components/ui/TriangleIcon";
+
 import OurExpertiseSection from "./components/home/OurExpertiseSection";
 
-export const stats = [
-  { icon: <FaAward />, value: "+ 16", label: "Years of experience" },
-  { icon: <FaUsers />, value: "+ 400", label: "Staff" },
-  { icon: <FaProjectDiagram />, value: "+ 600", label: "Completed Projects" },
-  { icon: <FaDollarSign />, value: "10 Billion $", label: "Projects Value" },
-];
+
+;
 
 export const companyDescriptions = [
   {
@@ -152,32 +142,20 @@ export const holdingCompanies = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className=" relative min-h-screen items-center justify-center ">
-      <HeroSection sectionProps={{ container: false }} />
+      <HeroSection />
 
       {/* Section props passed for consistency */}
-      <ValuesMarqueeSection
-        items={coreValues}
-        separatorIcon={<TriangleIcon />}
-        speed={100}
-      />
+      <ValuesMarqueeSection />
       <WhoWeAreSection
         data={whoWeAreData}
         sectionProps={{ container: false }}
       />
       <ClientsSection sectionProps={{ container: false }} />
 
-      <OurExpertiseSection
-        title={expertiseSection.title}
-        eyebrow={expertiseSection.eyebrow}
-        background={expertiseSection.background}
-        outlineColor={expertiseSection.outlineColor}
-        titleColor={expertiseSection.titleColor}
-        items={expertiseItems}
-        sectionProps={{ container: false }}
-      />
+      <OurExpertiseSection />
 
       {/* <CEOSection
         eyebrow={sectionTitles.ceos.eyebrow}
@@ -188,37 +166,15 @@ export default function Home() {
         ceos={ceos}
         companies={companyDescriptions}
       /> */}
-      <CoreServicesOverview
-        title={coreSectorsData.title}
-        services={coreSectorsData.services}
-        sectionProps={{ container: false }}
-      />
+      <CoreServicesOverview/>
 
       <FeaturedProjectsPreview sectionProps={{ container: false, className: "bg-neutral-light/20" }} />
 
       <OurBranchesSection sectionProps={{ container: false }} />
 
-      <Statistics
-        title={sectionTitles.statistics.title}
-        eyebrow={sectionTitles.statistics.eyebrow}
-        background={sectionTitles.statistics.background}
-        stats={stats}
-        titleColor={sectionTitles.statistics.titleColor}
-        backgroundTextColor={sectionTitles.statistics.backgroundTextColor}
-        outlineColor={sectionTitles.statistics.outlineColor}
-        sectionProps={{ container: false, className: "bg-primary-dark" }}
-      />
+      <Statistics />
 
-      <HoldingGroupSection
-        title={sectionTitles.holdingGroup.title}
-        subtitle="Corporate Portfolio"
-        companies={holdingCompanies}
-        holdingLogo="/logos/ph.png"
-        holdingName="PRECISION HOLDING"
-        holdingDescription="A diversified holding company driving excellence across engineering, consulting, and development sectors throughout the MENA region."
-        holdingEstablished="Est. 2008"
-        sectionProps={{ container: false }}
-      />
+      <HoldingGroupSection />
 
       <CTAComponent sectionProps={{ container: false }} />
     </div>

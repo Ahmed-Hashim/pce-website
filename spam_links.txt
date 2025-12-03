@@ -1,0 +1,53 @@
+Slide 1 — Title Slide
+Title:
+WEB DEVELOPMENT
+
+Description:
+A futuristic intro slide showcasing high-tech website development.
+
+"Futuristic digital environment with a 3D laptop showing a website interface. Floating UI elements above the laptop. Particles and soft lighting create a premium tech atmosphere. Bold title 'WEB DEVELOPMENT' at the top."
+
+Slide 2 — The Problem
+Title:
+THE REAL PROBLEM
+
+Description:
+A visual showing how slow or outdated sites harm business performance.
+
+"3D laptop displaying a slow or glitchy website. Broken UI elements floating around. Dramatic lighting and digital particles emphasize problems. Bold title 'THE REAL PROBLEM' at the top."
+
+Slide 3 — What We Do
+Title:
+WHAT WE PROVIDE
+
+Description:
+Show our expertise in building modern, high-performance websites.
+
+"Two floating screens above a laptop showing clean website wireframes. Floating geometric shapes and light streaks around screens. Bold title 'WHAT WE PROVIDE' at the top."
+
+Slide 4 — Key Benefits
+Title:
+WHY CHOOSE US
+
+Description:
+A clean icon-based grid showing the core advantages.
+
+"Floating icons representing speed, responsive design, SEO, modern UI, and easy management. Digital particles and grids around icons. Bold header 'WHY CHOOSE US' at the top."
+
+Slide 5 — The Result
+Title:
+THE FINAL RESULT
+
+Description:
+Show a polished, fast, professional website experience.
+
+"Multiple devices (laptop, tablet, phone) showing a sleek website interface. Holographic beams connecting devices. Digital particles in the background. Bold title 'THE FINAL RESULT' at the top."
+
+Slide 6 — Call to Action
+Title:
+LET’S BUILD IT
+
+Description:
+A strong CTA encouraging users to start building their website.
+
+"Minimal futuristic CTA panel with floating particles and light rays. Bold text 'LET’S BUILD YOUR WEBSITE'. Geometric arrows or simple digital shapes around the panel."
