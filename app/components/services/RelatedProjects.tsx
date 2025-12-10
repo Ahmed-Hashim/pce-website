@@ -77,7 +77,7 @@ async function ProjectList({ serviceId }: { serviceId: number }) {
       {projects.map((project) => (
         <ProjectCard
           key={project.id}
-          href={`/projects/${project.id}`} // Or slug if available, but schema shows id. Schema doesn't show slug.
+          href={`/projects/${project.slug}`} // Or slug if available, but schema shows id. Schema doesn't show slug.
           title={project.name}
           category={project.location || "Project"} // Use location as category/subtitle
           year={project.date ? new Date(project.date).getFullYear().toString() : ""}

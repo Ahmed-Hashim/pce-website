@@ -3,10 +3,17 @@ import "./globals.css";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import NewsletterSection from "./components/home/NewsletterSection";
-import { newsletterContent } from "./data/NewsLetter";
+
 import SidePanelManager from "./components/layout/SidePanelManager";
 import { getFooterData } from "./components/layout/footerService";
-
+export const newsletterContent = {
+  eyebrow: "Stay Updated",
+  title: "Subscribe to Our Newsletter",
+  description: "Join our mailing list to receive industry insights, project updates, and announcements.",
+  placeholder: "Enter your email",
+  buttonLabel: "Subscribe",
+  consentText: "By subscribing, you agree to our Terms & Privacy Policy.",
+};
 const raleway = Raleway({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
