@@ -31,7 +31,7 @@ export default function ProjectHeader({ title, subtitle, breadcrumbs, imageSrc, 
         {/* Top Header: Breadcrumbs & Title */}
         <div className="mb-10">
           <nav aria-label="Breadcrumb" className="mb-6">
-            <ol className="flex items-center gap-2 text-xs md:text-sm uppercase tracking-widest">
+            <ol className="flex items-center gap-2 text-xs md:text-sm capitalize tracking-widest">
               {breadcrumbs.map((bc, i) => (
                 <li key={`${bc.label}-${i}`} className="flex items-center gap-2">
                   <Link href={bc.href} className="text-secondary-light hover:text-white transition-colors">
@@ -83,7 +83,7 @@ export default function ProjectHeader({ title, subtitle, breadcrumbs, imageSrc, 
                     <p className=" font-light text-white tracking-tight group-hover/stat:text-primary-medium transition-colors">
                       {s.description}
                     </p>
-                    <span className=" text-secondary-light mt-2 uppercase tracking-widest">
+                    <span className=" text-secondary-light mt-2 capitalize tracking-widest">
                       {s.title}
                     </span>
                   </div>

@@ -1,149 +1,211 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/supabaseServer";
+import { Tables } from "@/utils/supabase/supabase";
 import type {
     ProjectWithRelations,
     ProjectListItem,
     ProjectFilters,
 } from "@/app/data/projectTypes";
 
+// =============================================================================
+// Type Definitions for Supabase Query Results
+// =============================================================================
+
+/** Result type for join queries on categories */
+interface CategoryJoin {
+    categories: Tables<"categories"> | null;
+}
+
+/** Result type for join queries on sectors */
+interface SectorJoin {
+    sectors: Tables<"sectors"> | null;
+}
+
+/** Result type for project_team with leadership join */
+interface ProjectTeamWithLeader extends Tables<"project_team"> {
+    leadership_team: Tables<"leadership_team"> | null;
+}
+
+/** Generic result wrapper for consistent error handling */
+export type ActionResult<T> =
+    | { data: T; error: null }
+    | { data: null; error: string };
+
+// =============================================================================
+// Helper Functions
+// =============================================================================
+
 /**
- * Fetch all projects with basic relations for the list page
+ * Type guard to filter out null values from arrays
  */
-export async function getProjects(): Promise<ProjectListItem[]> {
+function isNotNull<T>(value: T | null): value is T {
+    return value !== null;
+}
+
+/**
+ * Safely extracts name from a relation object
+ */
+function extractName(obj: { name: string } | null | undefined): string | null {
+    return obj?.name ?? null;
+}
+
+// =============================================================================
+// Server Actions
+// =============================================================================
+
+/**
+ * Fetches all projects with basic relations for the list page.
+ * Results are cached using Next.js 'use cache' directive.
+ * 
+ * @returns ActionResult containing array of projects or error message
+ */
+export async function getProjects(): Promise<ActionResult<ProjectListItem[]>> {
     "use cache";
     const supabase = await createClient();
 
     // Fetch projects with service name and country
     const { data: projects, error } = await supabase
         .from("projects")
-        .select(
-            `
-      id,
-      slug,
-      name,
-      location,
-      country_id,
-      date,
-      main_image_url,
-      service_id,
-      services (name),
-      countries (id, name)
-    `
-        )
+        .select(`
+            id,
+            slug,
+            name,
+            location,
+            country_id,
+            date,
+            main_image_url,
+            service_id,
+            services (name),
+            countries (id, name)
+        `)
         .order("id", { ascending: false });
 
     if (error) {
         console.error("Error fetching projects:", error);
-        return [];
+        return { data: null, error: `Failed to fetch projects: ${error.message}` };
     }
 
     // Fetch categories for each project
-    const { data: projectCategories } = await supabase
+    const { data: projectCategories, error: categoriesError } = await supabase
         .from("projects_categories")
-        .select(
-            `
-      project_id,
-      categories (id, name)
-    `
-        );
+        .select(`
+            project_id,
+            categories (id, name)
+        `);
+
+    if (categoriesError) {
+        console.error("Error fetching project categories:", categoriesError);
+    }
 
     // Fetch sectors for each project
-    const { data: projectSectors } = await supabase
+    const { data: projectSectors, error: sectorsError } = await supabase
         .from("projects_sectors")
-        .select(
-            `
-      project_id,
-      sectors (id, name)
-    `
-        );
+        .select(`
+            project_id,
+            sectors (id, name)
+        `);
 
-    // Map projects with their categories and sectors
-    return (projects || []).map((p) => {
-        const categories = (projectCategories || [])
+    if (sectorsError) {
+        console.error("Error fetching project sectors:", sectorsError);
+    }
+
+    // Type-safe mapping of projects with their categories and sectors
+    const mappedProjects: ProjectListItem[] = (projects ?? []).map((p) => {
+        // Extract category names with proper typing
+        const categories = (projectCategories ?? [])
             .filter((pc) => pc.project_id === p.id)
-            .map((pc) => (pc.categories as { name: string } | null)?.name)
-            .filter((name): name is string => !!name);
+            .map((pc) => extractName(pc.categories as { name: string } | null))
+            .filter(isNotNull);
 
-        const sectors = (projectSectors || [])
+        // Extract sector names with proper typing
+        const sectors = (projectSectors ?? [])
             .filter((ps) => ps.project_id === p.id)
-            .map((ps) => (ps.sectors as { name: string } | null)?.name)
-            .filter((name): name is string => !!name);
+            .map((ps) => extractName(ps.sectors as { name: string } | null))
+            .filter(isNotNull);
 
         return {
             id: p.id,
-            slug: p.slug || String(p.id),
+            slug: p.slug ?? String(p.id),
             name: p.name,
             location: p.location,
             country_id: p.country_id,
-            country_name: (p.countries as { id: number; name: string } | null)?.name || null,
+            country_name: extractName(p.countries as { id: number; name: string } | null),
             date: p.date,
             main_image_url: p.main_image_url,
-            service_name: (p.services as { name: string } | null)?.name || null,
+            service_name: extractName(p.services as { name: string } | null),
             categories,
             sectors,
         };
     });
+
+    return { data: mappedProjects, error: null };
 }
 
 /**
- * Fetch a single project by slug with all relations
+ * Fetches a single project by slug with all relations.
+ * Falls back to ID lookup if slug is numeric and not found.
+ * 
+ * @param slug - Project slug or numeric ID
+ * @returns ActionResult containing project with relations or error message
  */
 export async function getProjectBySlug(
     slug: string
-): Promise<ProjectWithRelations | null> {
+): Promise<ActionResult<ProjectWithRelations>> {
     "use cache";
+
+    if (!slug || slug.trim() === '') {
+        return { data: null, error: 'Project slug is required' };
+    }
+
     const supabase = await createClient();
 
-    // Try to find by slug first, then by id if slug is numeric
-    let query = supabase
+    // Try to find by slug first
+    let { data: project, error } = await supabase
         .from("projects")
-        .select(
-            `
-      *,
-      services (*),
-      clients (*),
-      countries (*)
-    `
-        )
+        .select(`
+            *,
+            services (*),
+            clients (*),
+            countries (*)
+        `)
         .eq("slug", slug)
         .single();
 
-    let { data: project, error } = await query;
-
-    // If not found by slug, try by id
+    // If not found by slug, try by id (if slug is numeric)
     if (error && !isNaN(Number(slug))) {
         const { data: projectById, error: idError } = await supabase
             .from("projects")
-            .select(
-                `
-        *,
-        services (*),
-        clients (*),
-        countries (*)
-      `
-            )
+            .select(`
+                *,
+                services (*),
+                clients (*),
+                countries (*)
+            `)
             .eq("id", Number(slug))
             .single();
 
-        if (!idError) {
+        if (!idError && projectById) {
             project = projectById;
             error = null;
         }
     }
 
     if (error || !project) {
+        const errorMessage = error?.code === 'PGRST116'
+            ? 'Project not found'
+            : `Failed to fetch project: ${error?.message ?? 'Unknown error'}`;
         console.error("Error fetching project:", error);
-        return null;
+        return { data: null, error: errorMessage };
     }
 
-    // Fetch categories
+    // Fetch categories with proper typing
     const { data: categoriesData } = await supabase
         .from("projects_categories")
         .select("categories (*)")
         .eq("project_id", project.id);
 
-    // Fetch sectors
+    // Fetch sectors with proper typing
     const { data: sectorsData } = await supabase
         .from("projects_sectors")
         .select("sectors (*)")
@@ -155,56 +217,74 @@ export async function getProjectBySlug(
         .select("*")
         .eq("project_id", project.id);
 
-    // Fetch team
+    // Fetch team with leadership join
     const { data: teamData } = await supabase
         .from("project_team")
-        .select(
-            `
-      *,
-      leadership_team (*)
-    `
-        )
+        .select(`
+            *,
+            leadership_team (*)
+        `)
         .eq("project_id", project.id);
 
-    return {
+    // Build the result with proper typing (no 'as any')
+    const categories: Tables<"categories">[] = (categoriesData ?? [])
+        .map((c) => (c as CategoryJoin).categories)
+        .filter(isNotNull);
+
+    const sectors: Tables<"sectors">[] = (sectorsData ?? [])
+        .map((s) => (s as SectorJoin).sectors)
+        .filter(isNotNull);
+
+    const team = (teamData ?? []).map((t) => {
+        const teamMember = t as ProjectTeamWithLeader;
+        return {
+            ...teamMember,
+            leader: teamMember.leadership_team ?? null,
+        };
+    });
+
+    const result: ProjectWithRelations = {
         ...project,
-        service: project.services || null,
-        client: project.clients || null,
-        country: project.countries || null,
-        categories: (categoriesData || [])
-            .map((c) => c.categories)
-            .filter((c): c is NonNullable<typeof c> => c !== null) as any[],
-        sectors: (sectorsData || [])
-            .map((s) => s.sectors)
-            .filter((s): s is NonNullable<typeof s> => s !== null) as any[],
-        gallery: galleryData || [],
-        team: (teamData || []).map((t) => ({
-            ...t,
-            leader: t.leadership_team || null,
-        })) as any[],
+        service: (project.services as Tables<"services">) ?? null,
+        client: (project.clients as Tables<"clients">) ?? null,
+        country: (project.countries as Tables<"countries">) ?? null,
+        categories,
+        sectors,
+        gallery: galleryData ?? [],
+        team,
     };
+
+    return { data: result, error: null };
 }
 
 /**
- * Fetch filter options for projects page
+ * Fetches filter options for the projects page.
+ * Only includes countries that have at least one project.
+ * 
+ * @returns ActionResult containing filter options or error message
  */
-export async function getProjectFilters(): Promise<ProjectFilters> {
+export async function getProjectFilters(): Promise<ActionResult<ProjectFilters>> {
     "use cache";
     const supabase = await createClient();
 
     // Fetch countries that have projects
-    const { data: projectsWithCountry } = await supabase
+    const { data: projectsWithCountry, error: projectsError } = await supabase
         .from("projects")
         .select("country_id")
         .not("country_id", "is", null);
 
+    if (projectsError) {
+        console.error("Error fetching projects for filters:", projectsError);
+        return { data: null, error: `Failed to fetch filter data: ${projectsError.message}` };
+    }
+
     const countryIds = [...new Set(
-        (projectsWithCountry || [])
+        (projectsWithCountry ?? [])
             .map((p) => p.country_id)
-            .filter((id): id is number => id !== null)
+            .filter(isNotNull)
     )];
 
-    // Fetch country details
+    // Fetch country details (only if there are countries with projects)
     const { data: countries } = countryIds.length > 0
         ? await supabase
             .from("countries")
@@ -231,24 +311,70 @@ export async function getProjectFilters(): Promise<ProjectFilters> {
         .select("id, name")
         .order("name");
 
-    return {
-        countries: countries || [],
-        categories: categories || [],
-        sectors: sectors || [],
-        services: services || [],
+    const result: ProjectFilters = {
+        countries: countries ?? [],
+        categories: categories ?? [],
+        sectors: sectors ?? [],
+        services: services ?? [],
     };
+
+    return { data: result, error: null };
 }
 
 /**
- * Get all project slugs for static generation
+ * Gets all project slugs for static generation (generateStaticParams).
+ * 
+ * @returns ActionResult containing array of project slugs or error message
  */
-export async function getAllProjectSlugs(): Promise<string[]> {
+export async function getAllProjectSlugs(): Promise<ActionResult<string[]>> {
     "use cache";
     const supabase = await createClient();
 
-    const { data: projects } = await supabase
+    const { data: projects, error } = await supabase
         .from("projects")
         .select("id, slug");
 
-    return (projects || []).map((p) => p.slug || String(p.id));
+    if (error) {
+        console.error("Error fetching project slugs:", error);
+        return { data: null, error: `Failed to fetch project slugs: ${error.message}` };
+    }
+
+    const slugs = (projects ?? []).map((p) => p.slug ?? String(p.id));
+    return { data: slugs, error: null };
+}
+
+// =============================================================================
+// Backward Compatibility Wrappers (optional - can remove if updating consumers)
+// =============================================================================
+
+/**
+ * @deprecated Use getProjects() which returns ActionResult for better error handling
+ */
+export async function getProjectsLegacy(): Promise<ProjectListItem[]> {
+    const result = await getProjects();
+    return result.data ?? [];
+}
+
+/**
+ * @deprecated Use getProjectBySlug() which returns ActionResult for better error handling
+ */
+export async function getProjectBySlugLegacy(slug: string): Promise<ProjectWithRelations | null> {
+    const result = await getProjectBySlug(slug);
+    return result.data ?? null;
+}
+
+/**
+ * @deprecated Use getProjectFilters() which returns ActionResult for better error handling
+ */
+export async function getProjectFiltersLegacy(): Promise<ProjectFilters> {
+    const result = await getProjectFilters();
+    return result.data ?? { countries: [], categories: [], sectors: [], services: [] };
+}
+
+/**
+ * @deprecated Use getAllProjectSlugs() which returns ActionResult for better error handling
+ */
+export async function getAllProjectSlugsLegacy(): Promise<string[]> {
+    const result = await getAllProjectSlugs();
+    return result.data ?? [];
 }

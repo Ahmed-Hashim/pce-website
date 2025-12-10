@@ -86,7 +86,7 @@ export default async function TermsAndConditionsPage() {
         title={pageHero.title}
         subtitle={pageHero.subtitle}
         breadcrumbs={pageHero.breadcrumbs}
-        imageSrc={pageHero.imageSrc}
+        // imageSrc={pageHero.imageSrc}
       />
 
       <LegalPageLayout 

@@ -1,11 +1,9 @@
 import { Raleway } from "next/font/google";
 import "./globals.css";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-import NewsletterSection from "./components/home/NewsletterSection";
+import { Header, Footer, SidePanelManager, getFooterData } from "./components/layout";
+import { NewsletterSection } from "./components/home";
+import { A11Y } from "@/lib/constants";
 
-import SidePanelManager from "./components/layout/SidePanelManager";
-import { getFooterData } from "./components/layout/footerService";
 export const newsletterContent = {
   eyebrow: "Stay Updated",
   title: "Subscribe to Our Newsletter",
@@ -14,6 +12,7 @@ export const newsletterContent = {
   buttonLabel: "Subscribe",
   consentText: "By subscribing, you agree to our Terms & Privacy Policy.",
 };
+
 const raleway = Raleway({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -37,8 +36,16 @@ export default async function RootLayout({
       <body
         className={`bg-background ${raleway.className} text-white antialiased`}
       >
+        {/* Skip link for keyboard accessibility */}
+        <a
+          href={`#${A11Y.SKIP_LINK_TARGET}`}
+          className="sr-only focus:not-sr-only focus:absolute focus:z-9999 focus:top-4 focus:left-4 focus:bg-primary-dark focus:text-white focus:px-4 focus:py-2 focus:rounded focus:outline-none focus:ring-2 focus:ring-primary-medium"
+        >
+          Skip to main content
+        </a>
+
         <Header />
-        <main id="primary" className="site-main min-h-screen ">
+        <main id={A11Y.SKIP_LINK_TARGET} className="site-main min-h-screen">
           {children}
 
           <NewsletterSection
@@ -50,10 +57,11 @@ export default async function RootLayout({
           />
         </main>
         <Footer />
-        
+
         {/* Global desktop side panel, decoupled from Header position */}
         <SidePanelManager footerData={footerData} />
       </body>
     </html>
   );
 }
+

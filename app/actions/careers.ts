@@ -1,88 +1,80 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/supabaseServer";
-// import { cookies } from "next/headers";
+import {
+  careerApplicationSchema,
+  parseFormData,
+  isHoneypotFilled,
+  successState,
+  errorState,
+  type FormActionState,
+} from "@/lib/validations";
 
-export type CareerApplicationState = {
-  message: string;
-  type: "success" | "error" | "idle";
-};
+// =============================================================================
+// Types
+// =============================================================================
 
+// Re-export for backward compatibility
+export type CareerApplicationState = FormActionState;
+
+// =============================================================================
+// Server Action
+// =============================================================================
+
+/**
+ * Submits a career application with spam protection and Zod validation.
+ * 
+ * Features:
+ * - Honeypot field detection for bots
+ * - Zod schema validation with field-level errors
+ * - Support for optional career_id (specific job application)
+ * 
+ * @param prevState - Previous form state (for useActionState)
+ * @param formData - Form data from submission
+ * @returns Updated form state with success/error message
+ */
 export async function submitCareerApplication(
   prevState: CareerApplicationState,
   formData: FormData
 ): Promise<CareerApplicationState> {
-  const fullName = formData.get("full_name");
-  const email = formData.get("email");
-  const phone = formData.get("phone_number");
-  const cvLink = formData.get("cv_url");
-  const message = formData.get("message");
-  const careerIdRaw = formData.get("career_id");
-  const careerId = careerIdRaw ? parseInt(careerIdRaw.toString()) : null;
-
-  // 1. Honeypot Check
-  const honeypot = formData.get("company_website");
-  if (honeypot && typeof honeypot === "string" && honeypot.length > 0) {
-    // Return success to fool the bot, but don't insert anything
-    return {
-      message: "Application submitted successfully!",
-      type: "success",
-    };
+  // 1. Honeypot Check - Silently accept to fool bots
+  if (isHoneypotFilled(formData)) {
+    return successState("Application submitted successfully!");
   }
 
-  // Basic validation
-  if (!fullName || typeof fullName !== "string" || fullName.trim().length === 0) {
-    return { message: "Please enter your full name", type: "error" };
+  // 2. Validate Form Data with Zod
+  const parsed = parseFormData(careerApplicationSchema, formData);
+
+  if (!parsed.success) {
+    return errorState(parsed.firstError, parsed.errors);
   }
 
-  if (!email || typeof email !== "string") {
-    return { message: "Invalid email address", type: "error" };
-  }
+  const { full_name, email, phone_number, cv_url, message, career_id } = parsed.data;
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return { message: "Please enter a valid email address", type: "error" };
-  }
-
-  if (!phone || typeof phone !== "string") {
-    return { message: "Please enter your phone number", type: "error" };
-  }
-
-  if (!cvLink || typeof cvLink !== "string" || cvLink.trim().length === 0) {
-    return { message: "Please provide a link to your CV", type: "error" };
-  }
-
-  const supabase = createClient();
+  // 3. Submit to Database
+  const supabase = await createClient();
 
   try {
     const { error: insertError } = await supabase
       .from("career_applications")
       .insert({
-        full_name: fullName,
+        full_name,
         email,
-        phone_number: phone,
-        cv_url: cvLink,
-        message: message as string | null,
-        career_id: careerId,
+        phone_number,
+        cv_url,
+        message: message ?? null,
+        career_id: career_id ?? null,
       });
 
     if (insertError) {
-      console.error("Insert error:", insertError);
-      return {
-        message: "Failed to submit application. Please try again.",
-        type: "error",
-      };
+      console.error("Career application insert error:", insertError);
+      return errorState("Failed to submit application. Please try again.");
     }
 
-    return {
-      message: "Application submitted successfully!",
-      type: "success",
-    };
-  } catch (err) {
-    console.error("Unexpected error:", err);
-    return {
-      message: "An unexpected error occurred.",
-      type: "error",
-    };
+    return successState("Application submitted successfully! We will review your application and get back to you.");
+
+  } catch (error) {
+    console.error("Career application unexpected error:", error);
+    return errorState("An unexpected error occurred. Please try again.");
   }
 }

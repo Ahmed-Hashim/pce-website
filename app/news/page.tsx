@@ -140,7 +140,7 @@ export default function NewsPage() {
         title={pageHero.title} 
         subtitle={pageHero.subtitle} 
         breadcrumbs={pageHero.breadcrumbs} 
-        imageSrc={pageHero.imageSrc} 
+        // imageSrc={pageHero.imageSrc} 
       />
 
       <Section background="bg-background" className="py-(--space-section-y-md)">
