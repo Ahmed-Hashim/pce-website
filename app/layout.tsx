@@ -1,13 +1,11 @@
-// app/layout.tsx
-"use client";
-import { useEffect, useState } from "react";
 import { Raleway } from "next/font/google";
 import "./globals.css";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import DesktopSidePanel from "./components/layout/DesktopSidePanel";
 import NewsletterSection from "./components/home/NewsletterSection";
 import { newsletterContent } from "./data/NewsLetter";
+import SidePanelManager from "./components/layout/SidePanelManager";
+import { getFooterData } from "./components/layout/footerService";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -15,27 +13,17 @@ const raleway = Raleway({
   variable: "--font-raleway",
 });
 
-export default function RootLayout({
+export const metadata = {
+  title: "PCE Website",
+  description: "PCE Website",
+};
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isSideOpen, setIsSideOpen] = useState(false);
-  const sidePanelEvents = {
-    open: "desktopSidePanel:open",
-    close: "desktopSidePanel:close",
-  } as const;
-
-  useEffect(() => {
-    const handleOpen = () => setIsSideOpen(true);
-    const handleClose = () => setIsSideOpen(false);
-    window.addEventListener(sidePanelEvents.open, handleOpen);
-    window.addEventListener(sidePanelEvents.close, handleClose);
-    return () => {
-      window.removeEventListener(sidePanelEvents.open, handleOpen);
-      window.removeEventListener(sidePanelEvents.close, handleClose);
-    };
-  }, [sidePanelEvents.close, sidePanelEvents.open]);
+  const footerData = await getFooterData();
 
   return (
     <html lang="en" className={raleway.variable}>
@@ -53,14 +41,11 @@ export default function RootLayout({
             buttonLabel={newsletterContent.buttonLabel}
             consentText={newsletterContent.consentText}
           />
-          </main>
-          <Footer />
+        </main>
+        <Footer />
         
         {/* Global desktop side panel, decoupled from Header position */}
-        <DesktopSidePanel
-          open={isSideOpen}
-          onClose={() => setIsSideOpen(false)}
-        />
+        <SidePanelManager footerData={footerData} />
       </body>
     </html>
   );

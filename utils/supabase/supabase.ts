@@ -110,6 +110,7 @@ export type Database = {
           meta_keywords: Json | null
           published: boolean | null
           short_description: string | null
+          slug: string | null
           tags: Json | null
           title: string
         }
@@ -123,6 +124,7 @@ export type Database = {
           meta_keywords?: Json | null
           published?: boolean | null
           short_description?: string | null
+          slug?: string | null
           tags?: Json | null
           title: string
         }
@@ -136,6 +138,7 @@ export type Database = {
           meta_keywords?: Json | null
           published?: boolean | null
           short_description?: string | null
+          slug?: string | null
           tags?: Json | null
           title?: string
         }
@@ -220,26 +223,26 @@ export type Database = {
           description: string
           id: number
           job_title: string
-          sector_id: number | null
+          service_id: number | null
         }
         Insert: {
           created_at?: string | null
           description: string
           id?: never
           job_title: string
-          sector_id?: number | null
+          service_id?: number | null
         }
         Update: {
           created_at?: string | null
           description?: string
           id?: never
           job_title?: string
-          sector_id?: number | null
+          service_id?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "careers_sector_id_fkey"
-            columns: ["sector_id"]
+            foreignKeyName: "careers_service_id_fkey"
+            columns: ["service_id"]
             isOneToOne: false
             referencedRelation: "services"
             referencedColumns: ["id"]
@@ -470,7 +473,7 @@ export type Database = {
           id: number
           position: string | null
           projects_count: number | null
-          sector_id: number | null
+          service_id: number | null
           title: string
           type: string | null
         }
@@ -482,7 +485,7 @@ export type Database = {
           id?: never
           position?: string | null
           projects_count?: number | null
-          sector_id?: number | null
+          service_id?: number | null
           title: string
           type?: string | null
         }
@@ -494,14 +497,14 @@ export type Database = {
           id?: never
           position?: string | null
           projects_count?: number | null
-          sector_id?: number | null
+          service_id?: number | null
           title?: string
           type?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "leadership_team_sector_id_fkey"
-            columns: ["sector_id"]
+            foreignKeyName: "leadership_team_service_id_fkey"
+            columns: ["service_id"]
             isOneToOne: false
             referencedRelation: "services"
             referencedColumns: ["id"]
@@ -516,6 +519,8 @@ export type Database = {
           meta_description: string | null
           meta_keywords: Json | null
           published: boolean | null
+          published_at: string | null
+          slug: string | null
           tags: Json | null
           title: string
           top_story: boolean | null
@@ -527,6 +532,8 @@ export type Database = {
           meta_description?: string | null
           meta_keywords?: Json | null
           published?: boolean | null
+          published_at?: string | null
+          slug?: string | null
           tags?: Json | null
           title: string
           top_story?: boolean | null
@@ -538,6 +545,8 @@ export type Database = {
           meta_description?: string | null
           meta_keywords?: Json | null
           published?: boolean | null
+          published_at?: string | null
+          slug?: string | null
           tags?: Json | null
           title?: string
           top_story?: boolean | null
@@ -703,6 +712,7 @@ export type Database = {
       }
       projects: {
         Row: {
+          client_id: number | null
           country_id: number | null
           date: string | null
           end_date: string | null
@@ -711,11 +721,14 @@ export type Database = {
           main_image_url: string | null
           name: string
           overview: string | null
+          points: Json | null
           service_id: number | null
+          slug: string | null
           start_date: string | null
           status: string | null
         }
         Insert: {
+          client_id?: number | null
           country_id?: number | null
           date?: string | null
           end_date?: string | null
@@ -724,11 +737,14 @@ export type Database = {
           main_image_url?: string | null
           name: string
           overview?: string | null
+          points?: Json | null
           service_id?: number | null
+          slug?: string | null
           start_date?: string | null
           status?: string | null
         }
         Update: {
+          client_id?: number | null
           country_id?: number | null
           date?: string | null
           end_date?: string | null
@@ -737,11 +753,20 @@ export type Database = {
           main_image_url?: string | null
           name?: string
           overview?: string | null
+          points?: Json | null
           service_id?: number | null
+          slug?: string | null
           start_date?: string | null
           status?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "projects_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "projects_country_id_fkey"
             columns: ["country_id"]
@@ -872,36 +897,51 @@ export type Database = {
         }
         Relationships: []
       }
-      sector_section_titles: {
+      sectors: {
+        Row: {
+          id: number
+          name: string
+        }
+        Insert: {
+          id?: never
+          name: string
+        }
+        Update: {
+          id?: never
+          name?: string
+        }
+        Relationships: []
+      }
+      service_section_titles: {
         Row: {
           id: number
           order: number | null
-          sector_id: number | null
+          service_id: number | null
           title: string
         }
         Insert: {
           id?: never
           order?: number | null
-          sector_id?: number | null
+          service_id?: number | null
           title: string
         }
         Update: {
           id?: never
           order?: number | null
-          sector_id?: number | null
+          service_id?: number | null
           title?: string
         }
         Relationships: [
           {
-            foreignKeyName: "sector_section_titles_sector_id_fkey"
-            columns: ["sector_id"]
+            foreignKeyName: "service_section_titles_service_id_fkey"
+            columns: ["service_id"]
             isOneToOne: false
             referencedRelation: "services"
             referencedColumns: ["id"]
           },
         ]
       }
-      sector_sections: {
+      service_sections: {
         Row: {
           id: number
           points: Json
@@ -922,28 +962,13 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "sector_sections_section_title_id_fkey"
+            foreignKeyName: "service_sections_section_title_id_fkey"
             columns: ["section_title_id"]
             isOneToOne: false
-            referencedRelation: "sector_section_titles"
+            referencedRelation: "service_section_titles"
             referencedColumns: ["id"]
           },
         ]
-      }
-      sectors: {
-        Row: {
-          id: number
-          name: string
-        }
-        Insert: {
-          id?: never
-          name: string
-        }
-        Update: {
-          id?: never
-          name?: string
-        }
-        Relationships: []
       }
       services: {
         Row: {
@@ -1008,6 +1033,28 @@ export type Database = {
         }[]
       }
       get_current_user_role: { Args: never; Returns: string }
+      get_related_news: {
+        Args: { service_name: string }
+        Returns: {
+          body: string | null
+          id: number
+          main_image_url: string | null
+          meta_description: string | null
+          meta_keywords: Json | null
+          published: boolean | null
+          published_at: string | null
+          slug: string | null
+          tags: Json | null
+          title: string
+          top_story: boolean | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "news"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       get_user_permissions: {
         Args: { user_id: string }
         Returns: {
@@ -1019,6 +1066,8 @@ export type Database = {
         Returns: boolean
       }
       has_permission: { Args: { permission_name: string }; Returns: boolean }
+      slugify: { Args: { "": string }; Returns: string }
+      unaccent: { Args: { "": string }; Returns: string }
     }
     Enums: {
       [_ in never]: never

@@ -1,11 +1,10 @@
 import PageHero from "../components/ui/PageHero";
-import CEOSection from "../components/home/CEOSection";
+import CEOSection from "../components/about/CEOSection";
 import Statistics from "../components/home/Statistics";
 import OurBranchesSection from "../components/home/OurBranchesSection";
 import MissionVisionValues from "../components/about/MissionVisionValues";
 import LeadershipLists from "../components/about/LeadershipLists";
 import AwardsCertifications from "../components/about/AwardsCertifications";
-import { sectionTitles } from "../data/sectionTitles";
 
 const pageHero = {
   title: "About Us",
@@ -17,171 +16,47 @@ const pageHero = {
   ],
 };
 
-
-
-const leaders = [
-  {
-    name: "DR. Waleed El Sweedy",
-    title: "Chairman",
-    company: "PCE Consulting",
-    description:
-      "Our roots are important to us as we evolve and grow. We understand that maintaining the integrity of our past through a commitment to quality service, employees appreciation, and delivering innovative. Practical solutions to our clients is the key to our success.",
-    imageSrc: "/man-1.png",
-  },
-  {
-    name: "ENG. MOHAMED IBRAHIM",
-    title: "Chief Executive Officer",
-    company: "PCE Industrial",
-    description:
-      "We have earned the trust and respect of our clients because we have great and hard working people who serve all client needs in all aspects ,They are experts in their fields bringing a strong service ethos to everything they do. Our clients are fully aware that we have the skills, resources and expertise, and most importantly, the ability to complete their projects to the highest standards on time and on budget.",
-    imageSrc: "/man-2.png",
-  },
-];
-
-const story = {
-  title: "Our Philosophy",
-  background: "Philosophy",
-  description:
-    "PRECISION CONSULTING ENGINEERING: is a professional company for consultancy sectors founded in 2008 in Egypt offering a wide range of technical sectors led by a group of highly qualified consultants and technical engineers, whose expertise in engineering projects covers all major disciplines of design and construction supervision.",
-  mission:
-    "Precision Consulting Engineering aspires to be one of the top five multi-disciplinary engineering consultancy firms in the Middle East with satisfied clients and projects portfolio from the entire region",
-  vision:
-    "Precision Consulting Engineering is committed to offer state of-the-art sectors to all assignments throughout the whole project life-cycle. We are dedicated to deliver Client's needs and exceed expectations by promising timely deadlines, while observing budgets and assuring quality",
-  values: ["Integrity", "Innovation", "Accountability", "Responsibility", "Passion"],
-};
-
-
-const directors = [
-  {
-    name: "Tarek Nasr",
-    role: "Projects Management Division Head",
-    title: "Projects Management Division Head",
-    imageSrc: "/Tarek-Nasr.png",
-    description: "Leads project management across multi-sector programs with strong governance.",
-    stats: { projects: 120, years: 40, scope: ["Industrial", "Pharmaceutical", "Administrative", "Residential", "Healthcare"] },
-    locations: ["Egypt", "UAE", "KSA", "Syria", "Yemen", "Ethiopia"],
-  },
-  {
-    name: "Rania Hegazy",
-    role: "Architecture Division Head",
-    title: "Architecture Division Head",
-    imageSrc: "/Rania-Hegazy.png",
-    description: "Architectural leadership for complex commercial and cultural developments.",
-    stats: { projects: 85, years: 30, scope: ["Commercial", "Administrative", "Residential", "Touristic", "Pharmaceutical", "Historical", "Healthcare", "Religious"] },
-    locations: ["Egypt", "UAE", "KSA", "Syria", "Yemen", "Qatar", "Lebanon", "Sudan"],
-  },
-  {
-    name: "Hatem Alaasar",
-    role: "Structural Division Head",
-    title: "Structural Division Head",
-    imageSrc: "/Hatem-Alaasar.png",
-    description: "Directs structural engineering and delivery for industrial and infrastructure assets.",
-    stats: { projects: 80, years: 40, scope: ["Industrial", "Pharmaceutical", "Residential", "Healthcare", "Sports", "Infrastructure"] },
-    locations: ["Egypt", "UAE", "KSA", "Syria", "Yemen", "Ethiopia"],
-  },
-  {
-    name: "Ayman Elsaid",
-    role: "Mechanical Division Head",
-    title: "Mechanical Division Head",
-    imageSrc: "/Ayman-Elsaid.png",
-    description: "Heads mechanical systems across industrial, hospitality, and infrastructure projects.",
-    stats: { projects: 130, years: 40, scope: ["Industrial", "Commercial", "Hospitality", "Sports", "Touristic", "Infrastructure", "Administrative", "Medical", "Residential"] },
-    locations: ["Egypt", "KSA", "Kuwait"],
-  },
-  {
-    name: "Hossam Ebaid",
-    role: "Electrical Division Head",
-    title: "Electrical Division Head",
-    imageSrc: "/Hossam-Ebaid.png",
-    description: "Leads electrical design and supervision with focus on safety and reliability.",
-    stats: { projects: 46, years: 20, scope: ["Industrial", "Pharmaceutical", "Administrative", "Residential", "Healthcare", "Sports", "Touristic"] },
-    locations: ["Egypt", "UAE", "KSA", "Iraq"],
-  },
-  {
-    name: "Tamer Kamal",
-    role: "HVAC Division Head",
-    title: "HVAC Division Head",
-    imageSrc: "/Tamer-Kamal.png",
-    description: "Directs HVAC strategy and execution for complex multi-use facilities.",
-    stats: { projects: 100, years: 20, scope: ["Industrial", "Pharmaceutical", "Administrative", "Residential", "Healthcare", "Sports", "Touristic"] },
-    locations: ["Egypt", "UAE", "KSA", "Syria", "Yemen", "Ethiopia"],
-  },
-  {
-    name: "Hesham Hassan",
-    role: "Head of Construction Supervision",
-    title: "Head of Construction Supervision",
-    imageSrc: "/Hesham-Hassan.png",
-    description: "Oversees construction supervision, quality control, and contractor compliance.",
-    stats: { projects: 100, years: 35, scope: ["Residential", "Hospitality", "Industrial", "Administrative", "Commercial", "Infrastructure"] },
-    locations: ["Egypt", "Qatar"],
-  },
-  {
-    name: "Marwa Afifi",
-    role: "Project Control Head",
-    title: "Project Control Head",
-    imageSrc: "/Marwa-Afifi.png",
-    description: "Project controls specialist across scheduling, cost, and performance management.",
-    stats: { projects: 0, years: 15, scope: ["Industrial", "Pharmaceutical", "Administrative", "Residential", "Healthcare"] },
-    locations: ["Egypt", "KSA", "UAE"],
-  },
-  {
-    name: "Moamen Mohamed",
-    role: "Tendering Division Head",
-    title: "Tendering Division Head",
-    imageSrc: "/Moamen-Mohamed.png",
-    description: "Leads tendering and bids across sectors ensuring competitive propositions.",
-    stats: { projects: 60,years: 0, scope: ["Industrial", "Commercial", "Hospitality", "Sports", "Touristic", "Infrastructure", "Administrative", "Medical", "Residential"] },
-    locations: ["Egypt"],
-  },
-  {
-    name: "Mohamed Ibrahim",
-    role: "Business Unit Manager Industrial",
-    title: "Business Unit Manager Industrial",
-    imageSrc: "/Mohamed-Ibrahim.png",
-    description: "Industrial unit leadership with global delivery in pharmaceutical field.",
-    stats: { projects: 0, years: 30, scope: ["Industrial (Pharmaceutical)"] },
-    locations: ["Egypt", "UK", "Germany", "Switzerland", "Italy", "France", "Spain", "Argentina", "India", "China", "Japan"],
-  },
-];
-
-const awards = [
-  {
-    year: "2025",
-    title: "Architecture Firm of the Year at the Big 5 Egypt Impact Awards",
-    issuer: "Big 5 Global",
-    imageSrc: "/award.png",
-  }
-];
-
-const certifications = [
-  { code: "ISO 45001:2018", title: "Occupational Health and Safety Management System", issuer: "IAS Accredited", imageSrc: "/isa.png", year: "2018" },
-  { code: "ISO 9001:2015", title: "Quality Management System", issuer: "IAF Member", imageSrc: "/iso2.png", year: "2015" },
-];
-
-
-
 export default function AboutPage() {
   return (
     <>
-      <PageHero title={pageHero.title} subtitle={pageHero.subtitle} breadcrumbs={pageHero.breadcrumbs} imageSrc={pageHero.imageSrc} />
-
-      {/* <WhoWeAreSection data={whoWeAreData} /> */}
-      <MissionVisionValues title={story.title} background={story.background} description={story.description} mission={story.mission} vision={story.vision} values={story.values} />
-
-
-      <CEOSection
-        title={sectionTitles.ceos.title}
-        background={sectionTitles.ceos.background}
-        ceos={leaders}
+      <PageHero
+        title={pageHero.title}
+        subtitle={pageHero.subtitle}
+        breadcrumbs={pageHero.breadcrumbs}
+        // imageSrc={pageHero.imageSrc}
       />
 
-      <LeadershipLists title="Management Team" background="Management Team" directors={directors} />
+      {/* <WhoWeAreSection data={whoWeAreData} /> */}
+      <MissionVisionValues />
 
-      <AwardsCertifications title="Awards & Certifications" background="AWARDS" awards={awards} certifications={certifications} />
+      <CEOSection
+        title="Board Members"
+        className="bg-primary-dark relative"
+      />
+
+      <LeadershipLists
+        title="Management Team"
+        background="Management Team"
+        teamType="management_team"
+        className="bg-primary-dark/20"
+        gridClassName="grid sm:grid-cols-2 lg:grid-cols-3 gap-7 justify-items-center"
+      />
+      <LeadershipLists
+        title="Technical Team"
+        background="Technical Team"
+        teamType="technical_team"
+        className="bg-background"
+        gridClassName="grid sm:grid-cols-3 lg:grid-cols-3 gap-7 justify-items-center"
+      />
+
+      <AwardsCertifications
+        title="Awards & Certifications"
+        background="AWARDS"
+      />
 
       <Statistics />
 
-      <OurBranchesSection/>
+      <OurBranchesSection />
     </>
   );
 }

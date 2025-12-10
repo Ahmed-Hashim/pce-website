@@ -1,8 +1,9 @@
+"use cache";
 import PageHero from "../components/ui/PageHero";
 import SectionTitle from "../components/ui/SectionTitle";
 import CareersForm from "../components/careers/CareersForm";
 import Link from "next/link";
-import { jobsData } from "../data/jobs";
+import { createClient } from "@/utils/supabase/supabaseServer";
 
 const pageHero = {
   title: "Careers",
@@ -34,7 +35,27 @@ const buttonLabel = "Apply Now";
 const submitLabel = "Send Application";
 const helperText = "Provide accurate contact information and a link to your CV.";
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const supabase = createClient();
+  const { data: careers } = await supabase
+    .from("careers")
+    .select(`
+      *,
+      services (
+        name
+      )
+    `);
+
+  const jobs = careers?.map((career) => ({
+    slug: career.job_title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''),
+    title: career.job_title,
+    department: career.services?.name || "General",
+    location: "Riyadh, Saudi Arabia",
+    type: "Full Time",
+    description: career.description,
+    requirements: []
+  })) || [];
+
   return (
     <div className="min-h-screen">
       <PageHero
@@ -69,34 +90,28 @@ export default function CareersPage() {
             underline={false}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {jobsData.map((job) => (
-              <div key={job.slug} className="group rounded-sm border border-secondary-dark/40 bg-background p-6 hover:border-primary-medium/50 transition-colors">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h4 className="text-primary-dark font-semibold tracking-tight">{job.title}</h4>
-                    <div className="mt-1 text-secondary-dark text-sm">{job.department}</div>
+            {jobs.length > 0 ? (
+              jobs.map((job) => (
+                <div key={job.slug} className="group rounded-sm border border-secondary-dark/40 bg-background p-6 hover:border-primary-medium/50 transition-colors">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h4 className="text-primary-dark font-semibold tracking-tight">{job.title}</h4>
+                      <div className="mt-1 text-secondary-dark text-sm">{job.department}</div>
+                    </div>
+                    <span className="text-xs rounded-full bg-primary-dark/90 text-button-text px-3 py-1">{job.type}</span>
                   </div>
-                  <span className="text-xs rounded-full bg-primary-dark/90 text-button-text px-3 py-1">{job.type}</span>
+                  <div className="mt-3 text-secondary-dark text-sm">{job.location}</div>
+                  <p className="mt-4 text-secondary-dark leading-relaxed text-sm line-clamp-3">{job.description}</p>
+                  <div className="mt-6">
+                    <Link href={`/careers/${job.slug}`} className="btn btn-primary">
+                      <span>Join</span>
+                    </Link>
+                  </div>
                 </div>
-                <div className="mt-3 text-secondary-dark text-sm">{job.location}</div>
-                <p className="mt-4 text-secondary-dark leading-relaxed text-sm">{job.description}</p>
-                {job.requirements && job.requirements.length > 0 ? (
-                  <ul className="mt-3 space-y-1 text-secondary-dark text-sm">
-                    {job.requirements.map((req, i) => (
-                      <li key={`${job.slug}-req-${i}`} className="flex items-start">
-                        <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium mr-3" />
-                        <span>{req}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-                <div className="mt-6">
-                  <Link href={`/careers/${job.slug}`} className="btn btn-primary">
-                    <span>Join</span>
-                  </Link>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-secondary-dark">No open positions at the moment.</p>
+            )}
           </div>
         </div>
       </section>

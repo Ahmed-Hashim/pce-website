@@ -14,7 +14,7 @@ export interface ProjectCardProps {
 export default function ProjectCard({ href, title, category, year, imageSrc, className = "", aspectClass = "aspect-4/3" }: ProjectCardProps) {
   return (
     <Link href={href} className={`group block ${className}`}>
-      <div className={`relative ${aspectClass} rounded-sm overflow-hidden border bg-secondary-dark/10 transition-all duration-300 hover:shadow-xl`}>
+      <div className={`relative ${aspectClass} rounded-sm overflow-hidden border border-primary-dark bg-secondary-dark/10 transition-all duration-300 hover:shadow-xl`}>
 
         <Image
           src={imageSrc}

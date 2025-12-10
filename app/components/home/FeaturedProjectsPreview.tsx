@@ -1,32 +1,12 @@
-"use client";
-import { useEffect, useState, useRef } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import SectionTitle from "../ui/SectionTitle";
-import ProjectCard from "../ui/ProjectCard";
-import { projectsData } from "../../data/projects";
+import { Suspense } from "react";
+import { createClient } from "@/utils/supabase/supabaseServer";
+import FeaturedProjectsCarousel, { Project } from "./FeaturedProjectsCarousel";
 import Section from "../ui/Section";
 import type { ComponentProps } from "react";
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  category: string;
-  location: string;
-  year: string;
-  link: string;
-  identity?: {
-    name: string;
-    role: string;
-    company?: string;
-  };
-}
 
 interface FeaturedProjectsPreviewProps {
   title?: string;
   subtitle?: string;
-  projects?: Project[];
   tagText?: string;
   viewProjectLabel?: string;
   viewAllLabel?: string;
@@ -37,101 +17,20 @@ interface FeaturedProjectsPreviewProps {
   sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
-const defaultProjects: Project[] = projectsData.map((p, i) => ({
-  id: i + 1,
-  title: p.title,
-  description: p.description,
-  image: p.heroImage,
-  category: p.category,
-  location: p.location,
-  year: p.year,
-  link: `/projects/${p.slug}`,
-}));
+export default function FeaturedProjectsPreview(props: FeaturedProjectsPreviewProps) {
+  return (
+    <Suspense fallback={<ProjectsSkeleton {...props} />}>
+      <FeaturedProjectsData {...props} />
+    </Suspense>
+  );
+}
 
-export default function FeaturedProjectsPreview({
-  title = "Our Projects",
-  subtitle = "",
-  projects = defaultProjects,
-  maxWidthClass = "max-w-7xl",
-  paddingXClass = "mx-8",
-  itemsPerViewConfig = { sm: 1, md: 1, lg: 3 },
-  cardAspectClass = "aspect-4/3",
-  sectionProps,
-}: FeaturedProjectsPreviewProps) {
-  const [currentProject, setCurrentProject] = useState(0);
-  const [itemsPerView, setItemsPerView] = useState(1);
-  const dragStartX = useRef<number | null>(null);
-  const dragStartTime = useRef<number>(0);
-  const isDragging = useRef<boolean>(false);
-  const SWIPE_THRESHOLD_PX = 100;
-  const SWIPE_MAX_DURATION_MS = 2000;
-
-  useEffect(() => {
-    const updateItemsPerView = () => {
-      if (typeof window === "undefined") return;
-      const w = window.innerWidth;
-      if (w >= 1024) setItemsPerView(itemsPerViewConfig.lg);
-      else if (w >= 768) setItemsPerView(itemsPerViewConfig.md);
-      else setItemsPerView(itemsPerViewConfig.sm);
-    };
-    updateItemsPerView();
-    window.addEventListener("resize", updateItemsPerView);
-    return () => window.removeEventListener("resize", updateItemsPerView);
-  }, [itemsPerViewConfig.lg, itemsPerViewConfig.md, itemsPerViewConfig.sm]);
-
-  const goToProject = (index: number) => {
-    const maxIndex = Math.max(0, projects.length - itemsPerView);
-    setCurrentProject(Math.min(Math.max(index, 0), maxIndex));
-  };
-
-  const nextProject = () => goToProject(currentProject + 1);
-  const prevProject = () => goToProject(currentProject - 1);
-
-  const handlePointerDown = (e: React.PointerEvent<HTMLElement>) => {
-    isDragging.current = true;
-    dragStartX.current = e.clientX;
-    dragStartTime.current = performance.now();
-  };
-
-  const handlePointerUp = (e: React.PointerEvent<HTMLElement>) => {
-    if (!isDragging.current || dragStartX.current === null) {
-      isDragging.current = false;
-      dragStartX.current = null;
-      return;
-    }
-    const deltaX = e.clientX - dragStartX.current;
-    const duration = performance.now() - dragStartTime.current;
-    if (
-      Math.abs(deltaX) > SWIPE_THRESHOLD_PX &&
-      duration < SWIPE_MAX_DURATION_MS
-    ) {
-      if (deltaX < 0) {
-        nextProject();
-      } else {
-        prevProject();
-      }
-    }
-    isDragging.current = false;
-    dragStartX.current = null;
-  };
-
-  const handlePointerLeave = (e: React.PointerEvent<HTMLElement>) => {
-    if (isDragging.current) {
-      handlePointerUp(e);
-    }
-    isDragging.current = false;
-    dragStartX.current = null;
-  };
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setCurrentProject((prev) => {
-        const maxIndex = Math.max(0, projects.length - itemsPerView);
-        return prev >= maxIndex ? 0 : prev + 1;
-      });
-    }, 12000);
-    return () => clearInterval(id);
-  }, [projects.length, itemsPerView]);
+function ProjectsSkeleton(props: FeaturedProjectsPreviewProps) {
+  const { 
+    sectionProps, 
+    maxWidthClass = "max-w-7xl",
+    // itemsPerViewConfig = { sm: 1, md: 1, lg: 3 }
+  } = props;
 
   return (
     <Section
@@ -139,91 +38,88 @@ export default function FeaturedProjectsPreview({
       container={sectionProps?.container ?? false}
       className={`${sectionProps?.className || ""}`}
     >
-      {/* Section Header */}
       <div className="text-center mb-12">
-        <SectionTitle
-          title={title}
-          titleColor="heading"
-          outlineColor="var(--color-neutral-light)"
-          background={title.split(" ").pop()}
-          align="center"
-        />
-        {subtitle && (
-          <p className="mt-4 text-lg text-secondary-dark max-w-2xl mx-auto">
-            {subtitle}
-          </p>
-        )}
+        <div className="h-10 w-64 bg-white/10 rounded mx-auto mb-4 animate-pulse" />
+        <div className="h-6 w-96 bg-white/5 rounded mx-auto animate-pulse" />
       </div>
 
-      {/* Projects Slider */}
-      <div
-        className={`${maxWidthClass} mx-auto ${paddingXClass} overflow-hidden`}
-      >
-        <div
-          className="rounded-sm touch-manipulation select-none "
-          onPointerDown={handlePointerDown}
-          onPointerUp={handlePointerUp}
-          onPointerLeave={handlePointerLeave}
-        >
-          <div
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{
-              transform: `translateX(-${
-                currentProject * (100 / itemsPerView)
-              }%)`,
-            }}
-          >
-            {projects.map((project, index) => {
-              const centerIndex = currentProject + Math.floor(itemsPerView / 2);
-              const isCenter = index === centerIndex;
-              return (
-                <div
-                  key={project.id}
-                  style={{ width: `${100 / itemsPerView}%` }}
-                  className={`shrink-0 transition-transform duration-500 ${
-                    isCenter ? "scale-[1.02]" : "scale-[0.90]"
-                  }`}
-                >
-                  <ProjectCard
-                    href={project.link}
-                    title={project.title}
-                    category={project.category}
-                    year={project.year}
-                    imageSrc={project.image}
-                    aspectClass={cardAspectClass}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="flex items-center justify-center gap-6 mt-6">
-          <button
-            onClick={prevProject}
-            aria-label="Previous"
-            className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
-          >
-            <FiChevronLeft className="w-5 h-5" />
-          </button>
-          {(() => {
-            const totalPages = Math.max(1, projects.length - itemsPerView + 1);
-            const currentPage = Math.min(currentProject + 1, totalPages);
-            const pad = (n: number) => n.toString().padStart(2, "0");
-            return (
-              <span className="text-sm tracking-widest text-secondary-dark">
-                {pad(currentPage)} / {pad(totalPages)}
-              </span>
-            );
-          })()}
-          <button
-            onClick={nextProject}
-            aria-label="Next"
-            className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
-          >
-            <FiChevronRight className="w-5 h-5" />
-          </button>
+      <div className={`${maxWidthClass} mx-auto px-8`}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="aspect-4/3 bg-white/5 rounded-sm animate-pulse" />
+          ))}
         </div>
       </div>
     </Section>
   );
+}
+
+async function FeaturedProjectsData(props: FeaturedProjectsPreviewProps) {
+  "use cache";
+  const supabase = await createClient();
+
+  // Fetch projects that are marked as featured (or just latest 6 if no featured flag)
+  // Assuming there might be an 'is_featured' column, otherwise we just take the latest.
+  // Checking schema from previous reads, I didn't see is_featured explicitly, so I'll order by date/id.
+  const { data: projectsData, error } = await supabase
+    .from("projects")
+    .select(`
+      id,
+      name,
+      overview,
+      main_image_url,
+      location,
+      date,
+      slug,
+      projects_categories (
+        categories (
+          name
+        )
+      )
+    `)
+    .order("date", { ascending: false }) // or order by id if date is null
+    .limit(6);
+
+  if (error) {
+    console.error("Error fetching featured projects:", JSON.stringify(error, null, 2));
+    return null;
+  }
+
+  if (!projectsData || projectsData.length === 0) {
+    return null;
+  }
+
+  // Define the expected shape of the Supabase response
+  type ProjectResponse = {
+    id: number;
+    name: string;
+    overview: string | null;
+    main_image_url: string | null;
+    location: string | null;
+    date: string | null;
+    slug: string | null;
+    projects_categories: {
+      categories: {
+        name: string;
+      } | null;
+    }[];
+  };
+
+  const projects: Project[] = (projectsData as unknown as ProjectResponse[]).map((p) => {
+    // Extract category name safely
+    const categoryName = p.projects_categories?.[0]?.categories?.name || "Project";
+
+    return {
+      id: p.id,
+      title: p.name,
+      description: p.overview || "",
+      image: p.main_image_url || "/4.png", // Fallback image
+      category: categoryName,
+      location: p.location || "",
+      year: p.date ? new Date(p.date).getFullYear().toString() : "",
+      link: `/projects/${p.slug}`,
+    };
+  });
+
+  return <FeaturedProjectsCarousel projects={projects} {...props} />;
 }

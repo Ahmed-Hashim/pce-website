@@ -16,7 +16,7 @@ interface CEOCardProps {
   className?: string;
 }
 
-export default function CEOCard({ ceo, index = 0, className = "" }: CEOCardProps) {
+export default function CEOCard({ ceo, className = "" }: CEOCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const toggleFlip = () => setIsFlipped(!isFlipped);
@@ -33,7 +33,7 @@ export default function CEOCard({ ceo, index = 0, className = "" }: CEOCardProps
           toggleFlip();
         }
       }}
-      className={`group relative bg-white rounded-sm  shadow-sm hover:shadow-md transition-all duration-500 ease-out cursor-pointer overflow-hidden perspective-1000 ${className}`}
+      className={`group relative w-full bg-white rounded-sm  shadow-sm hover:shadow-md transition-all duration-500 ease-out cursor-pointer overflow-hidden perspective-1000 ${className}`}
     >
       {/* Flip wrapper */}
       <div

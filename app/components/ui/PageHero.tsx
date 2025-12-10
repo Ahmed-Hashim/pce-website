@@ -10,25 +10,27 @@ interface PageHeroProps {
   title: string;
   subtitle?: string;
   breadcrumbs: Breadcrumb[];
-  imageSrc: string;
+  imageSrc?: string;
 }
 
 export default function PageHero({ title, subtitle, breadcrumbs, imageSrc }: PageHeroProps) {
   return (
     <section className="relative h-[48vh] md:h-[40vh] overflow-hidden">
-  
-      <Image
-        src={imageSrc}
-        alt={title}
-        fill
-        priority={true}
-        className="object-cover z-0"
-        sizes="100vw"
-        quality={75} // Optional: slightly lower quality for speed, default is 75
-      />
+      {imageSrc &&
+          <Image
+            src={imageSrc}
+            alt={title}
+            fill
+            priority={true}
+            className="object-cover z-0"
+            sizes="100vw"
+            quality={75} // Optional: slightly lower quality for speed, default is 75
+          />
+      }
+      
 
       {/* Overlay - Adjusted z-index to sit on top of image but below text */}
-      <div className="absolute inset-0 bg-linear-to-b from-primary-dark/90 to-primary-dark/80 z-10" />
+      <div className={`absolute inset-0 bg-primary-dark z-10 ${imageSrc ? "opacity-85" : ""}`} />
 
       {/* Content - High z-index to sit on top of everything */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-10">
@@ -46,9 +48,9 @@ export default function PageHero({ title, subtitle, breadcrumbs, imageSrc }: Pag
             ))}
           </ol>
         </nav>
-        <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">{title}</h1>
+        <h1 className="font-bold text-white drop-shadow-lg">{title}</h1>
         {subtitle ? (
-          <p className="mt-2 text-base md:text-lg text-white/80 max-w-2xl">{subtitle}</p>
+          <p className="mt-2 text-white/80 max-w-2xl">{subtitle}</p>
         ) : null}
       </div>
     </section>

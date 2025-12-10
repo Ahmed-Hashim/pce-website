@@ -1,17 +1,12 @@
-// components/layout/Footer.tsx
-import React from "react";
+import React, { Suspense } from "react";
 import {
   FaFacebookF,
   FaTwitter,
   FaLinkedinIn,
   FaInstagram,
 } from "react-icons/fa";
-import { footerData, FooterContent } from "./FooterData";
-
-interface FooterProps {
-  data?: FooterContent;
-  backgroundImageSrc?: string;
-}
+import { FooterContent } from "./FooterData";
+import { getFooterData } from "./footerService";
 
 const socialIconMap: Record<string, React.ReactNode> = {
   facebook: <FaFacebookF />,
@@ -20,7 +15,21 @@ const socialIconMap: Record<string, React.ReactNode> = {
   instagram: <FaInstagram />,
 };
 
-const Footer: React.FC<FooterProps> = ({ data = footerData }) => {
+export default function Footer() {
+  return (
+    <Suspense fallback={<FooterSkeleton />}>
+      <FooterContentLoader />
+    </Suspense>
+  );
+}
+
+async function FooterContentLoader() {
+  "use cache";
+  const data = await getFooterData();
+  return <FooterView data={data} />;
+}
+
+function FooterView({ data }: { data: FooterContent }) {
   return (
     <footer className="relative">
       {/* Overlay to ensure readability over background image */}
@@ -115,8 +124,6 @@ const Footer: React.FC<FooterProps> = ({ data = footerData }) => {
               </ul>
             </div>
           )}
-
-          
         </div>
 
         {/* Bottom Bar */}
@@ -137,6 +144,26 @@ const Footer: React.FC<FooterProps> = ({ data = footerData }) => {
       </div>
     </footer>
   );
-};
+}
 
-export default Footer;
+function FooterSkeleton() {
+  return (
+    <footer className="relative py-12">
+      <div className="absolute inset-0 bg-neutral-light/95 pointer-events-none" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="space-y-4">
+              <div className="h-6 w-32 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+              <div className="h-20 w-full bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+            </div>
+          ))}
+        </div>
+        <div className="mt-10 pt-6 border-t border-secondary-dark flex justify-between">
+          <div className="h-4 w-48 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+          <div className="h-4 w-32 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+        </div>
+      </div>
+    </footer>
+  );
+}

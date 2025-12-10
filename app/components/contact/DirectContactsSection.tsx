@@ -186,18 +186,12 @@ async function ContactsContent({ mapImage }: { mapImage: string }) {
       value: data.careers_email,
       href: `mailto:${data.careers_email}`,
     });
-  if (data.phone)
-    contactChannels.push({
-      label: "Phone",
-      value: data.phone,
-      href: `tel:${data.phone.replace(/[^0-9+]/g, "")}`,
-    });
 
   const hours = parseOfficeHours(data.office_hours);
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {contactChannels.map((c, i) => (
           <a
             key={`cc-${i}`}
@@ -215,18 +209,16 @@ async function ContactsContent({ mapImage }: { mapImage: string }) {
       </div>
 
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="rounded-sm border border-secondary-dark/40 bg-background p-6">
-          <h4 className="text-primary-dark font-semibold tracking-tight">
-            {hours.title}
-          </h4>
+        
+         
           <div className="mt-3 space-y-2">
             {hours.items.map((h, i) => (
-              <div key={`hr-${i}`} className="flex items-center justify-between">
+              <div key={`hr-${i}`} className="group block rounded-sm border border-secondary-dark/40 bg-background px-5 py-2 hover:border-primary-medium/50 transition-colors">
                 <div className="text-secondary-dark">{h.label}</div>
                 <div className="text-primary-dark font-medium">{h.value}</div>
               </div>
             ))}
-          </div>
+        
         </div>
 
         <div className="rounded-sm overflow-hidden border border-secondary-dark">

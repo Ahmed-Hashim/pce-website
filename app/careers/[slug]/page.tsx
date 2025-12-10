@@ -2,11 +2,36 @@
 import PageHero from "../../components/ui/PageHero";
 import SectionTitle from "../../components/ui/SectionTitle";
 import CareersForm from "../../components/careers/CareersForm";
-import { jobsData } from "../../data/jobs";
+import { createClient } from "@/utils/supabase/supabaseServer";
+
+const generateSlug = (title: string) => 
+  title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
 export default async function JobPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const job = jobsData.find((j) => j.slug === slug);
+  
+  const supabase = createClient();
+  const { data: careers } = await supabase
+    .from("careers")
+    .select(`
+      *,
+      services (
+        name
+      )
+    `);
+
+  const jobs = careers?.map((career: any) => ({
+    id: career.id,
+    slug: generateSlug(career.job_title),
+    title: career.job_title,
+    department: career.services?.name || "General",
+    location: "Riyadh, Saudi Arabia",
+    type: "Full Time",
+    description: career.description,
+    requirements: []
+  })) || [];
+
+  const job = jobs.find((j) => j.slug === slug);
 
   if (!job) {
     const hero = {
@@ -96,6 +121,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
           submitLabel="Send Application"
           emailTo={emailTo}
           jobTitle={job.title}
+          careerId={job.id}
           labels={labels}
           helperText="Provide accurate contact information and a link to your CV."
         />
@@ -105,5 +131,10 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
 }
 
 export async function generateStaticParams() {
-  return jobsData.map((j) => ({ slug: j.slug }));
+  const supabase = createClient();
+  const { data: careers } = await supabase.from("careers").select("job_title");
+  
+  return careers?.map((c) => ({
+    slug: generateSlug(c.job_title)
+  })) || [];
 }

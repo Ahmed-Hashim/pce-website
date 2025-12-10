@@ -17,7 +17,7 @@ export default function OurExpertiseSection({
     <Section
       {...sectionProps}
       container={sectionProps?.container ?? false}
-      className={`relative bg-linear-to-br from-white via-gray-50 to-gray-100 ${
+      className={`relative bg-primary-dark/95 ${
         sectionProps?.className || ""
       }`}
     > <div className="absolute inset-0 opacity-5">
@@ -31,7 +31,7 @@ export default function OurExpertiseSection({
           <SectionTitle
             title={title}
             outlineColor="var(--color-primary-dark)"
-            titleColor="heading"
+            titleColor="text-white"
             align="center"
           />
         </div>

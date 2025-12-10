@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { createClient } from "@/utils/supabase/supabaseServer";
 import MarqueeContent from "./MarqueeContent";
-import { coreValues } from "@/app/data/values";
+
 
 export default function ValuesMarqueeSection() {
   return (
@@ -30,10 +30,10 @@ async function ValuesList() {
     .limit(1)
     .single();
 
-  const values =
-    aboutData?.values && Array.isArray(aboutData.values)
-      ? (aboutData.values as string[])
-      : coreValues;
+  const values = aboutData?.values && Array.isArray(aboutData.values)
+    ? (aboutData.values as string[])
+    : [];
+      
 
   return <MarqueeContent items={values} />;
 }

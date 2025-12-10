@@ -5,142 +5,13 @@ import ClientsSection from "./components/home/ClientsSection";
 import CoreServicesOverview from "./components/home/CoreServicesOverview";
 import FeaturedProjectsPreview from "./components/home/FeaturedProjectsPreview";
 import CTAComponent from "./components/home/CTAComponent";
-import { whoWeAreData } from "./components/home/WhoWeAreData";
+// import { whoWeAreData } from "./components/home/WhoWeAreData";
 import Statistics from "./components/home/Statistics";
 // import CEOSection from "./components/home/CEOSection";
 import HoldingGroupSection from "./components/home/HoldingGroupSection";
 import ValuesMarqueeSection from "./components/home/ValuesMarqueeSection";
-import {
-  FaProjectDiagram,
-  FaCity,
-  FaBuilding,
-  FaBolt,
-  FaCogs,
-  FaBroadcastTower,
-  FaMapMarkedAlt,
-} from "react-icons/fa";
 
 import OurExpertiseSection from "./components/home/OurExpertiseSection";
-
-
-;
-
-export const companyDescriptions = [
-  {
-    name: "PRECISION CONSULTING ENGINEERING",
-    description:
-      "Precision Consulting Engineering, founded in Egypt in 2008, is a consultancy firm providing a wide range of technical sectors in engineering design and construction supervision, supported by a team of highly qualified experts.",
-  },
-  {
-    name: "PCE INDUSTRIAL",
-    description:
-      "PCE Industrial focuses on optimizing industrial processes and systems, aiming to boost efficiency, productivity, and sustainability through innovative engineering solutions. Key Offerings: Process Optimization and Systems Engineering.",
-  },
-];
-
-export const expertiseSection = {
-  title: "Our Expertise",
-  eyebrow: "Capabilities",
-  background: "EXPERTISE",
-  outlineColor: "var(--color-primary-dark)",
-  titleColor: "heading",
-};
-
-export const expertiseItems = [
-  {
-    icon: <FaMapMarkedAlt />,
-    title: "Urban & Regional Planning",
-    description:
-      "Strategic urban development and regional infrastructure planning",
-  },
-  {
-    icon: <FaBuilding />,
-    title: "Architectural Design",
-    description: "Innovative architectural solutions for modern structures",
-  },
-  {
-    icon: <FaCity />,
-    title: "Structural Engineering",
-    description: "Advanced structural analysis and engineering solutions",
-  },
-  {
-    icon: <FaCogs />,
-    title: "Infrastructure Development",
-    description: "Comprehensive infrastructure planning and implementation",
-  },
-  {
-    icon: <FaBolt />,
-    title: "Electrical Systems",
-    description: "Smart electrical systems and power distribution networks",
-  },
-  {
-    icon: <FaCogs />,
-    title: "Mechanical Engineering",
-    description: "Advanced mechanical systems design and optimization",
-  },
-  {
-    icon: <FaBroadcastTower />,
-    title: "Telecommunications",
-    description: "Modern telecom infrastructure and network solutions",
-  },
-  {
-    icon: <FaProjectDiagram />,
-    title: "Project Management",
-    description: "Comprehensive project oversight and management sectors",
-  },
-];
-
-export const ceos = [
-  {
-    name: "DR. Waleed El Sweedy",
-    title: "Chairman",
-    company: "PCE Consulting",
-    description:
-      "Our roots are important to us as we evolve and grow. We understand that maintaining the integrity of our past through a commitment to quality service, employees appreciation, and delivering innovative. Practical solutions to our clients is the key to our success.",
-    imageSrc: "/man-1.png",
-  },
-  {
-    name: "ENG. MOHAMED IBRAHIM",
-    title: "Chief Executive Officer",
-    company: "PCE Industrial",
-    description:
-      "We have earned the trust and respect of our clients because we have great and hard working people who serve all client needs in all aspects ,They are experts in their fields bringing a strong service ethos to everything they do. Our clients are fully aware that we have the skills, resources and expertise, and most importantly, the ability to complete their projects to the highest standards on time and on budget.",
-    imageSrc: "/man-2.png",
-  },
-];
-
-export const holdingCompanies = [
-  {
-    name: "Precision Consulting Engineering",
-    logo: "/logos/2.png",
-    abbrev: "PCE",
-  },
-  {
-    name: "PCE Industrial",
-    logo: "/logos/3.png",
-    abbrev: "PCE",
-  },
-  {
-    name: "Greenfield Consulting Corporation",
-    logo: "/logos/4.png",
-    abbrev: "GCC",
-  },
-  {
-    name: "Hospitality & Facility Management",
-    logo: "/logos/6.png",
-    abbrev: "HFM",
-  },
-  {
-    name: "PCE Academy",
-    logo: "/logos/5.png",
-    abbrev: "PCE",
-  },
-  {
-    name: "Precision Development",
-    logo: "/logos/7.png",
-    abbrev: "PD",
-  },
-];
 
 export default async function Home() {
   return (
@@ -150,7 +21,7 @@ export default async function Home() {
       {/* Section props passed for consistency */}
       <ValuesMarqueeSection />
       <WhoWeAreSection
-        data={whoWeAreData}
+        
         sectionProps={{ container: false }}
       />
       <ClientsSection sectionProps={{ container: false }} />
@@ -166,9 +37,11 @@ export default async function Home() {
         ceos={ceos}
         companies={companyDescriptions}
       /> */}
-      <CoreServicesOverview/>
+      <CoreServicesOverview />
 
-      <FeaturedProjectsPreview sectionProps={{ container: false, className: "bg-neutral-light/20" }} />
+      <FeaturedProjectsPreview
+        sectionProps={{ container: false, className: "bg-primary-dark/95" }}
+      />
 
       <OurBranchesSection sectionProps={{ container: false }} />
 

@@ -1,125 +1,158 @@
+import Section from "../ui/Section";
 import SectionTitle from "../ui/SectionTitle";
-import TriangleIcon from "../ui/TriangleIcon";
+import { LuTarget, LuEye, LuAward } from "react-icons/lu";
+import { createClient } from "@/utils/supabase/supabaseServer";
+import { Suspense } from "react";
 
-interface MissionVisionValuesProps {
-  title: string;
-  background?: string;
-  description?: string;
-  mission: string | string[];
-  vision: string | string[];
-  values: string[];
-  labels?: {
-    mission: string;
-    vision: string;
-    values: string;
-  };
+export default function MissionVisionValues() {
+  return (
+    <Section className="relative w-full overflow-hidden">
+        {/* Parallax background layer */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
+        style={{
+          backgroundImage: `url("./philo.png")`,
+        }}
+      />
+
+ 
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-5">
+          <SectionTitle
+            title="Our Philosophy"
+            outlineColor="var(--color-neutral-light)"
+            titleColor="text-white"
+            align="center"
+          />
+        </div>
+
+        {/* Content Grid */}
+        <Suspense fallback={<MissionVisionSkeleton />}>
+          <MissionVisionContent />
+        </Suspense>
+      </div>
+    </Section>
+  );
 }
 
-export default function MissionVisionValues({
-  title,
-  background,
-  description,
-  mission,
-  vision,
-  values,
-  labels = { mission: "Mission", vision: "Vision", values: "Values" },
-}: MissionVisionValuesProps) {
+function MissionVisionSkeleton() {
   return (
-    <section>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          title={title}
-          background={background}
-          outlineColor="var(--color-neutral-light)"
-          titleColor="var(--color-primary-dark)"
-          align="center"
-        />
-        {description ? (
-          <p className="mt-4 max-w-3xl mx-auto text-left text-secondary-dark text-sm md:text-base leading-tight">
-            {description}
-          </p>
-        ) : null}
-
-        <div className="mt-12 grid md:grid-cols-3 gap-10 items-stretch justify-items-start md:justify-items-center">
-          <div className="text-center">
-            <div className="flex items-center gap-3">
-              <span className="inline-block h-5 w-0.5 bg-primary-medium"></span>
-              <h3 className=" uppercase tracking-wide text-primary-dark">
-                {labels.mission}
-              </h3>
-            </div>
-            {typeof mission === "string" ? (
-              <p className="mt-4 text-left text-secondary-dark text-sm md:text-base leading-tight">
-                {mission}
-              </p>
-            ) : (
-              <div className="mt-4 space-y-3">
-                {mission.map((item, i) => (
-                  <div
-                    key={`m-${i}`}
-                    className="flex items-stretch justify-center gap-3"
-                  >
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium"></span>
-                    <p className="text-secondary-dark text-sm md:text-base leading-tight text-left">
-                      {item}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
+    <div className="grid grid-cols-1 lg:grid-cols-3 shadow-2xl rounded-sm overflow-hidden">
+      {[1, 2, 3].map((i) => (
+        <div 
+          key={i} 
+          className="min-h-[500px] bg-gray-200 dark:bg-zinc-800 animate-pulse p-12 flex flex-col justify-between"
+        >
+          <div className="space-y-4">
+            <div className="h-10 w-1/2 bg-gray-300 dark:bg-zinc-700 rounded-sm" />
+            <div className="h-4 w-full bg-gray-300 dark:bg-zinc-700 rounded-sm" />
+            <div className="h-4 w-full bg-gray-300 dark:bg-zinc-700 rounded-sm" />
+            <div className="h-4 w-3/4 bg-gray-300 dark:bg-zinc-700 rounded-sm" />
           </div>
+          <div className="h-20 w-20 bg-gray-300 dark:bg-zinc-700 rounded-full self-end" />
+        </div>
+      ))}
+    </div>
+  );
+}
 
-          <div className="md:border-l md:border-secondary-dark/20 md:pl-8 text-center">
-            <div className="flex items-center justify-left gap-3">
-              <span className="inline-block h-5 w-0.5 bg-primary-medium"></span>
-              <h3 className=" uppercase tracking-wide text-primary-dark">
-                {labels.vision}
-              </h3>
-            </div>
-            {typeof vision === "string" ? (
-              <p className="mt-4 text-left text-secondary-dark text-sm md:text-base leading-tight">
-                {vision}
-              </p>
-            ) : (
-              <div className="mt-4 space-y-3">
-                {vision.map((item, i) => (
-                  <div
-                    key={`v-${i}`}
-                    className="flex items-stretch justify-left gap-3"
-                  >
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-medium"></span>
-                    <p className="text-secondary-dark text-sm md:text-base leading-tight text-left">
-                      {item}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+async function MissionVisionContent() {
+  "use cache";
+  const supabase = await createClient();
+  
+  // Try fetching from 'about' table first as it matches the schema
+  const { data: aboutData, error } = await supabase
+    .from("about")
+    .select("mission, vision, values")
+    .single();
 
-          <div className="md:border-l md:border-secondary-dark/20 md:pl-8 text-left md:text-center">
-            <div className="flex items-center justify-start md:justify-center gap-3">
-              <span className="inline-block h-5 w-0.5 bg-primary-medium"></span>
-              <h3 className=" uppercase tracking-wide text-primary-dark">
-                {labels.values}
-              </h3>
-            </div>
-            <div className="mt-4 space-y-3">
-              {values.map((v, i) => (
-                <div
-                  key={`val-${i}`}
-                  className="flex items-stretch justify-start gap-3"
-                >
-                  <TriangleIcon className=" inset-0 w-3 h-3 mt-1 text-primary-medium rotate-90" />
-                  <p className="text-secondary-dark text-sm md:text-base leading-tight text-left">
-                    {v}
-                  </p>
-                </div>
-              ))}
-            </div>
+  if (error) {
+    console.error("Supabase Error:", error);
+    return (
+      <div className="text-center py-12 col-span-full text-red-500">
+        Unable to load mission, vision, and values.
+      </div>
+    );
+  }
+
+  if (!aboutData) {
+    return <div className="text-center py-12 col-span-full">No data found.</div>;
+  }
+
+  const { mission, vision, values } = aboutData;
+  const labels = { mission: "Mission", vision: "Vision", values: "Values" };
+  
+  // Ensure values is an array of strings
+  const valuesList = Array.isArray(values) ? values.map(String) : [];
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 shadow-2xl rounded-sm overflow-hidden">
+      {/* VISION CARD - Left - Darkest Blue */}
+      <div className="group relative p-12 flex flex-col justify-between min-h-[500px] bg-primary-dark/70 text-white transition-all duration-500 hover:z-10">
+        {/* Decorative Overlay */}
+        <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        
+        <div className="relative z-10">
+          <h3 className="text-4xl md:text-5xl font-bold uppercase tracking-tight mb-8">
+            <span className="block text-lg tracking-widest font-medium mb-1">Our</span>
+            {labels.vision}
+          </h3>
+          <div className="text-neutral-light text-lg leading-relaxed font-light">
+            <p className="text-white/90">{vision}</p>
           </div>
         </div>
+
+        <div className="relative z-10 mt-12 flex justify-end">
+          <LuTarget className="w-20 h-20 text-primary-medium/30 group-hover:text-primary-medium/50 group-hover:scale-110 transition-all duration-500" />
+        </div>
       </div>
-    </section>
+
+      {/* MISSION CARD - Center - Medium Blue */}
+      <div className="group relative p-12 flex flex-col justify-between min-h-[500px] bg-primary-medium/70 text-white transition-all duration-500 hover:z-10 hover:scale-[1.02] hover:shadow-xl z-0">
+        <div className="absolute inset-0 bg-linear-to-t from-primary-dark/20 to-transparent"></div>
+        
+        <div className="relative z-10">
+          <h3 className="text-4xl md:text-5xl font-bold uppercase tracking-tight mb-8 text-primary-dark">
+            <span className="opacity-60 block text-lg tracking-widest font-medium mb-1">Our</span>
+            {labels.mission}
+          </h3>
+          <div className="text-white/90 text-lg leading-relaxed font-light">
+            <p className="text-white/90">{mission}</p>
+          </div>
+        </div>
+
+        <div className="relative z-10 mt-12 flex justify-end">
+          <LuEye className="w-20 h-20 text-white/20 group-hover:text-white/40 group-hover:scale-110 transition-all duration-500" />
+        </div>
+      </div>
+
+      {/* VALUES CARD - Right - Light/White */}
+      <div className="group relative p-12 flex flex-col justify-between min-h-[500px] bg-secondary-light/70 text-primary-dark transition-all duration-500 hover:z-10">
+        <div className="absolute inset-0 bg-secondary-light/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <div className="relative z-10">
+          <h3 className="text-4xl md:text-5xl font-bold uppercase tracking-tight mb-8 text-primary-dark">
+            <span className="text-secondary-dark block text-lg tracking-widest font-medium mb-1">Our</span>
+            {labels.values}
+          </h3>
+          <div className="text-secondary-dark text-lg leading-relaxed font-light">
+            <ul className="space-y-4">
+              {valuesList.map((v, i) => (
+                <li key={`val-${i}`} className="flex items-start gap-3">
+                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-dark shrink-0" />
+                  <span className="font-medium text-white">{v}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="relative z-10 mt-12 flex justify-end">
+          <LuAward className="w-20 h-20 text-primary-medium/20 group-hover:text-primary-medium/40 group-hover:scale-110 transition-all duration-500" />
+        </div>
+      </div>
+    </div>
   );
 }

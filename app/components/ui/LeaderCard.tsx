@@ -56,26 +56,26 @@ export default function LeaderCard({ person }: LeaderCardProps) {
               </div>
             )}
           </div>
-          <h4 className="mt-6 text-lg md:text-xl font-semibold tracking-tight text-primary-dark">{person.name}</h4>
+          <h4 className="mt-6 font-semibold tracking-tight text-primary-dark">{person.name}</h4>
           <p className="mt-1 tracking-tighter text-secondary-dark/80">{person.title || person.role}</p>
         </div>
         <div className="absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-center justify-center text-center px-6">
-          <h4 className="text-lg md:text-xl font-semibold tracking-tight text-primary-dark">{person.name}</h4>
+          <h4 className="font-semibold tracking-tight text-primary-dark">{person.name}</h4>
           {person.description ? (
-            <p className="mt-3 text-secondary-dark text-sm md:text-base leading-tight">{person.description}</p>
+            <p className="mt-3 text-secondary-dark leading-tight">{person.description}</p>
           ) : null}
           {person.stats && (person.stats.projects !== undefined || person.stats.years !== undefined) ? (
             <div className="mt-5 flex items-center justify-center gap-8">
               {person.stats.projects > 0 ? (
                 <div className="text-center">
-                  <div className="text-xl font-semibold text-primary-dark">{person.stats.projects}</div>
-                  <div className="text-xs text-secondary-dark">{labels.projects}</div>
+                  <div className="font-semibold text-primary-dark">{person.stats.projects}</div>
+                  <div className="text-secondary-dark">{labels.projects}</div>
                 </div>
               ) : null}
               {person.stats.years > 0 ? (
                 <div className="text-center">
-                  <div className="text-xl font-semibold text-primary-dark">{person.stats.years}</div>
-                  <div className="text-xs text-secondary-dark">{labels.years}</div>
+                  <div className="font-semibold text-primary-dark">{person.stats.years}</div>
+                  <div className="text-secondary-dark">{labels.years}</div>
                 </div>
               ) : null}
             </div>

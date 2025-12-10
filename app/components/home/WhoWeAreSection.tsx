@@ -1,47 +1,15 @@
-"use client";
-import { useState } from "react";
-import { WhoWeAreData as WhoWeAreDataType } from "./WhoWeAreData";
-import VideoPlayer from "../ui/VideoPlayer";
 import SectionTitle from "../ui/SectionTitle";
 import Section from "../ui/Section";
+import { createClient } from "@/utils/supabase/supabaseServer";
+import { Suspense } from "react";
 import type { ComponentProps } from "react";
-
-// No changes to the fallback component are needed
-interface VideoErrorFallbackProps {
-  title: string;
-  description: string;
-  refreshLabel: string;
-}
-
-const VideoErrorFallback = ({
-  title,
-  description,
-  refreshLabel,
-}: VideoErrorFallbackProps) => (
-  <div className="w-full bg-section-light rounded-sm border border-neutral-light">
-    <div className="text-center p-10 max-w-xl mx-auto">
-      <h4 className="text-xl font-semibold text-primary-dark">{title}</h4>
-      <p className="text-secondary-dark mt-3">{description}</p>
-      <div className="mt-6">
-        <button
-          onClick={() => window.location.reload()}
-          className="btn-primary px-5 py-2 rounded-sm transition-colors"
-        >
-          {refreshLabel}
-        </button>
-      </div>
-    </div>
-  </div>
-);
+import WhoWeAreVideo from "./WhoWeAreVideo";
 
 interface WhoWeAreSectionProps {
-  data: WhoWeAreDataType;
   sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
-export default function WhoWeAreSection({ data, sectionProps }: WhoWeAreSectionProps) {
-  const [videoError, setVideoError] = useState(false);
-
+export default function WhoWeAreSection({ sectionProps }: WhoWeAreSectionProps) {
   return (
     <Section
       {...sectionProps}
@@ -56,43 +24,77 @@ export default function WhoWeAreSection({ data, sectionProps }: WhoWeAreSectionP
         }}
       />
 
- 
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Using a larger gap to match the visual spacing in the image */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column - Title and Description */}
-          {/* CHANGED: Removed text-center to align content to the left */}
-          <div className="space-y-6">
-            <SectionTitle
-              title={data.sectionTitle}
-              titleColor="text-white"
-              className="text-center md:text-left items-center md:items-start mb-6"
-            />
-            {/* This text is now left-aligned by default */}
-            <p className=" max-w-lg text-white">{data.sectionDescription}</p>
-          </div>
-
-          {/* Right Column - Video */}
-          <div className="w-full">
-            {videoError ? (
-              <VideoErrorFallback
-                title={data.videoErrorFallback.title}
-                description={data.videoErrorFallback.description}
-                refreshLabel={data.videoErrorFallback.refreshLabel}
-              />
-            ) : (
-              <VideoPlayer
-                videoSrc={data.rightColumn.video.src}
-                poster={data.rightColumn.video.poster}
-                title={data.rightColumn.video.title}
-                subTitle={data.rightColumn.video.subTitle}
-                onError={() => setVideoError(true)}
-              />
-            )}
-          </div>
-        </div>
+        <Suspense fallback={<WhoWeAreSkeleton />}>
+          <WhoWeAreContent />
+        </Suspense>
       </div>
     </Section>
+  );
+}
+
+function WhoWeAreSkeleton() {
+  return (
+    <div className="grid lg:grid-cols-2 gap-16 items-center animate-pulse">
+      <div className="space-y-6">
+        {/* Title Skeleton */}
+        <div className="h-10 w-48 bg-white/20 rounded-md mb-6"></div>
+        {/* Text Skeleton */}
+        <div className="space-y-3">
+          <div className="h-4 w-full bg-white/20 rounded-md"></div>
+          <div className="h-4 w-5/6 bg-white/20 rounded-md"></div>
+          <div className="h-4 w-4/6 bg-white/20 rounded-md"></div>
+          <div className="h-4 w-full bg-white/20 rounded-md"></div>
+        </div>
+      </div>
+      <div className="w-full">
+        {/* Video Skeleton */}
+        <div className="aspect-video bg-white/10 rounded-sm border border-white/20"></div>
+      </div>
+    </div>
+  );
+}
+
+async function WhoWeAreContent() {
+  "use cache";
+  const supabase = await createClient();
+  const { data: aboutData, error } = await supabase
+    .from("about")
+    .select("who_we_are, who_we_are_video_link")
+    .limit(1)
+    .single();
+
+  if (error) {
+    console.error("Supabase Error:", error);
+    return (
+      <div className="text-center py-12 col-span-full">
+        <p className="text-zinc-600 dark:text-zinc-400">
+          Unable to load content.
+        </p>
+      </div>
+    );
+  }
+
+  if (!aboutData) {
+    return null;
+  }
+
+  return (
+    <div className="grid lg:grid-cols-2 gap-16 items-center">
+      {/* Left Column - Title and Description */}
+      <div className="space-y-6">
+        <SectionTitle
+          title="Who We Are"
+          titleColor="text-white"
+          className="text-center md:text-left items-center md:items-start mb-6"
+        />
+        <p className="max-w-lg text-white">{aboutData.who_we_are}</p>
+      </div>
+
+      {/* Right Column - Video */}
+      <div className="w-full">
+        <WhoWeAreVideo src={aboutData.who_we_are_video_link} />
+      </div>
+    </div>
   );
 }

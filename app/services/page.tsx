@@ -1,30 +1,22 @@
 import PageHero from "../components/ui/PageHero";
 import CTAComponent from "../components/home/CTAComponent";
-import { sectionTitles } from "../data/sectionTitles";
 import Statistics from "../components/home/Statistics";
 import CoreServicesOverview from "../components/home/CoreServicesOverview";
-import { coreSectorsData } from "../data/coreSectors";
-import { Suspense } from "react";
+
 import { cacheLife } from "next/cache";
 
 const pageHero = {
-  title: "Sectors",
+  title: "Services",
   subtitle: "What We Do",
   imageSrc: "/2.png",
   breadcrumbs: [
     { label: "Home", href: "/" },
-    { label: "Sectors", href: "/sectors" },
+    { label: "Services", href: "/services" },
   ],
 };
 
-async function getStats() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/stats/`, {
-    method: "GET",
-  });
-  return res.json();
-}
 
-export default async function SectorsPage() {
+export default async function ServicesPage() {
   "use cache";
   cacheLife("hours");
   // const [services, stats] = await Promise.all([ getStats()]);
@@ -33,7 +25,7 @@ export default async function SectorsPage() {
     description:
       "Talk to our team about engineering design, supervision, and delivery.",
     primaryButtonText: "Get Consultation",
-    secondaryButtonText: "Explore Sectors",
+    secondaryButtonText: "Explore Services",
   };
   return (
     <div className="min-h-screen">

@@ -1,27 +1,11 @@
 import SectionTitle from "../ui/SectionTitle";
 import Image from "next/image";
-import TriangleIcon from "../ui/TriangleIcon";
-
-interface AwardItem {
-  year: string;
-  title: string;
-  issuer: string;
-  imageSrc?: string;
-}
-
-interface CertItem {
-  code: string;
-  title: string;
-  issuer: string;
-  year?: string;
-  imageSrc?: string;
-}
+import { createClient } from "@/utils/supabase/supabaseServer";
+import { Suspense } from "react";
 
 interface AwardsCertificationsProps {
   title: string;
   background?: string;
-  awards: AwardItem[];
-  certifications: CertItem[];
   labels?: {
     awards: string;
     certifications: string;
@@ -31,167 +15,116 @@ interface AwardsCertificationsProps {
 export default function AwardsCertifications({
   title,
   background,
-  awards,
-  certifications,
   labels = { awards: "Awards", certifications: "Certifications" },
 }: AwardsCertificationsProps) {
-  const timeline = [
-    ...awards.map((a) => ({
-      kind: "award" as const,
-      title: a.title,
-      issuer: a.issuer,
-      year: a.year,
-      imageSrc: a.imageSrc,
-      sortYear: parseInt(a.year || "0", 10) || 0,
-    })),
-    ...certifications.map((c) => ({
-      kind: "cert" as const,
-      title: c.title,
-      issuer: c.issuer,
-      year: c.year || c.code,
-      imageSrc: c.imageSrc,
-      sortYear: parseInt((c.year || "0") as string, 10) || 0,
-    })),
-  ].sort((a, b) => a.sortYear - b.sortYear);
+  return (
+    <section className="relative bg-neutral-light/20 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionTitle title={title} background={background} titleColor="text-white" className="mb-12" />
+        <div
+        className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
+        style={{
+          backgroundImage: `url("./awards-bg.png")`,
+        }}
+      />
 
+ 
+        <Suspense fallback={<AwardsSkeleton />}>
+          <AwardsList labels={labels} />
+        </Suspense>
+      </div>
+    </section>
+  );
+}
+
+function AwardsSkeleton() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+      {[1, 2, 3, 4, 5, 6].map((i) => (
+        <div key={i} className="w-full max-w-sm bg-gray-200 dark:bg-zinc-800 rounded-xl animate-pulse aspect-3/4" />
+      ))}
+    </div>
+  );
+}
+
+async function AwardsList({ labels }: { labels: { awards: string; certifications: string } }) {
+  "use cache";
+  const supabase = await createClient();
+
+  const { data: items, error } = await supabase
+    .from("awards_certifications")
+    .select("*")
+    .order("year", { ascending: false });
+
+  if (error) {
+    console.error("Supabase Error:", error);
+    return (
+      <div className="text-center py-12 col-span-full">
+        <p className="text-zinc-600 dark:text-zinc-400">
+          Unable to load awards and certifications.
+        </p>
+      </div>
+    );
+  }
+
+  if (!items || items.length === 0) {
+    return <p className="text-center col-span-full">No awards or certifications found</p>;
+  }
 
   return (
-    <section className="bg-neutral-light/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle title={title} background={background} className="mb-16" />
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  justify-items-center">
+      {items.map((item, index) => {
+        // Determine type/category text
+        // Assuming 'type' in DB is 'award' or 'certification' or similar
+        // Default to labels.awards if unknown, or check string content
+        // const isCert = (item.type || "").toLowerCase().includes("cert");/
+        // const badgeText = isCert ? labels.certifications : labels.awards;
 
-        {/* Horizontal Timeline - Desktop */}
-        <div className="hidden lg:block">
-          <div className="relative">
-            <div className="absolute top-20 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary-medium to-transparent opacity-60" />
-            <div className="overflow-x-auto">
-              <div className="flex items-start justify-center gap-16 w-full px-8">
-                {timeline.map((item, index) => {
-                  const badgeText =
-                    item.kind === "award"
-                      ? labels.awards
-                      : labels.certifications;
-                  return (
-                    <div
-                      key={`timeline-${item.title}-${index}`}
-                      className="relative flex flex-col items-center min-w-[300px]"
-                    >
-                      <div className="text-center mb-4">
-                        <span className="text-primary-medium font-semibold text-lg">
-                          {item.year}
-                        </span>
-                      </div>
-                      <div className="absolute top-19 left-1/2 -translate-x-1/2 z-10">
-                        <div className="relative w-5 h-5">
-                          {/* <TriangleIcon className="absolute inset-0 w-5 h-5 text-white" /> */}
-                          <TriangleIcon className="absolute inset-0 w-5 h-5 text-primary-medium rotate-180" />
-                        </div>
-                      </div>
-                      <div className="mt-24 w-[300px]">
-                        <div className="group bg-white/60 backdrop-blur-sm rounded-sm p-6 shadow-sm border border-neutral-light/30 hover:border-primary-medium/40 hover:shadow-md transition-all duration-300 relative">
-                          <div className="absolute -top-2 -left-2 z-20">
-                            <span className="text-xs px-3 py-1 rounded-sm bg-primary-medium text-white uppercase tracking-wide shadow-md">
-                              {badgeText}
-                            </span>
-                          </div>
-                          <div className="relative w-20 h-20 mx-auto mb-4 rounded-sm overflow-hidden ">
-                            {item.imageSrc ? (
-                              <Image
-                                src={item.imageSrc}
-                                alt={item.title}
-                                fill
-                                className="object-contain"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <div className="w-10 h-10 bg-primary-medium/20 rounded" />
-                              </div>
-                            )}
-                          </div>
-                          <div className="text-center">
-                            <span className="leading-tight text-sm text-primary-dark group-hover:text-primary-medium transition-colors duration-300 mb-2">
-                              {item.title}
-                            </span>
-                            <p className="text-secondary-dark text-xs">
-                              {item.issuer}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-px h-16 bg-linear-to-b from-primary-medium/40 to-transparent" />
-                    </div>
-                  );
-                })}
+        return (
+          <div
+            key={`${item.title}-${index}`}
+            className="group relative pt-6 h-full w-full max-w-sm"
+          >
+            {/* Tabs */}
+            
+
+            {/* Main Card Body */}
+            <div className=" rounded-xl p-4 pt-6 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 h-full flex flex-col relative z-0">
+              
+              {/* Image Frame */}
+              <div className="bg-white p-2 rounded-sm shadow-inner mb-4 mx-auto w-3/4 aspect-3/4 relative transform group-hover:translate-y-[-2px] transition-transform duration-300">
+                <div className="relative w-full h-full border border-neutral-light/50">
+                  {item.image_url ? (
+                    <Image
+                      src={item.image_url}
+                      alt={item.title}
+                      fill
+                      className="object-contain p-1"
+                    />
+                  ) : (
+                    <Image
+                       src="/cert.png" //{item.image_url}
+                      alt={item.title}
+                      fill
+                      className="object-contain p-1"
+                    />
+                  )}
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="text-center mt-auto">
+                <h3 className="text-sm font-semibold text-white mb-1 leading-tight line-clamp-2">
+                  {item.title}
+                </h3>
+                <p className="text-[10px] text-secondary-light/80 font-light line-clamp-1">
+                  {item.subtitle || item.type} 
+                </p>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Vertical Timeline - Mobile/Tablet */}
-        <div className="lg:hidden">
-          <div className="relative space-y-8">
-            {/* Timeline Line */}
-            <div className="absolute left-8 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-primary-medium to-transparent opacity-60" />
-
-            {timeline.map((item, index) => {
-              const badgeText =
-                item.kind === "award" ? labels.awards : labels.certifications;
-
-              return (
-                <div
-                  key={`mobile-timeline-${item.title}-${index}`}
-                  className="relative flex items-start gap-6 pl-4"
-                >
-                  <div className="absolute left-8 -translate-x-1/2 top-6 z-10">
-                    <TriangleIcon className="w-4 h-4 text-primary-medium" />
-                  </div>
-
-                  {/* Content Card */}
-                  <div className="flex-1 group backdrop-blur-sm rounded-sm p-6 shadow-sm border border-neutral-light/30 hover:border-primary-medium/40 hover:shadow-md transition-all duration-300 relative">
-                    {/* Badge - Top Left */}
-                    <div className="absolute -top-2 -left-2 z-20">
-                      <span className="text-xs px-3 py-1 rounded-sm bg-primary-medium text-white uppercase tracking-wide shadow-md">
-                        {badgeText}
-                      </span>
-                    </div>
-
-                    {/* Year Above Content */}
-                    <div className="mb-1">
-                      <span className="text-primary-medium font-semibold text-sm">
-                        {item.year}
-                      </span>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      {/* Image */}
-                      <div className="relative w-16 h-16 shrink-0 rounded-sm overflow-hidden ">
-                        {item.imageSrc && (
-                          <Image
-                            src={item.imageSrc}
-                            alt={item.title}
-                            fill
-                            className="object-contain"
-                          />
-                        )}
-                      </div>
-
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-lg font-semibold text-primary-dark group-hover:text-primary-medium transition-colors duration-300 mb-1">
-                          {item.title}
-                        </h4>
-                        <p className="text-secondary-dark text-sm">
-                          {item.issuer}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
+        );
+      })}
+    </div>
   );
 }

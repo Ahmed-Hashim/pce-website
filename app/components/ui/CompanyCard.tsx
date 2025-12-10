@@ -24,7 +24,7 @@ export default function CompanyCard({ name, logo, abbrev, href, onClick, classNa
 
   const CardInner = (
     <div
-      className={`relative bg-primary-dark/5 border border-white/10 rounded-sm overflow-hidden hover:bg-primary-dark/10 transition-colors duration-300 ${className}`}
+      className={`relative bg-white border border-white/10 rounded-sm overflow-hidden hover:bg-white/80 transition-colors duration-300 ${className}`}
     >
       <div className="absolute top-2 right-2 z-10">
         <div className="rounded-md bg-black/20 text-white p-1">

@@ -34,36 +34,36 @@ export default function CoreServicesOverview() {
 }
 
 // ✅ FIX: Cleaned up redundant div wrappers
-function BackgroundDecor() {
-  return (
-    <div className="absolute inset-0 pointer-events-none">
-      <div className="absolute right-[-20px] top-[20%] w-64 h-64 sm:w-80 sm:h-80 opacity-10">
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          className="w-full h-full rotate-12"
-        >
-          <path
-            d="M 0 50 L 100 0 L 100 100 Z"
-            fill="var(--color-primary-medium)"
-          />
-        </svg>
-      </div>
-      <div className="absolute left-8 bottom-8 w-16 h-16 opacity-20">
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          className="w-full h-full"
-        >
-          <path
-            d="M 0 50 L 100 0 L 100 100 Z"
-            fill="var(--color-primary-dark)"
-          />
-        </svg>
-      </div>
-    </div>
-  );
-}
+// function BackgroundDecor() {
+//   return (
+//     <div className="absolute inset-0 pointer-events-none">
+//       <div className="absolute right-[-20px] top-[20%] w-64 h-64 sm:w-80 sm:h-80 opacity-10">
+//         <svg
+//           viewBox="0 0 100 100"
+//           preserveAspectRatio="none"
+//           className="w-full h-full rotate-12"
+//         >
+//           <path
+//             d="M 0 50 L 100 0 L 100 100 Z"
+//             fill="var(--color-primary-medium)"
+//           />
+//         </svg>
+//       </div>
+//       <div className="absolute left-8 bottom-8 w-16 h-16 opacity-20">
+//         <svg
+//           viewBox="0 0 100 100"
+//           preserveAspectRatio="none"
+//           className="w-full h-full"
+//         >
+//           <path
+//             d="M 0 50 L 100 0 L 100 100 Z"
+//             fill="var(--color-primary-dark)"
+//           />
+//         </svg>
+//       </div>
+//     </div>
+//   );
+// }
 
 // ✅ NEW: Simple loading state
 function ServicesSkeleton() {

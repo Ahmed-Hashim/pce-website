@@ -11,7 +11,7 @@ import { Tables } from "@/utils/supabase/supabase";
 // 1. Main Component (Synchronous Wrapper)
 export default function HoldingGroupSection() {
   return (
-    <Section container={false} className="bg-neutral-light/20">
+    <Section container={false} className="bg-primary-dark/95">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* We wrap the content in Suspense so the Section background loads instantly */}
         <Suspense fallback={<LoadingSkeleton />}>
@@ -47,7 +47,7 @@ async function GroupDataContent() {
         <SectionTitle
           title="Our Group"
           outlineColor="var(--color-primary-medium)"
-          titleColor="accent"
+          titleColor="text-white"
           className="text-center md:text-left items-center md:items-start"
         />
 
@@ -88,7 +88,7 @@ function HoldingCard({ data }: { data: Tables<'group_data'> }) {
 
   // Logic to determine style based on Link vs No Link
   const containerClass = hasLink
-    ? "bg-primary-dark/5 border-white/10 hover:bg-white/10"
+    ? "bg-white border-white/10 hover:bg-white/80"
     : "bg-primary-dark border-white/10 hover:bg-primary-dark/95"; // Darker background for button style
 
   const iconBgClass = hasLink ? "bg-black/20 text-white" : "bg-primary-dark/20 text-white";

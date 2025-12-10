@@ -1,9 +1,9 @@
 import PageHero from "../components/ui/PageHero";
 import CTAComponent from "../components/home/CTAComponent";
 import OurBranchesSection from "../components/home/OurBranchesSection";
-// import OfficeContactsSection from "../components/contact/OfficeContactsSection";
+import OfficeContactsSection from "../components/contact/OfficeContactsSection";
 import DirectContactsSection from "../components/contact/DirectContactsSection";
-// import { footerData } from "../components/layout/FooterData";
+import { footerData } from "../components/layout/FooterData";
 
 const pageHero = {
   title: "Contact Us",
@@ -27,7 +27,7 @@ const cta = {
 // const officeBackgroundText = "OFFICES";
 
 const directContactsTitle = "Direct Contacts";
-const directContactsBackgroundText = "CONTACT";
+// const directContactsBackgroundText = "CONTACT";
 
 const mapImage = "/map-placeholder.png";
 
@@ -48,17 +48,17 @@ export default function ContactPage() {
         secondaryButtonText={cta.secondaryButtonText}
       />
 
-      {/* <OfficeContactsSection
-        title={officeSectionTitle}
-        backgroundText={officeBackgroundText}
+      <OfficeContactsSection
+        title="Branches"
+        
         offices={footerData.offices}
         sectionProps={{ background: "bg-background" }}
-      /> */}
+      />
 
       <OurBranchesSection />
       <DirectContactsSection
         title={directContactsTitle}
-        backgroundText={directContactsBackgroundText}
+        
         mapImage={mapImage}
         sectionProps={{ background: "bg-background" }}
       />
