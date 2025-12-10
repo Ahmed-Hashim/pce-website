@@ -28,7 +28,7 @@ export default function SidePanelManager({ footerData }: SidePanelManagerProps) 
       window.removeEventListener(sidePanelEvents.open, handleOpen);
       window.removeEventListener(sidePanelEvents.close, handleClose);
     };
-  }, []);
+  }, [sidePanelEvents.close, sidePanelEvents.open]);
 
   return (
     <DesktopSidePanel

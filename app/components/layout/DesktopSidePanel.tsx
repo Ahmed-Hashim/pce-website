@@ -82,7 +82,7 @@ export default function DesktopSidePanel({
               alt={branding.logoAlt ?? branding.name}
               width={40}
               height={40}
-              className="brightness-0 invert"
+              
             />
             <div>
               <p className="text-xl font-semibold text-primary-medium">{branding.name}</p>
