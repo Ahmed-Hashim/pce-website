@@ -110,7 +110,7 @@ function HoldingCard({ data }: { data: Tables<'group_data'> }) {
           <>
             <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0">
               {data.logo_url && (
-                <Image src={data.logo_url} alt={data.name} fill className={logoClass} />
+                <Image src={data.logo_url} alt={data.name} fill sizes="128px" className={logoClass} />
               )}
             </div>
             <div className="flex-1">
@@ -128,7 +128,7 @@ function HoldingCard({ data }: { data: Tables<'group_data'> }) {
             <div className="flex justify-center mb-4">
               <div className="relative w-36 h-16">
                 {data.logo_url && (
-                  <Image src={data.logo_url} alt={data.name} fill className={logoClass} />
+                  <Image src={data.logo_url} alt={data.name} fill sizes="128px" className={logoClass} />
                 )}
               </div>
             </div>

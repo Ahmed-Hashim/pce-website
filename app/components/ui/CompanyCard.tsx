@@ -34,7 +34,13 @@ export default function CompanyCard({ name, logo, abbrev, href, onClick, classNa
       <div className="relative w-full aspect-square flex items-center justify-center">
         {logo ? (
           <div className="relative w-full h-full">
-            <Image src={logo} alt={name} fill className="object-contain p-3 lg:p-4" />
+            <Image
+              src={logo}
+              alt={name}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 150px"
+              className="object-contain p-3 lg:p-4"
+            />
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">

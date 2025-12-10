@@ -1,3 +1,4 @@
+import Image from "next/image";
 import SectionTitle from "../ui/SectionTitle";
 import Section from "../ui/Section";
 import { createClient } from "@/utils/supabase/supabaseServer";
@@ -16,13 +17,19 @@ export default function WhoWeAreSection({ sectionProps }: WhoWeAreSectionProps) 
       container={sectionProps?.container ?? false}
       className={`relative overflow-hidden ${sectionProps?.className || ""}`}
     >
-      {/* Parallax background layer */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
-        style={{
-          backgroundImage: `url("./Cover.png")`,
-        }}
+      {/* Optimized background image with next/image */}
+      <Image
+        src="/Cover.png"
+        alt=""
+        fill
+        priority={false}
+        quality={75}
+        sizes="100vw"
+        className="object-cover object-center"
+        style={{ zIndex: 0 }}
       />
+      {/* Overlay for parallax effect */}
+      <div className="absolute inset-0 bg-black/20" style={{ zIndex: 1 }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <Suspense fallback={<WhoWeAreSkeleton />}>

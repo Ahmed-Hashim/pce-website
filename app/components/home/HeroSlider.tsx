@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Image from "next/image";
 
 export interface HeroSlide {
   id: number;
@@ -130,51 +131,54 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
         return (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-all duration-1200 ease-in-out ${
-              isActive
+            className={`absolute inset-0 transition-all duration-1200 ease-in-out ${isActive
                 ? "opacity-100 z-10 scale-100"
                 : "opacity-0 z-0 scale-105"
-            }`}
-          >
-            {/* Animated Background */}
-            <div
-              className={`absolute inset-0 bg-cover bg-center transition-transform duration-8000 ease-linear ${
-                isActive ? "scale-110" : "scale-100"
               }`}
-              style={{ backgroundImage: `url(${slide.image})` }}
+          >
+            {/* Optimized Background Image with next/image */}
+            <div
+              className={`absolute inset-0 transition-transform duration-8000 ease-linear ${isActive ? "scale-110" : "scale-100"
+                }`}
             >
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                priority={index === 0}
+                quality={80}
+                sizes="100vw"
+                className="object-cover object-center"
+              />
               <div className="absolute inset-0 bg-black/40 bg-linear-to-b from-black/30 via-transparent to-black/60" />
             </div>
 
             {/* Content */}
             <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4 sm:px-8 md:px-16 max-w-5xl mx-auto">
               <div
-                className={`transition-all duration-1000 ease-out flex flex-col items-center ${
-                  isActive
+                className={`transition-all duration-1000 ease-out flex flex-col items-center ${isActive
                     ? "opacity-100 translate-y-0 delay-300"
                     : "opacity-0 translate-y-12"
-                }`}
+                  }`}
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 text-white drop-shadow-lg tracking-tight leading-tight">
                   {slide.title}
                 </h1>
 
                 <p
-                  className={`text-base sm:text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-md transition-all duration-1000 ease-out delay-500 ${
-                    isActive
+                  className={`text-base sm:text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-md transition-all duration-1000 ease-out delay-500 ${isActive
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-8"
-                  }`}
+                    }`}
                 >
                   {slide.description}
                 </p>
 
                 <div
-                  className={`transition-all duration-1000 ease-out delay-700 ${
-                    isActive
+                  className={`transition-all duration-1000 ease-out delay-700 ${isActive
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-8"
-                  }`}
+                    }`}
                 >
                   <a
                     href={slide.link}
@@ -213,11 +217,10 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
           <button
             key={i}
             onClick={() => goToSlide(i)}
-            className={`transition-all duration-500 rounded-full ${
-              current === i
+            className={`transition-all duration-500 rounded-full ${current === i
                 ? "bg-primary-dark w-10 h-3 shadow-lg shadow-primary-dark/50"
                 : "bg-primary-medium w-3 h-3 hover:bg-secondary-light hover:scale-110"
-            }`}
+              }`}
           />
         ))}
       </div>
