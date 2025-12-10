@@ -2,22 +2,17 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    qualities: [25, 50, 75, 80],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'flagcdn.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'pce-consultants.b-cdn.net',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "pce-consultants.b-cdn.net",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
-  cacheComponents:true,
+  cacheComponents: true,
 };
 
 export default nextConfig;
