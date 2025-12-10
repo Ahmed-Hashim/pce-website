@@ -1,6 +1,5 @@
 import React from "react";
 import PageHero from "../../components/ui/PageHero";
-import { projectsData } from "../../data/projects";
 import SectorDescriptionSection from "../../components/sectors/SectorDescriptionSection";
 import SectorGridSection, {
   SectorGridItem,
@@ -8,11 +7,9 @@ import SectorGridSection, {
 import Statistics from "../../components/home/Statistics";
 import SectorFeaturedImageSection from "../../components/sectors/SectorFeaturedImageSection";
 import SectorTeamSection from "../../components/sectors/SectorTeamSection";
-import SectorFeaturedProjectsSection from "../../components/sectors/SectorFeaturedProjectsSection";
 import RelatedProjects from "../../components/services/RelatedProjects";
 import RelatedNews from "../../components/services/RelatedNews";
 import { createClient } from "@/utils/supabase/supabaseServer";
-import { getSectorBySlug, sectorsData } from "../../data/sectors"; // Keep for static params and fallback
 import { Tables } from "@/utils/supabase/supabase";
 
 type ServiceSectionWithDetails = Tables<"service_section_titles"> & {
@@ -50,26 +47,10 @@ async function getServiceData(slug: string) {
   };
 
   // Find service by matching slug
-  let service = services.find((s) => slugify(s.name) === slug);
+  const service = services.find((s) => slugify(s.name) === slug);
 
   if (!service) {
-    // Fallback: try to match by name (slugify name) or just return null
-    const localSector = getSectorBySlug(slug);
-    if (localSector) {
-      const { data: serviceByName, error: nameError } = await supabase
-        .from("services")
-        .select("*")
-        .ilike("name", localSector.title)
-        .single();
-
-      if (!nameError && serviceByName) {
-        service = serviceByName;
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
+    return null;
   }
 
   // 2. Fetch section titles and sections
@@ -118,10 +99,8 @@ export default async function SectorPage({
   // Try to fetch from Supabase first
   const supabaseData = await getServiceData(slug);
 
-  const localService = getSectorBySlug(slug);
-
-  // If neither found, 404
-  if (!supabaseData && !localService) {
+  // If not found, 404
+  if (!supabaseData) {
     const pageHero = {
       title: "Sector Not Found",
       subtitle: "",
@@ -143,9 +122,8 @@ export default async function SectorPage({
     );
   }
 
-  // Prefer Supabase data, fallback to local
-  const service = supabaseData?.service as Tables<"services">;
-  const sectionTitles = supabaseData?.sectionTitles || [];
+  const service = supabaseData.service as Tables<"services">;
+  const sectionTitles = supabaseData.sectionTitles || [];
 
   // Map service fields
   const title = service.name;
@@ -198,9 +176,6 @@ export default async function SectorPage({
     locations: [],
   }));
 
-  const featuredProjectsTitle = "Featured Projects / Case Studies";
-  const featuredProjects = projectsData.slice(0, 4);
-
   return (
     <div className="min-h-screen">
       <PageHero
@@ -215,7 +190,7 @@ export default async function SectorPage({
         sectionProps={{ background: "bg-background" }}
       />
 
-      {/* Render Dynamic Sections from DB or Fallback */}
+      {/* Render Dynamic Sections from DB */}
       {displaySections.map((section, index) => {
         const isFirstSection = index === 0;
         const columns = 4;
@@ -258,20 +233,29 @@ export default async function SectorPage({
       )}
 
       {/* Related Projects Section */}
-      {service?.id ? (
-        <RelatedProjects serviceId={service.id} />
-      ) : (
-        <SectorFeaturedProjectsSection
-          title={featuredProjectsTitle}
-          items={featuredProjects}
-        />
-      )}
+      <RelatedProjects serviceId={service.id} />
 
       <RelatedNews serviceName={title} />
     </div>
   );
 }
 
-export function generateStaticParams() {
-  return sectorsData.map((s) => ({ slug: s.slug }));
+export async function generateStaticParams() {
+  const supabase = await createClient();
+  const { data: services } = await supabase.from("services").select("name");
+
+  if (!services) return [];
+
+  // Helper to slugify a string
+  const slugify = (text: string) => {
+    return text
+      .toString()
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+      .replace(/\-\-+/g, "-"); // Replace multiple - with single -
+  };
+
+  return services.map((s) => ({ slug: slugify(s.name) }));
 }

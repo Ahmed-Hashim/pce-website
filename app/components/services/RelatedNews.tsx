@@ -33,6 +33,7 @@ function RelatedNewsSkeleton() {
 }
 
 async function RelatedNewsContent({ serviceName }: RelatedNewsProps) {
+  "use cache";
   const supabase = await createClient();
   const { data, error } = await supabase.rpc("get_related_news", {
     service_name: serviceName,
