@@ -13,9 +13,18 @@ interface SectorGridSectionProps {
   groups: SectorGridItem[];
   columns?: 2 | 3 | 4;
   sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
+  titleColor?: string;
+  textColor?: string;
 }
 
-export default function SectorGridSection({ title, groups, columns = 4, sectionProps }: SectorGridSectionProps) {
+export default function SectorGridSection({
+  title,
+  groups,
+  columns = 4,
+  sectionProps,
+  titleColor = "text-primary-dark",
+  textColor = "text-secondary-dark"
+}: SectorGridSectionProps) {
   const gridClass = {
     2: "md:grid-cols-2",
     3: "md:grid-cols-3",
@@ -30,7 +39,7 @@ export default function SectorGridSection({ title, groups, columns = 4, sectionP
     >
       <SectionTitle
         title={title}
-        titleColor="var(--color-primary-dark)"
+        titleColor={titleColor}
         align="left"
         fontSize="md:text-3xl lg:text-4xl"
         underline={false}
@@ -38,8 +47,8 @@ export default function SectorGridSection({ title, groups, columns = 4, sectionP
       <div className={`grid grid-cols-1 ${gridClass} gap-10 mt-10`}>
         {groups.map((group, i) => (
           <div key={`group-${i}`}>
-            <h4 className="text-primary-dark font-semibold text-lg">{group.title}</h4>
-            <ul className="mt-3 space-y-2 text-secondary-dark">
+            <h4 className={`${titleColor} font-semibold text-lg`}>{group.title}</h4>
+            <ul className={`mt-3 space-y-2 ${textColor}`}>
               {group.items.map((it, idx) => (
                 <li key={`group-${i}-${idx}`} className="flex items-start">
                   <TriangleIcon className="inset-0 w-3 h-3 mt-1 mr-2 text-primary-medium rotate-90" />

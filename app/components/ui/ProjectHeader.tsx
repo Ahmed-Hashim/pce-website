@@ -23,6 +23,19 @@ interface ProjectHeaderProps {
 export default function ProjectHeader({ title, subtitle, breadcrumbs, imageSrc, stats }: ProjectHeaderProps) {
   return (
     <Section className="bg-primary-dark pt-32 pb-16 relative overflow-hidden" container={true}>
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={imageSrc}
+          alt=""
+          fill
+          priority
+          className="object-cover opacity-20"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-primary-dark/80" />
+      </div>
+
       {/* Background Decor (optional) */}
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(95,117,176,0.1),transparent_50%)] pointer-events-none" />
 
@@ -34,7 +47,7 @@ export default function ProjectHeader({ title, subtitle, breadcrumbs, imageSrc, 
             <ol className="flex items-center gap-2 text-xs md:text-sm capitalize tracking-widest">
               {breadcrumbs.map((bc, i) => (
                 <li key={`${bc.label}-${i}`} className="flex items-center gap-2">
-                  <Link href={bc.href} className="text-secondary-light hover:text-white transition-colors">
+                  <Link href={bc.href} className="text-primary-medium hover:text-white transition-colors">
                     {bc.label}
                   </Link>
                   {i < breadcrumbs.length - 1 ? (
@@ -50,7 +63,7 @@ export default function ProjectHeader({ title, subtitle, breadcrumbs, imageSrc, 
               {title}
             </h1>
             {subtitle && (
-              <p className="mt-4 text-secondary-light font-light max-w-2xl">
+              <p className="mt-4 text-primary-medium font-light max-w-2xl">
                 {subtitle}
               </p>
             )}
@@ -83,7 +96,7 @@ export default function ProjectHeader({ title, subtitle, breadcrumbs, imageSrc, 
                     <p className=" font-light text-white tracking-tight group-hover/stat:text-primary-medium transition-colors">
                       {s.description}
                     </p>
-                    <span className=" text-secondary-light mt-2 capitalize tracking-widest">
+                    <span className=" text-primary-medium mt-2 capitalize tracking-widest">
                       {s.title}
                     </span>
                   </div>

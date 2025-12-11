@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import HeroSection from "./components/home/HeroSection";
 import WhoWeAreSection from "./components/home/WhoWeAreSection";
 import OurBranchesSection from "./components/home/OurBranchesSection";
@@ -13,6 +14,20 @@ import ValuesMarqueeSection from "./components/home/ValuesMarqueeSection";
 
 import OurExpertiseSection from "./components/home/OurExpertiseSection";
 
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Precision Consulting Engineering (PCE) - Leading engineering consultancy delivering world-class infrastructure, construction management, and project supervision across the Middle East. 30+ years of excellence.",
+  keywords: ["engineering consulting", "construction management", "infrastructure development", "PCE", "Saudi Arabia engineering", "Middle East construction"],
+  openGraph: {
+    title: "PCE | Precision Consulting Engineering",
+    description: "Leading engineering consultancy delivering world-class infrastructure and construction management across the Middle East.",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/",
+  },
+};
+
 export default async function Home() {
   return (
     <div className=" relative min-h-screen items-center justify-center ">
@@ -21,7 +36,7 @@ export default async function Home() {
       {/* Section props passed for consistency */}
       <ValuesMarqueeSection />
       <WhoWeAreSection
-        
+
         sectionProps={{ container: false }}
       />
       <ClientsSection sectionProps={{ container: false }} />

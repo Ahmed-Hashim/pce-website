@@ -15,7 +15,7 @@ interface ContentCardProps {
 export default function ContentCard({ href, title, imageSrc, date, tag, excerpt, ctaLabel, className = "" }: ContentCardProps) {
   return (
     <Link href={href} className={`group block ${className}`}>
-      <div className="overflow-hidden rounded-sm bg-white border border-foreground-secondary/50">
+      <div className="overflow-hidden rounded-sm bg-white border border-primary-medium">
         <div className="relative aspect-4/3">
           <Image src={imageSrc} alt={title} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />

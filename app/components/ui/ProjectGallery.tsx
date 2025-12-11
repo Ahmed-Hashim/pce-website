@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Section from "./Section";
+
 
 interface ProjectGalleryProps {
   images: string[];
@@ -10,8 +10,8 @@ export default function ProjectGallery({ images, projectName = "Project" }: Proj
   if (!images || images.length === 0) return null;
 
   return (
-    <Section className="w-full" container={true}>
-       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+
+       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-12">
           {images.map((src, i) => (
             <div key={`gal-${i}`} className="relative h-64 md:h-80 lg:h-96 group overflow-hidden">
               <Image 
@@ -24,6 +24,6 @@ export default function ProjectGallery({ images, projectName = "Project" }: Proj
             </div>
           ))}
        </div>
-    </Section>
+
   );
 }

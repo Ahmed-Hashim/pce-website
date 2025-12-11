@@ -88,7 +88,7 @@ async function MissionVisionContent() {
   const valuesList = Array.isArray(values) ? values.map(String) : [];
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 shadow-2xl rounded-sm overflow-hidden">
+    <div className="grid grid-cols-1 lg:grid-cols-3 shadow-2xl rounded-sm overflow-hidden pt-4">
       {/* VISION CARD - Left - Darkest Blue */}
       <div className="group relative p-12 flex flex-col justify-between min-h-[500px] bg-primary-dark/70 text-white transition-all duration-500 hover:z-10">
         {/* Decorative Overlay */}
@@ -105,7 +105,7 @@ async function MissionVisionContent() {
         </div>
 
         <div className="relative z-10 mt-12 flex justify-end">
-          <LuTarget className="w-20 h-20 text-primary-medium/30 group-hover:text-primary-medium/50 group-hover:scale-110 transition-all duration-500" />
+          <LuEye className="w-20 h-20 text-neutral-light group-hover:text-primary-medium/50 group-hover:scale-110 transition-all duration-500" />
         </div>
       </div>
 
@@ -115,7 +115,7 @@ async function MissionVisionContent() {
         
         <div className="relative z-10">
           <h3 className="text-4xl md:text-5xl font-bold uppercase tracking-tight mb-8 text-primary-dark">
-            <span className="opacity-60 block text-lg tracking-widest font-medium mb-1">Our</span>
+            <span className="block text-lg tracking-widest font-medium mb-1">Our</span>
             {labels.mission}
           </h3>
           <div className="text-white/90 text-lg leading-relaxed font-light">
@@ -124,7 +124,7 @@ async function MissionVisionContent() {
         </div>
 
         <div className="relative z-10 mt-12 flex justify-end">
-          <LuEye className="w-20 h-20 text-white/20 group-hover:text-white/40 group-hover:scale-110 transition-all duration-500" />
+          <LuTarget className="w-20 h-20 text-neutral-light group-hover:text-white/40 group-hover:scale-110 transition-all duration-500" />
         </div>
       </div>
 
@@ -134,14 +134,14 @@ async function MissionVisionContent() {
 
         <div className="relative z-10">
           <h3 className="text-4xl md:text-5xl font-bold uppercase tracking-tight mb-8 text-primary-dark">
-            <span className="text-secondary-dark block text-lg tracking-widest font-medium mb-1">Our</span>
+            <span className="text-primary-dark block text-lg tracking-widest font-medium mb-1">Our</span>
             {labels.values}
           </h3>
           <div className="text-secondary-dark text-lg leading-relaxed font-light">
             <ul className="space-y-4">
               {valuesList.map((v, i) => (
                 <li key={`val-${i}`} className="flex items-start gap-3">
-                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary-dark shrink-0" />
+                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-white shrink-0" />
                   <span className="font-medium text-white">{v}</span>
                 </li>
               ))}
@@ -150,7 +150,7 @@ async function MissionVisionContent() {
         </div>
 
         <div className="relative z-10 mt-12 flex justify-end">
-          <LuAward className="w-20 h-20 text-primary-medium/20 group-hover:text-primary-medium/40 group-hover:scale-110 transition-all duration-500" />
+          <LuAward className="w-20 h-20 text-neutral-light group-hover:text-primary-medium/40 group-hover:scale-110 transition-all duration-500" />
         </div>
       </div>
     </div>

@@ -11,22 +11,22 @@ export interface FooterOffice {
 }
 
 export interface FooterContent {
- 
+
   offices: FooterOffice[];
   columns: Array<
     | {
-        title: string;
-        description: string;
-        socials: FooterSocial[];
-      }
+      title: string;
+      description: string;
+      socials: FooterSocial[];
+    }
     | {
-        title: string;
-        links: FooterLink[];
-      }
+      title: string;
+      links: FooterLink[];
+    }
     | {
-        title: string;
-        newsletter: { placeholder: string; submitAriaLabel: string };
-      }
+      title: string;
+      newsletter: { placeholder: string; submitAriaLabel: string };
+    }
   >;
   bottom: {
     copyright: string;
@@ -75,11 +75,13 @@ export const footerData: FooterContent = {
       ],
     },
     {
-      title: "Resources",
+      title: "Quick Links",
       links: [
         { label: "Contact us", href: "/contact" },
         { label: "Careers", href: "/careers" },
         { label: "Blog", href: "/blog" },
+        { label: "Policy & privacy", href: "/policy-privacy" },
+        { label: "Terms & conditions", href: "/terms-and-conditions" },
       ],
     },
     {
@@ -89,14 +91,11 @@ export const footerData: FooterContent = {
         { label: "Site Supervision", href: "/services/site-supervision" },
       ],
     },
-    
+
   ],
   bottom: {
     copyright: "© 2025 PCE All right reserved.",
-    links: [
-      { label: "Policy & privacy", href: "/policy-privacy" },
-      { label: "Terms & conditions", href: "/terms-and-conditions" },
-    ],
+    links: [],
   },
 };
 

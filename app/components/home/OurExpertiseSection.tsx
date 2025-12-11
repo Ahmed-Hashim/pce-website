@@ -85,7 +85,7 @@ function ExpertiseSkeleton() {
       {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
         <div
           key={i}
-          className="bg-white rounded-sm p-8 shadow-sm border border-gray-100 flex flex-col items-center"
+          className="bg-primary-medium rounded-sm p-8 shadow-sm border border-gray-100 flex flex-col items-center"
         >
           <div className="w-24 h-24 bg-gray-200 animate-pulse rounded-sm mb-8" />
           <div className="h-6 w-3/4 bg-gray-200 animate-pulse rounded" />

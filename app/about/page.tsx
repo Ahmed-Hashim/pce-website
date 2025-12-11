@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import PageHero from "../components/ui/PageHero";
 import CEOSection from "../components/about/CEOSection";
 import Statistics from "../components/home/Statistics";
@@ -5,6 +6,20 @@ import OurBranchesSection from "../components/home/OurBranchesSection";
 import MissionVisionValues from "../components/about/MissionVisionValues";
 import LeadershipLists from "../components/about/LeadershipLists";
 import AwardsCertifications from "../components/about/AwardsCertifications";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Discover PCE's 30+ years of engineering excellence. Learn about our mission, vision, leadership team, and global presence across the Middle East and beyond.",
+  keywords: ["about PCE", "engineering company", "leadership team", "company history", "mission vision", "awards certifications"],
+  openGraph: {
+    title: "About Us | PCE",
+    description: "Discover PCE's 30+ years of engineering excellence, our mission, and leadership team.",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/about",
+  },
+};
 
 const pageHero = {
   title: "About Us",
@@ -23,7 +38,7 @@ export default function AboutPage() {
         title={pageHero.title}
         subtitle={pageHero.subtitle}
         breadcrumbs={pageHero.breadcrumbs}
-        // imageSrc={pageHero.imageSrc}
+      // imageSrc={pageHero.imageSrc}
       />
 
       {/* <WhoWeAreSection data={whoWeAreData} /> */}

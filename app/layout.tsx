@@ -1,4 +1,5 @@
 import { Raleway } from "next/font/google";
+import type { Metadata } from "next";
 import "./globals.css";
 import { Header, Footer, SidePanelManager, getFooterData } from "./components/layout";
 import { NewsletterSection } from "./components/home";
@@ -19,9 +20,57 @@ const raleway = Raleway({
   variable: "--font-raleway",
 });
 
-export const metadata = {
-  title: "PCE Website",
-  description: "PCE Website",
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://pce.com"),
+  title: {
+    default: "PCE | Precision Consulting Engineering",
+    template: "%s | PCE",
+  },
+  description: "Leading engineering consultancy with 30+ years of experience in infrastructure, construction, and project management across the Middle East and beyond.",
+  keywords: ["engineering consulting", "construction management", "infrastructure", "PCE", "precision consulting engineering", "project management", "Saudi Arabia", "Middle East"],
+  authors: [{ name: "Precision Consulting Engineering" }],
+  creator: "Precision Consulting Engineering",
+  publisher: "Precision Consulting Engineering",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "PCE - Precision Consulting Engineering",
+    title: "PCE | Precision Consulting Engineering",
+    description: "Leading engineering consultancy with 30+ years of experience in infrastructure, construction, and project management.",
+    images: [
+      {
+        url: "/og_image.png",
+        width: 1200,
+        height: 630,
+        alt: "PCE - Precision Consulting Engineering",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PCE | Precision Consulting Engineering",
+    description: "Leading engineering consultancy with 30+ years of experience.",
+    images: ["/og_image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default async function RootLayout({
@@ -60,6 +109,45 @@ export default async function RootLayout({
 
         {/* Global desktop side panel, decoupled from Header position */}
         <SidePanelManager footerData={footerData} />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://pce.com/#organization",
+                  "name": "PCE - Precision Consulting Engineering",
+                  "url": "https://pce.com",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://pce.com/pce-logo.png",
+                    "width": 600,
+                    "height": 60
+                  },
+                  "sameAs": [
+                    "https://www.linkedin.com/company/pce",
+                    "https://twitter.com/pce"
+                  ]
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://pce.com/#website",
+                  "url": "https://pce.com",
+                  "name": "PCE - Precision Consulting Engineering",
+                  "description": "Leading engineering consultancy with 30+ years of experience in infrastructure, construction, and project management.",
+                  "publisher": {
+                    "@id": "https://pce.com/#organization"
+                  },
+                  "inLanguage": "en-US"
+                }
+              ]
+            })
+          }}
+        />
       </body>
     </html>
   );

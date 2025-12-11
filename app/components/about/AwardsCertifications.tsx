@@ -18,13 +18,14 @@ export default function AwardsCertifications({
   labels = { awards: "Awards", certifications: "Certifications" },
 }: AwardsCertificationsProps) {
   return (
-    <section className="relative bg-neutral-light/20 py-16">
+    <section className="relative bg-primary-dark ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle title={title} background={background} titleColor="text-white" className="mb-12" />
+        <SectionTitle title={title} background={background} titleColor="text-white" className="mb-7" />
         <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat "
         style={{
-          backgroundImage: `url("./awards-bg.png")`,
+          backgroundImage: `url("./awards-bg-1.webp")`,
+        
         }}
       />
 
@@ -89,7 +90,7 @@ async function AwardsList({ labels }: { labels: { awards: string; certifications
             
 
             {/* Main Card Body */}
-            <div className=" rounded-xl p-4 pt-6 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 h-full flex flex-col relative z-0">
+            <div className=" rounded-xl p-4 pt-6 shadow-lg shadow-primary-dark bg-accent/5 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 h-full flex flex-col relative z-0">
               
               {/* Image Frame */}
               <div className="bg-white p-2 rounded-sm shadow-inner mb-4 mx-auto w-3/4 aspect-3/4 relative transform group-hover:translate-y-[-2px] transition-transform duration-300">
@@ -117,7 +118,7 @@ async function AwardsList({ labels }: { labels: { awards: string; certifications
                 <h3 className="text-sm font-semibold text-white mb-1 leading-tight line-clamp-2">
                   {item.title}
                 </h3>
-                <p className="text-[10px] text-secondary-light/80 font-light line-clamp-1">
+                <p className="text-[10px] text-neutral-light font-light line-clamp-1">
                   {item.subtitle || item.type} 
                 </p>
               </div>

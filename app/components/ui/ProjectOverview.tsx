@@ -24,13 +24,13 @@ export default function ProjectOverview({
   return (
     <>
       {/* Overview */}
-      <div className="mb-16 max-w-4xl">
+      <div className="mb-8 max-w-4xl">
         {overview && (
           <>
-            <h2 className="font-light text-primary-dark mb-8">
+            <h2 className="font-extrabold md:text-4xl lg:text-5xl text-primary-dark ">
               Overview
             </h2>
-            <div className="text-secondary-dark leading-relaxed whitespace-pre-line font-light">
+            <div className="text-primary-medium leading-relaxed whitespace-pre-line font-light mt-2">
               {overview}
             </div>
           </>
@@ -42,7 +42,7 @@ export default function ProjectOverview({
         {/* Client */}
         {client && (
           <div>
-            <h6 className="font-bold text-secondary-dark uppercase tracking-widest mb-3">
+            <h6 className="font-bold text-primary-medium uppercase tracking-widest mb-3">
               Client
             </h6>
             {client.logo_link ? (
@@ -65,7 +65,7 @@ export default function ProjectOverview({
         {/* Categories */}
         {categories.length > 0 && (
           <div>
-            <h6 className="font-bold text-secondary-dark uppercase tracking-widest mb-3">
+            <h6 className="font-bold text-primary-medium uppercase tracking-widest mb-3">
               Categories
             </h6>
             <div className="flex flex-wrap gap-2">
@@ -85,7 +85,7 @@ export default function ProjectOverview({
         {/* Sectors */}
         {sectors.length > 0 && (
           <div>
-            <h6 className="font-bold text-secondary-dark uppercase tracking-widest mb-3">
+            <h6 className="font-bold text-primary-medium uppercase tracking-widest mb-3">
               Sectors
             </h6>
             <div className="flex flex-wrap gap-2">
@@ -105,7 +105,7 @@ export default function ProjectOverview({
         {/* Location */}
         {location && location !== projectName && (
           <div>
-            <h6 className="font-bold text-secondary-dark uppercase tracking-widest mb-3">
+            <h6 className="font-bold text-primary-medium uppercase tracking-widest mb-3">
               Location
             </h6>
             <div className="text-primary-dark font-medium">

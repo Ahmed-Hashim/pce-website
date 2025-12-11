@@ -48,17 +48,17 @@ export default function ProjectsFiltersSection({
   return (
     <Section {...sectionProps} className={`${sectionProps?.className || ""} pb-0`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="rounded-sm border border-secondary-dark/30 bg-primary-dark/5 p-4 md:p-6">
+        <div className="rounded-sm border border-primary-dark bg-primary-dark/5 p-4 md:p-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-end">
             <div>
-              <label className="block text-xs tracking-wide text-secondary-dark mb-2">
+              <label className="block text-xs tracking-wide text-primary-dark mb-2">
                 {filterLabels.location}
               </label>
               <div className="relative">
                 <select
                   value={selectedLocation}
                   onChange={(e) => onChangeLocation(e.target.value)}
-                  className="w-full h-11 rounded-sm border border-secondary-dark/40 bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-secondary-dark focus:border-primary-medium focus:outline-none"
+                  className="w-full h-11 rounded-sm border border-primary-dark bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-primary-dark focus:border-primary-medium focus:outline-none"
                 >
                   <option value="all">{filterLabels.all}</option>
                   {locations.map((loc) => (
@@ -67,19 +67,19 @@ export default function ProjectsFiltersSection({
                     </option>
                   ))}
                 </select>
-                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-secondary-dark/70" />
+                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-primary-dark/70" />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs tracking-wide text-secondary-dark mb-2">
+              <label className="block text-xs tracking-wide text-primary-dark mb-2">
                 {filterLabels.sectorTag}
               </label>
               <div className="relative">
                 <select
                   value={selectedSectorTag}
                   onChange={(e) => onChangeSectorTag(e.target.value)}
-                  className="w-full h-11 rounded-sm border border-secondary-dark/40 bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-secondary-dark focus:border-primary-medium focus:outline-none"
+                  className="w-full h-11 rounded-sm border border-primary-dark bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-primary-dark focus:border-primary-medium focus:outline-none"
                 >
                   <option value="all">{filterLabels.all}</option>
                   {sectorTags.map((s) => (
@@ -88,19 +88,19 @@ export default function ProjectsFiltersSection({
                     </option>
                   ))}
                 </select>
-                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-secondary-dark/70" />
+                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-primary-dark/70" />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs tracking-wide text-secondary-dark mb-2">
+              <label className="block text-xs tracking-wide text-primary-dark mb-2">
                 {filterLabels.sector}
               </label>
               <div className="relative">
                 <select
                   value={selectedSector}
                   onChange={(e) => onChangeSector(e.target.value)}
-                  className="w-full h-11 rounded-sm border border-secondary-dark/40 bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-secondary-dark focus:border-primary-medium focus:outline-none"
+                  className="w-full h-11 rounded-sm border border-primary-dark bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-primary-dark focus:border-primary-medium focus:outline-none"
                 >
                   <option value="all">{filterLabels.all}</option>
                   {sectors.map((sec) => (
@@ -109,7 +109,7 @@ export default function ProjectsFiltersSection({
                     </option>
                   ))}
                 </select>
-                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-secondary-dark/70" />
+                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-primary-dark/70" />
               </div>
             </div>
 
@@ -117,7 +117,7 @@ export default function ProjectsFiltersSection({
               <button
                 type="button"
                 onClick={onReset}
-                className="inline-flex items-center justify-center h-11 px-4 rounded-sm border border-secondary-dark/40 bg-white/60 text-primary-dark hover:bg-white/80 transition-colors"
+                className="inline-flex items-center justify-center h-11 px-4 rounded-sm border border-primary-dark bg-white/60 text-primary-dark hover:bg-white/80 transition-colors"
               >
                 {filterLabels.reset}
               </button>

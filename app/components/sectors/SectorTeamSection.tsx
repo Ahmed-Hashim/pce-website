@@ -17,9 +17,15 @@ interface SectorTeamSectionProps {
   title: string;
   members: PersonItem[];
   sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
+  titleColor?: string;
 }
 
-export default function SectorTeamSection({ title, members, sectionProps }: SectorTeamSectionProps) {
+export default function SectorTeamSection({
+  title,
+  members,
+  sectionProps,
+  titleColor = "text-primary-dark"
+}: SectorTeamSectionProps) {
   return (
     <Section
       {...sectionProps}
@@ -28,7 +34,7 @@ export default function SectorTeamSection({ title, members, sectionProps }: Sect
     >
       <SectionTitle
         title={title}
-        titleColor="var(--color-primary-dark)"
+        titleColor={titleColor}
         align="left"
         fontSize="md:text-3xl lg:text-4xl"
         underline={false}

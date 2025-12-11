@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import PageHero from "../../components/ui/PageHero";
 import SectorDescriptionSection from "../../components/sectors/SectorDescriptionSection";
 import SectorGridSection, {
@@ -14,6 +15,17 @@ import { Tables } from "@/utils/supabase/supabase";
 
 type ServiceSectionWithDetails = Tables<"service_section_titles"> & {
   service_sections: Pick<Tables<"service_sections">, "title" | "points">[];
+};
+
+// Helper to slugify a string
+const slugify = (text: string) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 };
 
 // Helper to fetch service data from Supabase
@@ -34,17 +46,6 @@ async function getServiceData(slug: string) {
     );
     return null;
   }
-
-  // Helper to slugify a string
-  const slugify = (text: string) => {
-    return text
-      .toString()
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, "-") // Replace spaces with -
-      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
-      .replace(/\-\-+/g, "-"); // Replace multiple - with single -
-  };
 
   // Find service by matching slug
   const service = services.find((s) => slugify(s.name) === slug);
@@ -86,6 +87,40 @@ async function getServiceData(slug: string) {
     service,
     sectionTitles: sectionTitles || [],
     teamMembers: teamMembers || [],
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await getServiceData(slug);
+
+  if (!data) {
+    return {
+      title: "Service Not Found",
+      description: "The requested service could not be found.",
+    };
+  }
+
+  const { service } = data;
+  const description = service.brief?.substring(0, 160) || `Learn about PCE's ${service.name} services.`;
+
+  return {
+    title: service.name,
+    description,
+    keywords: ["PCE service", service.name, "engineering service", "construction consulting"],
+    openGraph: {
+      title: `${service.name} | PCE Services`,
+      description,
+      type: "article",
+      images: service.image_url ? [service.image_url] : undefined,
+    },
+    alternates: {
+      canonical: `/services/${slug}`,
+    },
   };
 }
 
@@ -177,17 +212,19 @@ export default async function SectorPage({
   }));
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-primary-dark">
       <PageHero
         title={pageHero.title}
         // subtitle={pageHero.subtitle || ""}
         breadcrumbs={pageHero.breadcrumbs}
+        imageSrc={pageHero.imageSrc}
       />
 
       {/* SectorDescriptionSection */}
       <SectorDescriptionSection
         description={description || ""}
-        sectionProps={{ background: "bg-background" }}
+        sectionProps={{ background: "bg-primary-dark" }}
+        textColor="text-neutral-200"
       />
 
       {/* Render Dynamic Sections from DB */}
@@ -196,8 +233,8 @@ export default async function SectorPage({
         const columns = 4;
         const background =
           isFirstSection || index === 1
-            ? "bg-neutral-light/20"
-            : "bg-background";
+            ? "bg-white/5"
+            : "bg-primary-dark";
 
         return (
           <React.Fragment key={index}>
@@ -206,17 +243,19 @@ export default async function SectorPage({
               groups={section.groups}
               columns={columns}
               sectionProps={{ background }}
+              titleColor="text-white"
+              textColor="text-neutral-200"
             />
 
             {/* Insert Static Metrics & Image after the first section (Overview) */}
             {isFirstSection && (
               <>
                 <Statistics />
-                <SectorFeaturedImageSection
+                {/* <SectorFeaturedImageSection
                   imageSrc={featuredImageSrc || "/2.png"}
                   alt={title}
                   sectionProps={{ background: "bg-background" }}
-                />
+                /> */}
               </>
             )}
           </React.Fragment>
@@ -228,7 +267,8 @@ export default async function SectorPage({
         <SectorTeamSection
           title={teamTitle}
           members={teamMembers}
-          sectionProps={{ background: "bg-neutral-light/20" }}
+          sectionProps={{ background: "bg-white/5" }}
+          titleColor="text-white"
         />
       )}
 

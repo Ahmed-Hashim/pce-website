@@ -1,5 +1,6 @@
 import React from "react";
 import LeaderCard from "./LeaderCard";
+import SectionTitle from "./SectionTitle";
 
 interface TeamMember {
   full_name: string;
@@ -20,8 +21,8 @@ export default function ProjectTeam({ team }: ProjectTeamProps) {
 
   return (
     <>
-      <h2 className="font-light text-primary-dark pb-12">Project Team</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7 justify-items-center">
+      <SectionTitle title="Project Team" align="left" />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7 justify-items-center mt-12">
         {team.map((member, i) => (
           <LeaderCard
             key={`team-member-${i}`}

@@ -86,12 +86,12 @@ export default function BranchesGrid({
                 type="button"
                 onClick={() => setSelectedBranch(branch)}
                 aria-label={`${labels.viewDetails}: ${branch.country}`}
-                className={`group relative text-left bg-white rounded-sm p-4 shadow-sm hover:shadow-xl transition-all duration-500 ease-out border border-gray-100 hover:border-primary-medium/20 flex flex-col ${
+                className={`group relative text-left bg-white rounded-sm p-4 shadow-sm hover:shadow-xl shadow-primary-medium/50 transition-all duration-500 ease-out border  hover:border-primary-medium/20 flex flex-col ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
                 } ${
-                  branch.isHeadquarters ? "sm:col-span-2 lg:col-span-1" : ""
+                  branch.isHeadquarters ? "sm:col-span-2 lg:col-span-1 bg-primary-dark! border-accent" : "border-gray-100"
                 }`}
                 style={{ transitionDelay: `${300 + index * 80}ms` }}
               >
@@ -102,7 +102,7 @@ export default function BranchesGrid({
                 )}
 
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border border-secondary-dark shrink-0">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-3 border-primary-dark/10 shrink-0">
                     <Image
                       width={250}
                       height={250}
@@ -113,20 +113,20 @@ export default function BranchesGrid({
                   </div>
 
                   <div className="min-w-0">
-                    <p className="font-semibold text-primary-dark ">
+                    <p className={`font-semibold  ${branch.isHeadquarters ? "text-white" : "text-primary-dark"}`}>
                       {branch.country}
                     </p>
-                    <small className="text-secondary-dark capitalize">
+                    <small className={` ${branch.isHeadquarters ? "text-neutral-light" : "text-secondary-dark"} capitalize`}>
                       {branch.region} {labels.regionSuffix}
                     </small>
                   </div>
                 </div>
 
                 <div className="mt-auto flex items-center justify-between">
-                  <small className="text-secondary-dark">
+                  <small className={` ${branch.isHeadquarters ? "text-neutral-light" : "text-secondary-dark"} capitalize`}>
                     {branch.branchCount} {labels.branchCount}
                   </small>
-                  <small className="text-primary-medium">
+                  <small className={` ${branch.isHeadquarters ? "hover:text-primary-medium text-white" : "hover:text-secondary-dark text-primary-medium"}  capitalize`}>
                     {labels.viewDetails}
                   </small>
                 </div>

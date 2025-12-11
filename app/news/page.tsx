@@ -1,9 +1,24 @@
+import type { Metadata } from "next";
 import PageHero from "../components/ui/PageHero";
 import SectionTitle from "../components/ui/SectionTitle";
 import ContentGrid, { ContentItem } from "../components/ui/ContentGrid";
 import Section from "../components/ui/Section";
 import { createClient } from "@/utils/supabase/supabaseServer";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "News",
+  description: "Stay updated with PCE's latest news, announcements, press releases, and company updates from across the Middle East.",
+  keywords: ["PCE news", "company announcements", "press releases", "engineering news", "construction updates", "company updates"],
+  openGraph: {
+    title: "News | PCE",
+    description: "Stay updated with PCE's latest news, announcements, and press releases.",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/news",
+  },
+};
 
 const pageHero = {
   title: "News",
@@ -72,9 +87,9 @@ async function TopStories() {
     imageSrc: story.main_image_url || "/3.png",
     date: story.published_at
       ? new Date(story.published_at).toLocaleDateString("en-US", {
-          month: "short",
-          year: "numeric",
-        })
+        month: "short",
+        year: "numeric",
+      })
       : "",
     tag: "Top",
     excerpt: story.meta_description || "",
@@ -92,7 +107,7 @@ async function AllNews() {
     // Exclude top stories to avoid duplication if desired, or remove this line to show all.
     // Usually "All News" below "Top Stories" implies "The Rest" or "Latest". 
     // Following the blog pattern (Latest Posts excluding Featured), I will exclude top stories.
-    .neq("top_story", true) 
+    .neq("top_story", true)
     .eq("published", true)
     .order("published_at", { ascending: false })
     .limit(6);
@@ -122,9 +137,9 @@ async function AllNews() {
     imageSrc: item.main_image_url || "/2.png",
     date: item.published_at
       ? new Date(item.published_at).toLocaleDateString("en-US", {
-          month: "short",
-          year: "numeric",
-        })
+        month: "short",
+        year: "numeric",
+      })
       : "",
     tag: Array.isArray(item.tags) && item.tags.length > 0 ? String(item.tags[0]) : (typeof item.tags === 'string' ? item.tags : undefined),
     excerpt: item.meta_description || "",
@@ -136,21 +151,21 @@ async function AllNews() {
 export default function NewsPage() {
   return (
     <div className="min-h-screen">
-      <PageHero 
-        title={pageHero.title} 
-        subtitle={pageHero.subtitle} 
-        breadcrumbs={pageHero.breadcrumbs} 
-        // imageSrc={pageHero.imageSrc} 
+      <PageHero
+        title={pageHero.title}
+        subtitle={pageHero.subtitle}
+        breadcrumbs={pageHero.breadcrumbs}
+      // imageSrc={pageHero.imageSrc} 
       />
 
       <Section background="bg-background" className="py-(--space-section-y-md)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <SectionTitle 
-            title={sectionText.topStoriesTitle} 
-            titleColor="var(--color-primary-dark)" 
-            align="left" 
-            className="mb-8" 
-            fontSize="md:text-3xl lg:text-4xl" 
+          <SectionTitle
+            title={sectionText.topStoriesTitle}
+            titleColor="var(--color-primary-dark)"
+            align="left"
+            className="mb-8"
+            fontSize="md:text-3xl lg:text-4xl"
           />
           <Suspense fallback={<NewsSkeleton />}>
             <TopStories />
@@ -160,12 +175,12 @@ export default function NewsPage() {
 
       <Section background="bg-background" className="py-(--space-section-y-md)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <SectionTitle 
-            title={sectionText.allNewsTitle} 
-            titleColor="var(--color-primary-dark)" 
-            align="left" 
-            className="mb-8" 
-            fontSize="md:text-3xl lg:text-4xl" 
+          <SectionTitle
+            title={sectionText.allNewsTitle}
+            titleColor="var(--color-primary-dark)"
+            align="left"
+            className="mb-8"
+            fontSize="md:text-3xl lg:text-4xl"
           />
           <Suspense fallback={<NewsSkeleton />}>
             <AllNews />

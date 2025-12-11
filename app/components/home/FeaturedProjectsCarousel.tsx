@@ -189,9 +189,9 @@ export default function FeaturedProjectsCarousel({
           <button
             onClick={prevProject}
             aria-label="Previous"
-            className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-primary-medium bg-white text-button-text hover:bg-primary-medium transition-colors"
+            className="group inline-flex items-center justify-center w-10 h-10 rounded-sm border border-primary-medium hover:text-white hover:bg-white transition-colors"
           >
-            <FiChevronLeft className="w-5 h-5 text-accent hover:text-white" />
+            <FiChevronLeft className="w-5 h-5 text-accent group-hover:text-primary-dark" />
           </button>
           {(() => {
             const totalPages = Math.max(1, projects.length - itemsPerView + 1);
@@ -206,9 +206,9 @@ export default function FeaturedProjectsCarousel({
           <button
             onClick={nextProject}
             aria-label="Next"
-            className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-primary-medium bg-white text-button-text hover:bg-primary-medium transition-colors"
+            className="group inline-flex items-center justify-center w-10 h-10 rounded-sm border border-primary-medium  text-button-text hover:bg-white transition-colors"
           >
-            <FiChevronRight className="w-5 h-5 text-accent hover:text-white" />
+            <FiChevronRight className="w-5 h-5 text-accent group-hover:text-primary-dark" />
           </button>
         </div>
       </div>

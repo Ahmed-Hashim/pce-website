@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import ProjectHeader, { StatPoint } from "../../components/ui/ProjectHeader";
 import PageHero from "../../components/ui/PageHero";
 import ProjectGallery from "../../components/ui/ProjectGallery";
@@ -5,6 +6,7 @@ import ProjectOverview from "../../components/ui/ProjectOverview";
 import ProjectTeam from "../../components/ui/ProjectTeam";
 import { createClient } from "@/utils/supabase/supabaseServer";
 import Section from "@/app/components/ui/Section";
+import { SectionTitle } from "@/app/components/ui";
 
 
 
@@ -48,6 +50,42 @@ async function getProject(slug: string) {
     )
     .eq("slug", slug)
     .single();
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const { data: project } = await getProject(slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+      description: "The requested project could not be found.",
+    };
+  }
+
+  const description = project.overview?.substring(0, 160) || `Explore the ${project.name} project by PCE.`;
+  const sectors = project.projects_sectors
+    ?.map((s: { sectors: { name: string } | null }) => s.sectors?.name)
+    .filter((name): name is string => Boolean(name)) || [];
+
+  return {
+    title: project.name,
+    description,
+    keywords: ["PCE project", project.name, project.location, ...sectors].filter((k): k is string => Boolean(k)),
+    openGraph: {
+      title: `${project.name} | PCE Projects`,
+      description,
+      type: "article",
+      images: project.main_image_url ? [project.main_image_url] : undefined,
+    },
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
+  };
 }
 
 export default async function ProjectDetailPage({
@@ -111,14 +149,14 @@ export default async function ProjectDetailPage({
     (project.project_team
       ?.map((t) => t.leadership_team)
       .filter(Boolean) as {
-      full_name: string;
-      position: string | null;
-      avatar_url: string | null;
-      description: string | null;
-      projects_count: number | null;
-      experience_years: number | null;
-      title: string;
-    }[]) || [];
+        full_name: string;
+        position: string | null;
+        avatar_url: string | null;
+        description: string | null;
+        projects_count: number | null;
+        experience_years: number | null;
+        title: string;
+      }[]) || [];
 
   return (
     <div className="min-h-screen bg-background">
@@ -143,7 +181,19 @@ export default async function ProjectDetailPage({
       </Section>
 
       {/* Gallery Section */}
-      <ProjectGallery images={gallery} projectName={project.name} />
+      <Section className="bg-neutral-light/30">
+
+          <SectionTitle
+           
+            title="Visuals from the Field"
+            align="left"
+          />
+
+          <div className="mt-2">
+            <ProjectGallery images={gallery} projectName={project.name} />
+          </div>
+
+      </Section>
 
       {/* Project Team Section */}
       {team.length > 0 && (

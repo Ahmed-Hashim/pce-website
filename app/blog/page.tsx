@@ -1,9 +1,24 @@
+import type { Metadata } from "next";
 import PageHero from "../components/ui/PageHero";
 import SectionTitle from "../components/ui/SectionTitle";
 import ContentGrid, { ContentItem } from "../components/ui/ContentGrid";
 import Section from "../components/ui/Section";
 import { createClient } from "@/utils/supabase/supabaseServer";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Read PCE's latest insights on engineering trends, construction technology, project management best practices, and industry thought leadership.",
+  keywords: ["engineering blog", "construction insights", "industry news", "thought leadership", "engineering trends", "project management articles"],
+  openGraph: {
+    title: "Blog | PCE",
+    description: "Read PCE's latest insights on engineering trends and construction technology.",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/blog",
+  },
+};
 
 const pageHero = {
   title: "Blog",
@@ -74,13 +89,13 @@ async function FeaturedPosts() {
     href: `/blog/${slugify(post.title)}`,
     title: post.title,
     imageSrc: post.main_image_url || "/4.png",
-    
+
     date: post.created_at
-      ? 
-        new Date(post.created_at).toLocaleDateString("en-US", {
-          month: "short",
-          year: "numeric",
-        })
+      ?
+      new Date(post.created_at).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
       : "",
     tag: "Featured",
     excerpt: post.short_description || "",
@@ -123,13 +138,13 @@ async function LatestPosts() {
     href: `/blog/${slugify(post.title)}`,
     title: post.title,
     imageSrc: post.main_image_url || "/4.png",
-    
+
     date: post.created_at
-      ? 
-        new Date(post.created_at).toLocaleDateString("en-US", {
-          month: "short",
-          year: "numeric",
-        })
+      ?
+      new Date(post.created_at).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
       : "",
     excerpt: post.short_description || "",
   }));
@@ -139,7 +154,7 @@ async function LatestPosts() {
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-primary-dark">
       <PageHero
         title={pageHero.title}
         subtitle={pageHero.subtitle}
@@ -147,11 +162,11 @@ export default function BlogPage() {
         imageSrc={pageHero.imageSrc}
       />
 
-      <Section background="bg-background" className="py-(--space-section-y-md)">
+      <Section background="bg-primary-dark" className="py-(--space-section-y-md)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <SectionTitle
             title={sectionText.featuredTitle}
-            titleColor="var(--color-primary-dark)"
+            titleColor="text-white"
             align="left"
             className="mb-8"
             fontSize="md:text-3xl lg:text-4xl"
@@ -162,11 +177,11 @@ export default function BlogPage() {
         </div>
       </Section>
 
-      <Section background="bg-background" className="py-(--space-section-y-md)">
+      <Section background="bg-white/5" className="py-(--space-section-y-md)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <SectionTitle
             title={sectionText.latestTitle}
-            titleColor="var(--color-primary-dark)"
+            titleColor="text-white"
             align="left"
             className="mb-8"
             fontSize="md:text-3xl lg:text-4xl"

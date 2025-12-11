@@ -1,9 +1,24 @@
 "use cache";
+import type { Metadata } from "next";
 import PageHero from "../components/ui/PageHero";
 import SectionTitle from "../components/ui/SectionTitle";
 import CareersForm from "../components/careers/CareersForm";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/supabaseServer";
+
+export const metadata: Metadata = {
+  title: "Careers",
+  description: "Join PCE's team of engineering professionals. Explore open positions and career opportunities in engineering, project management, and construction consultancy.",
+  keywords: ["PCE careers", "engineering jobs", "job opportunities", "work at PCE", "engineering positions", "construction careers"],
+  openGraph: {
+    title: "Careers | PCE",
+    description: "Join PCE's team of engineering professionals. Explore open positions and career opportunities.",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/careers",
+  },
+};
 
 const pageHero = {
   title: "Careers",

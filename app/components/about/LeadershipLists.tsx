@@ -34,7 +34,7 @@ export default function LeadershipLists({
           titleColor="var(--color-primary-dark)"
           align="center"
         />
-        <div className="mt-4">
+        <div className="pt-12">
           <Suspense fallback={<LeadershipSkeleton gridClassName={gridClassName} />}>
             <LeadershipList teamType={teamType} gridClassName={gridClassName} />
           </Suspense>

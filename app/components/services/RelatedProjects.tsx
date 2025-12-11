@@ -11,12 +11,7 @@ interface RelatedProjectsProps {
 export default function RelatedProjects({ serviceId }: RelatedProjectsProps) {
   return (
     <Section id="related-projects" className="relative overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
-        style={{
-          backgroundImage: `url("/Layout.png")`,
-        }}
-      />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="text-center mb-16 sm:mb-20">
           <SectionTitle

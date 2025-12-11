@@ -1,9 +1,24 @@
+import type { Metadata } from "next";
 import PageHero from "../components/ui/PageHero";
 import CTAComponent from "../components/home/CTAComponent";
 import OurBranchesSection from "../components/home/OurBranchesSection";
 import OfficeContactsSection from "../components/contact/OfficeContactsSection";
 import DirectContactsSection from "../components/contact/DirectContactsSection";
 import { footerData } from "../components/layout/FooterData";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description: "Get in touch with PCE. Contact our offices across the Middle East for engineering consultancy, project inquiries, and partnership opportunities.",
+  keywords: ["contact PCE", "engineering inquiry", "office locations", "get consultation", "project inquiry", "partnership"],
+  openGraph: {
+    title: "Contact Us | PCE",
+    description: "Get in touch with PCE for engineering consultancy and project inquiries.",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/contact",
+  },
+};
 
 const pageHero = {
   title: "Contact Us",
@@ -50,7 +65,7 @@ export default function ContactPage() {
 
       <OfficeContactsSection
         title="Branches"
-        
+
         offices={footerData.offices}
         sectionProps={{ background: "bg-background" }}
       />
@@ -58,7 +73,7 @@ export default function ContactPage() {
       <OurBranchesSection />
       <DirectContactsSection
         title={directContactsTitle}
-        
+
         mapImage={mapImage}
         sectionProps={{ background: "bg-background" }}
       />

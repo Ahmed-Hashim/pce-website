@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { subscribeToNewsletter, NewsletterState } from "@/app/actions/newsletter";
 import { FaCheckCircle, FaExclamationCircle, FaTimes, FaShieldAlt } from "react-icons/fa";
 import Link from "next/link";
+import { SectionTitle } from "../ui";
 
 interface NewsletterSectionProps {
   eyebrow?: string;
@@ -20,7 +21,6 @@ const initialState: NewsletterState = {
 };
 
 export default function NewsletterSection({
-  title,
   placeholder,
   buttonLabel,
 }: NewsletterSectionProps) {
@@ -71,11 +71,14 @@ export default function NewsletterSection({
       // }}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 justify-center items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2
-          className={`relative z-10 text-white shadow-shadow-soft font-extrabold leading-tight md:text-3xl lg:text-4xl text-center lg:text-left`}
-        >
-          {title}
-        </h2>
+        <SectionTitle
+         
+          title="Subscribe to Our"
+          highlight="Newsletter"
+          align="left"
+          titleColor="text-white"
+          
+        />
 
         <div className="relative">
           <form
@@ -107,12 +110,12 @@ export default function NewsletterSection({
               type="submit"
               disabled={isPending}
               aria-label={buttonLabel}
-              className="h-12 px-5 w-full sm:w-auto rounded-sm sm:rounded-r-sm sm:rounded-l-none bg-primary-dark text-button-text hover:bg-primary-medium/90 transition-all duration-300 border border-secondary-dark sm:border-l-0 focus:outline-none focus:ring-0 disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap z-20"
+              className="h-12 px-5 w-full sm:w-auto rounded-sm sm:rounded-r-sm sm:rounded-l-none bg-primary-dark text-button-text hover:bg-primary-medium/90 transition-all duration-300 border border-primary-medium sm:border-l-0 focus:outline-none focus:ring-0 disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap z-20"
             >
               {isPending ? "Subscribing..." : buttonLabel}
             </button>
           </form>
-          <p className="absolute -bottom-6 left-0 text-xs text-secondary-dark">
+          <p className="absolute -bottom-6 left-0 text-xs text-neutral-light">
             By subscribing, you accept our{" "}
             <Link href="/terms-and-conditions" className="underline hover:text-primary-medium">
               Terms and Conditions

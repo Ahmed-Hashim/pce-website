@@ -13,6 +13,7 @@ export interface SectionTitleProps {
   backgroundTextColor?: string;
   underline?: boolean;
   fontSize?: string;
+  highlight?: string;
 }
 
 export default function SectionTitle({
@@ -22,6 +23,7 @@ export default function SectionTitle({
   titleColor = "",
   underline = true,
   fontSize = "",  
+  highlight = "",
 }: SectionTitleProps) {
   const alignment =
     align === "left"
@@ -42,7 +44,7 @@ export default function SectionTitle({
           padding:0,
         }}
       >
-        {title}
+        {title} <span className={`text-primary-medium`}>{highlight}</span>
       </h2>
       
       {/* Underline - minimal spacing */}

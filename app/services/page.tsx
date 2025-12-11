@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import PageHero from "../components/ui/PageHero";
 import CTAComponent from "../components/home/CTAComponent";
 import Statistics from "../components/home/Statistics";
@@ -5,10 +6,24 @@ import CoreServicesOverview from "../components/home/CoreServicesOverview";
 
 import { cacheLife } from "next/cache";
 
+export const metadata: Metadata = {
+  title: "Services",
+  description: "Explore PCE's comprehensive engineering services including design, supervision, project management, and construction consultancy across multiple sectors.",
+  keywords: ["engineering services", "design services", "project supervision", "construction management", "engineering consultancy", "infrastructure services"],
+  openGraph: {
+    title: "Services | PCE",
+    description: "Explore PCE's comprehensive engineering services including design, supervision, and project management.",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/services",
+  },
+};
+
 const pageHero = {
   title: "Services",
   subtitle: "What We Do",
-  imageSrc: "/2.png",
+  imageSrc: "/1.png",
   breadcrumbs: [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services" },

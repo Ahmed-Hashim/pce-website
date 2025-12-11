@@ -57,7 +57,7 @@ async function RelatedNewsContent({ serviceName }: RelatedNewsProps) {
   }));
 
   return (
-    <Section background="bg-primary-dark/95" className="py-(--space-section-y-md)">
+    <Section background="bg-white/5" className="py-(--space-section-y-md)">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <SectionTitle
           title="Related News & Insights"

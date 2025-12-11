@@ -22,6 +22,7 @@ interface CTAComponentProps {
   primaryButtonText?: string;
   secondaryButtonText?: string;
   contactInfo?: ContactInfo[];
+
   sectionProps?: Omit<ComponentProps<typeof Section>, 'children'>;
 }
 
@@ -31,7 +32,8 @@ const initialState: ContactState = {
 };
 
 export default function CTAComponent({
-  title = "Ready to Start Your Next Project?",
+  title = "Ready to Start Your Next ",
+ 
   description = "Get in touch with our expert team to discuss your project requirements and discover how we can bring your vision to life.",
   primaryButtonText = "Get Consultation",
   secondaryButtonText = "View Our Sectors",
@@ -123,6 +125,7 @@ export default function CTAComponent({
             <SectionTitle
               titleColor="accent"
               outlineColor="var(--color-primary-dark)"
+              highlight="Project?"
               title={title}
               className="text-center md:text-left items-center md:items-start mb-6"
             />
@@ -173,7 +176,7 @@ export default function CTAComponent({
                     placeholder="Your Name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
+                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary)  focus:outline-none  transition-all duration-300 backdrop-blur-sm border"
                   />
                 </div>
                 <div className="relative group">
@@ -184,7 +187,7 @@ export default function CTAComponent({
                     placeholder="Your Email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
+                    className="input w-full px-3 border py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 backdrop-blur-sm"
                   />
                 </div>
                 <div className="relative group">
@@ -195,7 +198,7 @@ export default function CTAComponent({
                     rows={3}
                     value={formData.description}
                     onChange={handleInputChange}
-                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 resize-none backdrop-blur-sm"
+                    className="input w-full px-3 py-2 border rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none  transition-all duration-300 resize-none backdrop-blur-sm"
                   />
                 </div>
                 <button

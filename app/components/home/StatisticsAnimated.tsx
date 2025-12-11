@@ -74,10 +74,10 @@ export default function StatisticsAnimated({ stats }: { stats: StatItem[] }) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
         {stats.map((stat, index) => (
           <div key={index} className="text-center">
-            <h3 className="font-extrabold text-white text-4xl sm:text-5xl tracking-tight">
+            <h3 className="font-extrabold text-secondary-light text-4xl sm:text-5xl tracking-tight">
               {displayValues[index]}
             </h3>
-            <small className="uppercase text-xs md:text-sm tracking-wide text-white/60 mt-2 block">
+            <small className="uppercase text-xs md:text-sm tracking-wide text-white mt-2 block">
               {stat.title}
             </small>
           </div>

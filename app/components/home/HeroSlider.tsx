@@ -218,8 +218,8 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
             key={i}
             onClick={() => goToSlide(i)}
             className={`transition-all duration-500 rounded-full ${current === i
-                ? "bg-primary-dark w-10 h-3 shadow-lg shadow-primary-dark/50"
-                : "bg-primary-medium w-3 h-3 hover:bg-secondary-light hover:scale-110"
+                ? "bg-primary-medium w-10 h-3 shadow-lg shadow-primary-dark"
+                : "bg-white w-3 h-3 hover:bg-white hover:scale-110"
               }`}
           />
         ))}

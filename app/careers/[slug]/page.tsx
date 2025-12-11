@@ -1,15 +1,73 @@
 "use cache";
+import type { Metadata } from "next";
 import PageHero from "../../components/ui/PageHero";
 import SectionTitle from "../../components/ui/SectionTitle";
 import CareersForm from "../../components/careers/CareersForm";
 import { createClient } from "@/utils/supabase/supabaseServer";
 
-const generateSlug = (title: string) => 
+const generateSlug = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
+async function getCareerBySlug(slug: string) {
+  const supabase = createClient();
+  const { data: careers } = await supabase
+    .from("careers")
+    .select(`
+      *,
+      services (
+        name
+      )
+    `);
+
+  const jobs = careers?.map((career: { id: number; job_title: string; description: string; services: { name: string } | null }) => ({
+    id: career.id,
+    slug: generateSlug(career.job_title),
+    title: career.job_title,
+    department: career.services?.name || "General",
+    location: "Riyadh, Saudi Arabia",
+    type: "Full Time",
+    description: career.description,
+    requirements: []
+  })) || [];
+
+  return jobs.find((j) => j.slug === slug);
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const job = await getCareerBySlug(slug);
+
+  if (!job) {
+    return {
+      title: "Position Not Found",
+      description: "The requested job position could not be found.",
+    };
+  }
+
+  const description = job.description?.substring(0, 160) || `Apply for the ${job.title} position at PCE.`;
+
+  return {
+    title: `${job.title} - Career`,
+    description,
+    keywords: ["PCE careers", "job opening", job.title, job.department, "engineering jobs"],
+    openGraph: {
+      title: `${job.title} | PCE Careers`,
+      description,
+      type: "article",
+    },
+    alternates: {
+      canonical: `/careers/${slug}`,
+    },
+  };
+}
 
 export default async function JobPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  
+
   const supabase = createClient();
   const { data: careers } = await supabase
     .from("careers")
@@ -28,6 +86,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
     location: "Riyadh, Saudi Arabia",
     type: "Full Time",
     description: career.description,
+    created_at: career.created_at,
     requirements: []
   })) || [];
 
@@ -112,7 +171,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
           title="Apply Now"
           titleColor="var(--color-primary-dark)"
           align="center"
-          className="mb-2"
+          className="mb-2" // Reduced margin
           fontSize="md:text-3xl lg:text-4xl"
           underline={false}
         />
@@ -126,6 +185,42 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
           helperText="Provide accurate contact information and a link to your CV."
         />
       </section>
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "JobPosting",
+            "title": job.title,
+            "description": job.description,
+            "identifier": {
+              "@type": "PropertyValue",
+              "name": "PCE",
+              "value": job.id
+            },
+            "datePosted": (job as any).created_at || new Date().toISOString(),
+            "validThrough": new Date(new Date().setMonth(new Date().getMonth() + 2)).toISOString(),
+            "employmentType": "FULL_TIME",
+            "hiringOrganization": {
+              "@type": "Organization",
+              "name": "PCE - Precision Consulting Engineering",
+              "sameAs": "https://pce.com",
+              "logo": "https://pce.com/pce-logo.png"
+            },
+            "jobLocation": {
+              "@type": "Place",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Riyadh",
+                "addressRegion": "Riyadh",
+                "addressCountry": "SA"
+              }
+            }
+          })
+        }}
+      />
     </div>
   );
 }
@@ -133,7 +228,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
 export async function generateStaticParams() {
   const supabase = createClient();
   const { data: careers } = await supabase.from("careers").select("job_title");
-  
+
   return careers?.map((c) => ({
     slug: generateSlug(c.job_title)
   })) || [];

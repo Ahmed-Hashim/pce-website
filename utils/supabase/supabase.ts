@@ -113,6 +113,7 @@ export type Database = {
           slug: string | null
           tags: Json | null
           title: string
+          updated_at: string | null
         }
         Insert: {
           body?: string | null
@@ -127,6 +128,7 @@ export type Database = {
           slug?: string | null
           tags?: Json | null
           title: string
+          updated_at?: string | null
         }
         Update: {
           body?: string | null
@@ -141,6 +143,7 @@ export type Database = {
           slug?: string | null
           tags?: Json | null
           title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -524,6 +527,7 @@ export type Database = {
           tags: Json | null
           title: string
           top_story: boolean | null
+          updated_at: string | null
         }
         Insert: {
           body?: string | null
@@ -537,6 +541,7 @@ export type Database = {
           tags?: Json | null
           title: string
           top_story?: boolean | null
+          updated_at?: string | null
         }
         Update: {
           body?: string | null
@@ -550,6 +555,7 @@ export type Database = {
           tags?: Json | null
           title?: string
           top_story?: boolean | null
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -1047,6 +1053,7 @@ export type Database = {
           tags: Json | null
           title: string
           top_story: boolean | null
+          updated_at: string | null
         }[]
         SetofOptions: {
           from: "*"

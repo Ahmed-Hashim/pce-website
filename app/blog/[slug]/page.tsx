@@ -1,4 +1,5 @@
 "use cache";
+import type { Metadata } from "next";
 import ContentDetail from "../../components/ui/ContentDetail";
 import ContentGrid, { ContentItem } from "../../components/ui/ContentGrid";
 import Section from "../../components/ui/Section";
@@ -14,7 +15,7 @@ const slugify = (text: string) =>
 
 function processContent(htmlContent: string) {
   const toc: { id: string; text: string; level: number }[] = [];
-  
+
   // Improved regex to handle:
   // 1. Both h2 and h3
   // 2. Case insensitive (h2, H2, h3, H3)
@@ -22,10 +23,10 @@ function processContent(htmlContent: string) {
   const processedContent = htmlContent.replace(/<(h[23])(?:[^>]*)>(.*?)<\/\1>/gi, (match, tag, text) => {
     // Strip HTML tags from text for the TOC label if any exist nested
     const cleanText = text.replace(/<[^>]*>/g, "");
-    
+
     // Determine level
     const level = parseInt(tag.charAt(1), 10);
-    
+
     // Generate slug
     const id = cleanText
       .toLowerCase()
@@ -33,13 +34,13 @@ function processContent(htmlContent: string) {
       .replace(/[^\w\s-]/g, "") // Remove special chars
       .replace(/[\s_-]+/g, "-") // Replace spaces with dashes
       .replace(/^-+|-+$/g, ""); // Remove leading/trailing dashes
-      
+
     toc.push({ id, text: cleanText, level });
-    
+
     // Return with ID injected
     return `<${tag} id="${id}">${text}</${tag}>`;
   });
-  
+
   return { processedContent, toc };
 }
 
@@ -68,6 +69,41 @@ async function getRelatedBlogs(currentId: number, limit: number = 3) {
 
   if (!blogs) return [];
   return blogs;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getBlogBySlugFromSupabase(slug);
+
+  if (!post) {
+    return {
+      title: "Article Not Found",
+      description: "The requested blog article could not be found.",
+    };
+  }
+
+  const description = post.short_description?.substring(0, 160) || post.title;
+  const tags = Array.isArray(post.tags) ? post.tags.map(String) : [];
+
+  return {
+    title: post.title,
+    description,
+    keywords: ["PCE blog", "engineering insights", ...tags],
+    openGraph: {
+      title: post.title,
+      description,
+      type: "article",
+      images: post.main_image_url ? [post.main_image_url] : undefined,
+      publishedTime: post.created_at || undefined,
+    },
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
+  };
 }
 
 export default async function BlogDetail({
@@ -104,13 +140,13 @@ export default async function BlogDetail({
     href: `/blog/${slugify(p.title)}`,
     title: p.title,
     imageSrc: p.main_image_url || "/4.png",
-    
+
     date: p.created_at
-      ? 
-        new Date(p.created_at).toLocaleDateString("en-US", {
-          month: "short",
-          year: "numeric",
-        })
+      ?
+      new Date(p.created_at).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      })
       : "",
     tag: p.tags && Array.isArray(p.tags) ? (p.tags[0] as string) : undefined,
     excerpt: p.short_description || "",
@@ -124,20 +160,20 @@ export default async function BlogDetail({
   const contentArray = [processedContent];
 
   return (
-    <div className="min-h-screen">
+    <article className="min-h-screen">
       <ContentDetail
         title={post.title}
         subtitle={post.short_description || undefined}
         imageSrc={post.main_image_url || "/4.png"}
         breadcrumbs={breadcrumbs}
-       
+
         date={
           post.created_at
-            ? 
-              new Date(post.created_at).toLocaleDateString("en-US", {
-                month: "short",
-                year: "numeric",
-              })
+            ?
+            new Date(post.created_at).toLocaleDateString("en-US", {
+              month: "short",
+              year: "numeric",
+            })
             : undefined
         }
         tag={
@@ -165,7 +201,40 @@ export default async function BlogDetail({
           </div>
         </Section>
       ) : null}
-    </div>
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "description": post.short_description,
+            "image": post.main_image_url,
+            "datePublished": post.created_at,
+            "dateModified": post.updated_at || post.created_at,
+            "author": {
+              "@type": "Person",
+              "name":  "PCE Team"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "PCE",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://pce.com/pce-logo.png"
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://pce.com/blog/${slug}`
+            },
+            "keywords": Array.isArray(post.tags) ? post.tags.join(", ") : ""
+          })
+        }}
+      />
+    </article>
   );
 }
 

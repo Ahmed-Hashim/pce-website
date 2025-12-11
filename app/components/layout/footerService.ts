@@ -36,7 +36,7 @@ export const getFooterData = cache(async (): Promise<FooterContent> => {
     supabase
       .from("services")
       .select("id, name")
-      .order("id"), 
+      .order("id"),
   ]);
 
   // Map Socials
@@ -50,7 +50,7 @@ export const getFooterData = cache(async (): Promise<FooterContent> => {
 
   // Map Offices
   const offices: FooterOffice[] = branches?.map((branch) => ({
-    title: branch.head_quarter 
+    title: branch.head_quarter
       ? `Headquarters • ${branch.countries?.name || "Unknown"}`
       : `Operations • ${branch.countries?.name || "Unknown"}`,
     addressLines: branch.address ? branch.address.split(",") : [],
@@ -73,11 +73,13 @@ export const getFooterData = cache(async (): Promise<FooterContent> => {
         socials,
       },
       {
-        title: "Resources",
+        title: "Quick Links",
         links: [
           { label: "Contact us", href: "/contact" },
           { label: "Careers", href: "/careers" },
           { label: "Blog", href: "/blog" },
+          { label: "Policy & privacy", href: "/policy-privacy" },
+          { label: "Terms & conditions", href: "/terms-and-conditions" },
         ],
       },
       {
@@ -87,10 +89,7 @@ export const getFooterData = cache(async (): Promise<FooterContent> => {
     ],
     bottom: {
       copyright: `© ${new Date().getFullYear()} ${contactInfo?.company_name || "PCE"}. All rights reserved.`,
-      links: [
-        { label: "Policy & privacy", href: "/policy-privacy" },
-        { label: "Terms & conditions", href: "/terms-and-conditions" },
-      ],
+      links: [],
     },
   };
 });

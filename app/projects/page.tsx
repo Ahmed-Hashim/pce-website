@@ -1,7 +1,22 @@
+import type { Metadata } from "next";
 import PageHero from "../components/ui/PageHero";
 import ProjectsPageClient from "../components/projects/ProjectsPageClient";
 import { getProjects, getProjectFilters } from "../actions/projectActions";
 import Section from "../components/ui/Section";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "Browse PCE's portfolio of engineering projects across infrastructure, construction, and development sectors in the Middle East and beyond.",
+  keywords: ["engineering projects", "construction projects", "infrastructure portfolio", "project showcase", "case studies", "completed projects"],
+  openGraph: {
+    title: "Projects | PCE",
+    description: "Browse PCE's portfolio of engineering projects across infrastructure, construction, and development sectors.",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/projects",
+  },
+};
 
 const pageHero = {
   title: "Projects",
@@ -33,7 +48,7 @@ export default async function ProjectsPage() {
           title={pageHero.title}
           subtitle={pageHero.subtitle}
           breadcrumbs={pageHero.breadcrumbs}
-          // imageSrc={pageHero.imageSrc}
+        // imageSrc={pageHero.imageSrc}
         />
         <Section container={true}>
           <div className="text-center py-12">
