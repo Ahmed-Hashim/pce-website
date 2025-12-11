@@ -13,27 +13,27 @@ export interface ProjectCardProps {
 
 export default function ProjectCard({ href, title, category, year, imageSrc, className = "", aspectClass = "aspect-4/3" }: ProjectCardProps) {
   return (
-    <Link href={href} className={`group block ${className}`}>
-      <div className={`relative ${aspectClass} rounded-sm overflow-hidden border border-primary-dark bg-secondary-dark/10 transition-all duration-300 hover:shadow-xl`}>
+    <Link href={href} className={`group block relative overflow-hidden ${className} ${aspectClass}`}>
+      <div className="absolute inset-0 bg-neutral-200 animate-pulse" /> {/* Placeholder background */}
+      
+      <Image
+        src={imageSrc}
+        alt={title}
+        fill
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
+      
+      {/* Overlay Gradient - Always visible but subtle, stronger on hover */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
 
-        <Image
-          src={imageSrc}
-          alt={title}
-          width={800}
-          height={600}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors" />
-        <div className="absolute bottom-4 left-4 right-4">
-          <div className="relative rounded-sm bg-primary-dark/90 p-5 shadow-xl">
-            <div className="absolute -left-3 bottom-5 w-2 h-12 bg-primary-medium rounded-full"></div>
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col">
-                <h6 className="text-white font-semibold">{title}</h6>
-                <small className="text-white/80">{category}</small>
-              </div>
-              <div className="text-xs text-white/70">{year}</div>
-            </div>
+      {/* Content */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs font-medium text-white/70 uppercase tracking-wider">{category}</span>
+          <h3 className="text-xl font-bold text-white leading-tight">{title}</h3>
+          <div className="h-0 group-hover:h-auto overflow-hidden transition-all duration-300">
+             <span className="text-sm text-white/60 mt-2 block">{year}</span>
           </div>
         </div>
       </div>

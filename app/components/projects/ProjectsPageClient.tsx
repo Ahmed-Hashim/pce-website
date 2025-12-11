@@ -88,7 +88,7 @@ export default function ProjectsPageClient({
     };
 
     return (
-        <div className="bg-primary-dark/10">
+        <div className="bg-primary-dark/80">
             <ProjectsFiltersSection
                 filterLabels={filterLabels}
                 locations={locations}
@@ -114,8 +114,8 @@ export default function ProjectsPageClient({
 
             <ProjectsGridSection
                 items={gridItems}
-                gridClass="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2"
-                sectionProps={{ className: "mt-2" }}
+                gridClass="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0.5"
+                sectionProps={{ className: "mt-0" }}
             />
 
             <ProjectsPaginationSection

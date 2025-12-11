@@ -193,7 +193,7 @@ export default async function SectorPage({
   }
 
   // Metrics
-  const featuredImageSrc = heroImage;
+  // const featuredImageSrc = heroImage;
   const teamTitle = "Team Members / Experts";
   const teamMembers = (
     (supabaseData?.teamMembers || []) as Tables<"leadership_team">[]
@@ -217,7 +217,7 @@ export default async function SectorPage({
         title={pageHero.title}
         // subtitle={pageHero.subtitle || ""}
         breadcrumbs={pageHero.breadcrumbs}
-        imageSrc={pageHero.imageSrc}
+        // imageSrc={pageHero.imageSrc}
       />
 
       {/* SectorDescriptionSection */}

@@ -11,26 +11,29 @@ interface PageHeroProps {
   subtitle?: string;
   breadcrumbs: Breadcrumb[];
   imageSrc?: string;
+  bgColor?: string;
 }
 
-export default function PageHero({ title, subtitle, breadcrumbs, imageSrc }: PageHeroProps) {
+export default function PageHero({ title, subtitle, breadcrumbs, imageSrc, bgColor  }: PageHeroProps) {
   return (
-    <section className="relative h-[48vh] md:h-[40vh] overflow-hidden">
+    <section className={`relative h-[48vh] md:h-[40vh] overflow-hidden bg-primary-dark`}>
       {imageSrc &&
           <Image
             src={imageSrc}
             alt={title}
             fill
             priority={true}
-            className="object-cover z-0"
+            className="object-cover z-0 opacity-20"
             sizes="100vw"
             quality={75} // Optional: slightly lower quality for speed, default is 75
           />
       }
       
-
+      {
+        !bgColor && <div className={`absolute inset-0 bg-background/5 z-10 ${imageSrc ? "opacity-85" : ""}`} />
+      }
       {/* Overlay - Adjusted z-index to sit on top of image but below text */}
-      <div className={`absolute inset-0 bg-primary-dark z-10 ${imageSrc ? "opacity-85" : ""}`} />
+      
 
       {/* Content - High z-index to sit on top of everything */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-10">

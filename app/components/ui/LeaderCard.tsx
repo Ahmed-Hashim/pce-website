@@ -43,39 +43,39 @@ export default function LeaderCard({ person }: LeaderCardProps) {
           toggleFlip();
         }
       }}
-      className={`group relative w-full h-72 rounded-sm border border-secondary-dark/30 bg-background p-3 lg:p-3 shadow-sm hover:shadow-md hover:border-primary-medium/40 transition-all cursor-pointer overflow-hidden perspective-1000`}
+      className={`group relative w-full h-72 rounded-sm border border-white/10 bg-white/5 p-3 lg:p-3 shadow-sm hover:shadow-md hover:border-primary-medium transition-all cursor-pointer overflow-hidden perspective-1000`}
    >
       <div className={`relative w-full h-full transform-3d transition-transform duration-500 ${isFlipped ? "rotate-y-180" : ""}`}>
         <div className="absolute inset-0 backface-hidden flex flex-col items-center justify-center text-center px-3">
-          <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-sm overflow-hidden border border-secondary-dark/40">
+          <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-sm overflow-hidden border border-white/10">
             {person.imageSrc ? (
               <Image src={person.imageSrc} alt={person.name} fill className="object-cover" />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-primary-dark/5 text-primary-dark font-semibold">
+              <div className="w-full h-full flex items-center justify-center bg-white/10 text-white font-semibold">
                 {getInitials(person.name)}
               </div>
             )}
           </div>
-          <h4 className="mt-6 font-semibold tracking-tight text-primary-dark">{person.name}</h4>
-          <p className="mt-1 tracking-tighter text-secondary-dark/80">{person.title || person.role}</p>
+          <h4 className="mt-6 font-semibold tracking-tight text-white">{person.name}</h4>
+          <p className="mt-1 tracking-tighter text-neutral-light/80">{person.title || person.role}</p>
         </div>
         <div className="absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-center justify-center text-center px-6">
-          <h4 className="font-semibold tracking-tight text-primary-dark">{person.name}</h4>
+          <h4 className="font-semibold tracking-tight text-white">{person.name}</h4>
           {person.description ? (
-            <p className="mt-3 text-secondary-dark leading-tight">{person.description}</p>
+            <p className="mt-3 text-neutral-light leading-tight">{person.description}</p>
           ) : null}
           {person.stats && (person.stats.projects !== undefined || person.stats.years !== undefined) ? (
             <div className="mt-5 flex items-center justify-center gap-8">
               {person.stats.projects > 0 ? (
                 <div className="text-center">
-                  <div className="font-semibold text-primary-dark">{person.stats.projects}</div>
-                  <div className="text-secondary-dark">{labels.projects}</div>
+                  <div className="font-semibold text-white">{person.stats.projects}</div>
+                  <div className="text-neutral-light">{labels.projects}</div>
                 </div>
               ) : null}
               {person.stats.years > 0 ? (
                 <div className="text-center">
-                  <div className="font-semibold text-primary-dark">{person.stats.years}</div>
-                  <div className="text-secondary-dark">{labels.years}</div>
+                  <div className="font-semibold text-white">{person.stats.years}</div>
+                  <div className="text-neutral-light">{labels.years}</div>
                 </div>
               ) : null}
             </div>

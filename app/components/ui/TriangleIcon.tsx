@@ -6,12 +6,12 @@ interface TriangleIconProps {
 }
 
 export default function TriangleIcon({
-  className = "w-8 h-8 text-primary-medium",
+  className = "text-primary-dark/20",
   title = "Triangle icon",
 }: TriangleIconProps) {
   return (
     <svg
-      className={className}
+      className={`${className} w-8 h-8 `}
       viewBox="0 0 24 24"
       role="img"
       aria-label={title}

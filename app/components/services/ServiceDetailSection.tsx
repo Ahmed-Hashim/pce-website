@@ -8,7 +8,7 @@ interface ServiceDetailSectionProps {
 
 export default function ServiceDetailSection({ title, icon, items }: ServiceDetailSectionProps) {
   return (
-    <section className="py-[var(--space-section-y-md)] bg-background">
+    <section className="py-(--space-section-y-md) bg-background">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         <div className="rounded-sm border border-secondary-dark bg-white/50 backdrop-blur-sm p-6 md:p-10">
           <div className="flex items-center gap-4 mb-6">

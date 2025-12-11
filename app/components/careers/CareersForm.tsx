@@ -64,7 +64,7 @@ export default function CareersForm({ buttonLabel, submitLabel, labels, helperTe
       </div>
 
       {open ? (
-        <div className="mt-8 rounded-sm border border-secondary-dark/40 bg-background p-6">
+        <div className="mt-8 rounded-sm border border-primary-dark bg-background p-6">
           {status === "success" ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <div className="w-16 h-16 rounded-full bg-primary-dark/10 flex items-center justify-center mb-6">
@@ -118,7 +118,7 @@ export default function CareersForm({ buttonLabel, submitLabel, labels, helperTe
                     name="full_name"
                     aria-label={labels.name}
                     placeholder={labels.name}
-                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none"
+                    className="input w-full px-3 py-2 rounded-sm border border-primary-dark bg-white placeholder-(--color-foreground-secondary) focus:outline-none focus:ring-1 focus:ring-primary-dark"
                     required
                   />
                 </div>
@@ -128,7 +128,7 @@ export default function CareersForm({ buttonLabel, submitLabel, labels, helperTe
                     name="email"
                     aria-label={labels.email}
                     placeholder={labels.email}
-                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none"
+                    className="input w-full px-3 py-2 rounded-sm border border-primary-dark bg-white placeholder-(--color-foreground-secondary) focus:outline-none focus:ring-1 focus:ring-primary-dark"
                     required
                   />
                 </div>
@@ -138,7 +138,7 @@ export default function CareersForm({ buttonLabel, submitLabel, labels, helperTe
                     name="phone_number"
                     aria-label={labels.phone}
                     placeholder={labels.phone}
-                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none"
+                    className="input w-full px-3 py-2 rounded-sm border border-primary-dark bg-white placeholder-(--color-foreground-secondary) focus:outline-none focus:ring-1 focus:ring-primary-dark"
                     required
                   />
                 </div>
@@ -148,7 +148,7 @@ export default function CareersForm({ buttonLabel, submitLabel, labels, helperTe
                     name="cv_url"
                     aria-label={labels.cvLink}
                     placeholder={labels.cvLink}
-                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none"
+                    className="input w-full px-3 py-2 rounded-sm border border-primary-dark bg-white placeholder-(--color-foreground-secondary) focus:outline-none focus:ring-1 focus:ring-primary-dark"
                     required
                   />
                 </div>
@@ -158,7 +158,7 @@ export default function CareersForm({ buttonLabel, submitLabel, labels, helperTe
                     aria-label={labels.message}
                     placeholder={labels.message}
                     rows={4}
-                    className="input w-full px-3 py-2 rounded-sm placeholder-(--color-foreground-secondary) focus:outline-none resize-none"
+                    className="input w-full px-3 py-2 rounded-sm border border-primary-dark bg-white placeholder-(--color-foreground-secondary) focus:outline-none resize-none focus:ring-1 focus:ring-primary-dark"
                   />
                 </div>
                 <div className="md:col-span-2">

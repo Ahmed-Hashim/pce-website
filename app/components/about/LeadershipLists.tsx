@@ -31,7 +31,7 @@ export default function LeadershipLists({
         <SectionTitle
           title={title}
           outlineColor="var(--color-neutral-light)"
-          titleColor="var(--color-primary-dark)"
+          titleColor="text-white"
           align="center"
         />
         <div className="pt-12">

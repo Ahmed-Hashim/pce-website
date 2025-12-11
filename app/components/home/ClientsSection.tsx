@@ -23,6 +23,7 @@ export default function ClientsSection({
             <SectionTitle
               title="Our Clients"
               titleColor="accent"
+              underline={true}
               outlineColor="var(--color-primary-medium)"
               background="Clients"
               align="center"

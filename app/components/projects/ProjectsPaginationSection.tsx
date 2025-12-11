@@ -34,21 +34,21 @@ export default function ProjectsPaginationSection({
         <button
           onClick={onPrev}
           aria-label={prevLabel}
-          className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
+          className="group inline-flex items-center justify-center w-10 h-10 rounded-sm border border-primary-medium hover:text-white hover:bg-white transition-colors"
           disabled={isPrevDisabled}
         >
-          <FiChevronLeft className="w-5 h-5" />
+            <FiChevronLeft className="w-5 h-5 text-accent group-hover:text-primary-dark" />
         </button>
-        <span className="text-sm tracking-widest text-secondary-dark">
+        <span className="text-sm tracking-widest text-white">
           {pad(page)} / {pad(totalPages)}
         </span>
         <button
           onClick={onNext}
           aria-label={nextLabel}
-          className="inline-flex items-center justify-center w-10 h-10 rounded-sm border border-border bg-primary-dark text-button-text hover:bg-primary-medium transition-colors"
+          className="group inline-flex items-center justify-center w-10 h-10 rounded-sm border border-primary-medium hover:text-white hover:bg-white transition-colors"
           disabled={isNextDisabled}
         >
-          <FiChevronRight className="w-5 h-5" />
+            <FiChevronRight className="w-5 h-5 text-accent group-hover:text-primary-dark" />
         </button>
       </div>
     </Section>

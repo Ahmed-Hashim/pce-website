@@ -21,7 +21,7 @@ export default function SectionTitle({
   align = "center",
   className = "",
   titleColor = "",
-  underline = true,
+  underline=false,
   fontSize = "",  
   highlight = "",
 }: SectionTitleProps) {
@@ -44,20 +44,18 @@ export default function SectionTitle({
           padding:0,
         }}
       >
-        {title} <span className={`text-primary-medium`}>{highlight}</span>
+        {title} <span className={`text-secondary-light`}>{highlight}</span>
       </h2>
       
       {/* Underline - minimal spacing */}
-      {underline && (
+     
         <div className="relative z-10 mt-2">
           <div 
-            className="w-20 md:w-24 h-1 rounded-full"
-            style={{
-              background: `linear-gradient(to right, transparent, var(--color-primary-medium), transparent)`
-            }}
+            className={`w-50 md:w-50 h-1 rounded-full bg-linear-to-r from-transparent ${underline ? "via-primary-medium" : "via-secondary-light"} to-transparent`}
+            
           />
         </div>
-      )}
+  
     </div>
   );
 }

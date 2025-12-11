@@ -33,7 +33,7 @@ const pageHero = {
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="min-h-screen bg-primary-dark">
       <PageHero
         title={pageHero.title}
         subtitle={pageHero.subtitle}
@@ -53,14 +53,14 @@ export default function AboutPage() {
         title="Management Team"
         background="Management Team"
         teamType="management_team"
-        className="bg-primary-dark/20"
+        className="bg-background/5"
         gridClassName="grid sm:grid-cols-2 lg:grid-cols-3 gap-7 justify-items-center"
       />
       <LeadershipLists
         title="Technical Team"
         background="Technical Team"
         teamType="technical_team"
-        className="bg-background"
+        className=""
         gridClassName="grid sm:grid-cols-3 lg:grid-cols-3 gap-7 justify-items-center"
       />
 
@@ -72,6 +72,6 @@ export default function AboutPage() {
       <Statistics />
 
       <OurBranchesSection />
-    </>
+    </div>
   );
 }

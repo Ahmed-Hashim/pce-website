@@ -25,19 +25,21 @@ interface ContentDetailProps {
   tag?: string;
   content: string[]; // HTML strings
   toc?: TOCItem[];
+  theme?: "light" | "dark";
 }
 
 const subscribe = () => () => {};
 
 export default function ContentDetail({
   title,
-  subtitle,
+
   imageSrc,
   breadcrumbs,
   date,
   tag,
   content,
   toc,
+
 }: ContentDetailProps) {
   const [activeId, setActiveId] = useState<string>("");
   const shareUrl = useSyncExternalStore(
@@ -85,11 +87,26 @@ export default function ContentDetail({
   };
 
   const hasTOC = toc && toc.length > 0;
+;
+
+  // Theme-based styles
+  const styles = {
+    background:  "bg-background/5",
+    tocTitle:  "text-primary-medium border-neutral-700",
+    tocLinkInactive: "border-transparent text-gray-500 hover:text-white hover:border-gray-300",
+    tocLinkActive: "border-primary-dark border-xl text-primary-dark font-medium bg-gray-50",
+    metaText: "text-neutral-300",
+    tag: "bg-primary-medium/10 text-primary-medium",
+    contentClass: "blog-content",
+    shareTitle: "text-primary-medium border-neutral-700",
+    shareButton: "text-neutral-400 hover:text-white hover:bg-white/10"
+      
+  };
 
   return (
     <>
       <PageHero title={title}  breadcrumbs={breadcrumbs} imageSrc={imageSrc} />
-      <Section background="bg-background">
+      <Section background={styles.background}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className={`grid grid-cols-1 ${hasTOC ? "lg:grid-cols-12" : ""} gap-12`}>
             
@@ -97,7 +114,7 @@ export default function ContentDetail({
             {hasTOC && (
               <div className="hidden lg:block lg:col-span-3">
                 <div className="sticky top-24">
-                  <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4 border-b border-gray-200 pb-2">
+                  <h3 className={`text-sm font-bold uppercase tracking-wider mb-4 border-b pb-2 border-white ${styles.tocTitle}`}>
                     On this page
                   </h3>
                   <nav className="flex flex-col space-y-1">
@@ -110,8 +127,8 @@ export default function ContentDetail({
                           item.level === 3 ? "ml-4 text-xs" : ""
                         } ${
                           activeId === item.id
-                            ? "border-primary-dark text-primary-dark font-medium bg-gray-50"
-                            : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
+                            ? styles.tocLinkActive
+                            : styles.tocLinkInactive
                         }`}
                       >
                         {item.text}
@@ -124,10 +141,10 @@ export default function ContentDetail({
 
             {/* Main Content */}
             <div className={`${hasTOC ? "lg:col-span-7" : "col-span-full"}`}>
-              <div className="flex items-center gap-4 text-secondary-dark mb-6">
-                {date ? <div className="text-xs md:text-sm font-medium">{date}</div> : null}
+              <div className={`flex items-center gap-4 mb-6 ${styles.metaText}`}>
+                {date ? <div className="text-xs md:text-sm font-medium text-secondary-dark">{date}</div> : null}
                 {tag ? (
-                  <div className="rounded-full bg-primary-dark/10 text-primary-dark text-xs px-3 py-1 font-semibold">
+                  <div className={`rounded-full text-xs px-3 py-1 font-semibold ${styles.tag}`}>
                     {tag}
                   </div>
                 ) : null}
@@ -137,7 +154,7 @@ export default function ContentDetail({
                 {content.map((html, i) => (
                   <div
                     key={i}
-                    className="blog-content text-secondary-dark leading-relaxed"
+                    className={`${styles.contentClass} leading-relaxed`}
                     dangerouslySetInnerHTML={{ __html: html }}
                   />
                 ))}
@@ -148,7 +165,7 @@ export default function ContentDetail({
             {hasTOC && (
               <div className="hidden lg:block lg:col-span-2">
                 <div className="sticky top-24">
-                  <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4 border-b border-gray-200 pb-2">
+                  <h3 className={`text-sm font-bold uppercase tracking-wider mb-4 border-b pb-2 border-white ${styles.shareTitle}`}>
                     Share
                   </h3>
                   <div className="flex flex-col gap-3">
@@ -156,7 +173,7 @@ export default function ContentDetail({
                       href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-2 rounded-sm text-gray-600 hover:text-primary-dark hover:bg-gray-50 transition-colors"
+                      className={`flex items-center gap-3 p-2 rounded-sm transition-colors ${styles.shareButton}`}
                       title="Share on Facebook"
                     >
                       <FaFacebookF className="w-5 h-5" />
@@ -166,7 +183,7 @@ export default function ContentDetail({
                       href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-2 rounded-sm text-gray-600 hover:text-primary-dark hover:bg-gray-50 transition-colors"
+                      className={`flex items-center gap-3 p-2 rounded-sm transition-colors ${styles.shareButton}`}
                       title="Share on Twitter"
                     >
                       <FaTwitter className="w-5 h-5" />
@@ -176,7 +193,7 @@ export default function ContentDetail({
                       href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-2 rounded-sm text-gray-600 hover:text-primary-dark hover:bg-gray-50 transition-colors"
+                      className={`flex items-center gap-3 p-2 rounded-sm transition-colors ${styles.shareButton}`}
                       title="Share on LinkedIn"
                     >
                       <FaLinkedinIn className="w-5 h-5" />
@@ -186,7 +203,7 @@ export default function ContentDetail({
                       href={`https://wa.me/?text=${encodeURIComponent(title + " " + shareUrl)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-2 rounded-sm text-gray-600 hover:text-primary-dark hover:bg-gray-50 transition-colors"
+                      className={`flex items-center gap-3 p-2 rounded-sm transition-colors ${styles.shareButton}`}
                       title="Share on WhatsApp"
                     >
                       <FaWhatsapp className="w-5 h-5" />
@@ -194,7 +211,7 @@ export default function ContentDetail({
                     </a>
                     <button
                       onClick={copyLink}
-                      className="flex items-center gap-3 p-2 rounded-sm text-gray-600 hover:text-primary-dark hover:bg-gray-50 transition-colors text-left"
+                      className={`flex items-center gap-3 p-2 rounded-sm transition-colors text-left ${styles.shareButton}`}
                       title="Copy Link"
                     >
                       <FaLink className="w-5 h-5" />

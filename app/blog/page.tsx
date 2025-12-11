@@ -159,7 +159,7 @@ export default function BlogPage() {
         title={pageHero.title}
         subtitle={pageHero.subtitle}
         breadcrumbs={pageHero.breadcrumbs}
-        imageSrc={pageHero.imageSrc}
+        // imageSrc={pageHero.imageSrc}
       />
 
       <Section background="bg-primary-dark" className="py-(--space-section-y-md)">

@@ -91,7 +91,7 @@ function parseOfficeHours(input: Json | null): HoursInfo {
 export default function DirectContactsSection({
   title = "Direct Contacts",
   backgroundText = "CONTACT",
-  titleColor = "var(--color-primary-dark)",
+  titleColor = "text-white",
   outlineColor = "var(--color-neutral-light)",
   align = "left",
   fontSize = "md:text-3xl lg:text-4xl",
@@ -196,12 +196,12 @@ async function ContactsContent({ mapImage }: { mapImage: string }) {
           <a
             key={`cc-${i}`}
             href={c.href}
-            className="group block rounded-sm border border-secondary-dark/40 bg-background p-5 hover:border-primary-medium/50 transition-colors"
+            className="group block rounded-sm border border-primary-medium  p-5 hover:border-primary-medium/50 transition-colors"
           >
-            <div className="text-xs uppercase tracking-wide text-secondary-dark/80">
+            <div className="text-xs uppercase tracking-wide text-primary-medium">
               {c.label}
             </div>
-            <div className="mt-1 text-primary-dark font-semibold text-sm">
+            <div className="mt-1 text-white font-semibold text-sm">
               {c.value}
             </div>
           </a>
@@ -213,9 +213,9 @@ async function ContactsContent({ mapImage }: { mapImage: string }) {
          
           <div className="mt-3 space-y-2">
             {hours.items.map((h, i) => (
-              <div key={`hr-${i}`} className="group block rounded-sm border border-secondary-dark/40 bg-background px-5 py-2 hover:border-primary-medium/50 transition-colors">
-                <div className="text-secondary-dark">{h.label}</div>
-                <div className="text-primary-dark font-medium">{h.value}</div>
+              <div key={`hr-${i}`} className="group block rounded-sm border border-primary-medium  px-5 py-2 hover:border-primary-medium/50 transition-colors">
+                <div className="text-primary-medium">{h.label}</div>
+                <div className="text-white font-medium">{h.value}</div>
               </div>
             ))}
         

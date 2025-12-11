@@ -150,7 +150,7 @@ async function AllNews() {
 
 export default function NewsPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-primary-dark">
       <PageHero
         title={pageHero.title}
         subtitle={pageHero.subtitle}
@@ -158,11 +158,11 @@ export default function NewsPage() {
       // imageSrc={pageHero.imageSrc} 
       />
 
-      <Section background="bg-background" className="py-(--space-section-y-md)">
+      <Section background="" className="py-(--space-section-y-md)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <SectionTitle
             title={sectionText.topStoriesTitle}
-            titleColor="var(--color-primary-dark)"
+            titleColor="text-white"
             align="left"
             className="mb-8"
             fontSize="md:text-3xl lg:text-4xl"
@@ -173,11 +173,11 @@ export default function NewsPage() {
         </div>
       </Section>
 
-      <Section background="bg-background" className="py-(--space-section-y-md)">
+      <Section background="bg-background/5"  className="py-(--space-section-y-md)">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <SectionTitle
             title={sectionText.allNewsTitle}
-            titleColor="var(--color-primary-dark)"
+            titleColor="text-white"
             align="left"
             className="mb-8"
             fontSize="md:text-3xl lg:text-4xl"

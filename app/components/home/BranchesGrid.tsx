@@ -69,6 +69,7 @@ export default function BranchesGrid({
             titleColor="heading"
             outlineColor="var(--color-neutral-light)"
             title={sectionTitle}
+            underline={true}
             background={sectionTitle.split(" ").pop()}
             align="center"
           />
@@ -147,7 +148,7 @@ export default function BranchesGrid({
               <div
                 role="dialog"
                 aria-modal="true"
-                className="relative w-full max-w-2xl bg-background rounded-sm border border-secondary-dark shadow-xl"
+                className="relative w-full max-w-2xl bg-background rounded-sm border border-primary-dark shadow-xl"
               >
                 <div className="flex items-center justify-between p-6 border-b border-secondary-dark">
                   <div className="flex items-center gap-3">
@@ -162,10 +163,10 @@ export default function BranchesGrid({
                     </div>
 
                     <div>
-                      <h3 className="font-semibold text-primary-medium">
+                      <h3 className="font-semibold text-primary-dark">
                         {selectedBranch.country}
                       </h3>
-                      <p className="text-secondary-dark capitalize">
+                      <p className="text-primary-medium capitalize">
                         {selectedBranch.region} {labels.regionSuffix}
                       </p>
                     </div>
@@ -175,18 +176,18 @@ export default function BranchesGrid({
                     type="button"
                     onClick={() => setSelectedBranch(null)}
                     aria-label={labels.close}
-                    className="px-3 py-2 rounded-md border border-secondary-dark text-secondary-dark hover:text-primary-medium hover:border-primary-medium transition-colors"
+                    className="px-3 py-2 rounded-md border border-primary-dark text-primary-dark hover:text-primary-medium hover:border-primary-medium hover:bg-primary-dark transition-colors"
                   >
                     {labels.close}
                   </button>
                 </div>
 
                 <div className="p-6">
-                  <div className="mb-4 text-secondary-dark">
+                  <div className="mb-4 text-primary-dark">
                     {selectedBranch.branchCount} {labels.branchCount}
                   </div>
 
-                  <h4 className="font-semibold text-secondary-dark mb-3 tracking-wide uppercase">
+                  <h4 className="font-semibold text-primary-dark mb-3 tracking-wide uppercase">
                     {labels.locationsContacts}
                   </h4>
 

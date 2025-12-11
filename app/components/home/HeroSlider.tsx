@@ -218,7 +218,7 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
             key={i}
             onClick={() => goToSlide(i)}
             className={`transition-all duration-500 rounded-full ${current === i
-                ? "bg-primary-medium w-10 h-3 shadow-lg shadow-primary-dark"
+                ? "bg-secondary-dark w-10 h-3 shadow-lg shadow-primary-dark"
                 : "bg-white w-3 h-3 hover:bg-white hover:scale-110"
               }`}
           />
@@ -228,7 +228,7 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
       {/* Progress Line */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-white/10 z-30">
         <div
-          className="h-full bg-primary-dark shadow-primary-medium transition-all duration-100 ease-linear"
+          className="h-full bg-secondary-dark shadow-primary-medium transition-all duration-100 ease-linear"
           style={{ width: `${progress}%` }}
         />
       </div>

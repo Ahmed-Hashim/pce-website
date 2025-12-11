@@ -23,7 +23,7 @@ const Header = () => {
   const desktopPanelEvents = { open: 'desktopSidePanel:open', close: 'desktopSidePanel:close' } as const;
 
   return (
- <header id="site-header" className=" bg-white transition-all duration-300 ">
+ <header id="site-header" className="  bg-linear-to-br from-black to-primary-dark border-t border-white/10 ">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-4" >
 
         {/* Logo */}
@@ -32,7 +32,7 @@ const Header = () => {
             <Image
               src="/pce-logo.png"
               alt="PCE Logo"
-             
+              className="invert brightness-0"
               width={50}
               height={50}
             />
@@ -47,7 +47,7 @@ const Header = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-primary-dark font-medium transition-all duration-300"
+                className="text-white font-medium transition-all duration-300"
               >
                 {link.name}
               </Link>
@@ -56,7 +56,7 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-4">
-          <button className="bg-primary-dark text-button-text px-5 py-2 rounded-sm text-sm font-medium hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+          <button className="bg-primary-dark text-button-text px-5 py-2 rounded-sm text-sm border border-primary-medium font-medium hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
             Book a Meeting
           </button>
 
@@ -67,7 +67,7 @@ const Header = () => {
               }
             }}
             aria-label={desktopPanelOpenLabel}
-            className="p-2 rounded-md border border-primary-dark/20 hover:bg-primary-dark/10 hover:border-primary-dark/30 transition-all duration-300 backdrop-blur-sm"
+            className="p-2 rounded-md border border-primary-medium hover:bg-primary-dark/10 hover:border-primary-dark/30 transition-all duration-300 backdrop-blur-sm"
           >
             <FaBars className="text-primary-medium/70 text-base" />
           </button>

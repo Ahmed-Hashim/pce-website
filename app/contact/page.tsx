@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import PageHero from "../components/ui/PageHero";
 import CTAComponent from "../components/home/CTAComponent";
 import OurBranchesSection from "../components/home/OurBranchesSection";
-import OfficeContactsSection from "../components/contact/OfficeContactsSection";
+// import OfficeContactsSection from "../components/contact/OfficeContactsSection";
 import DirectContactsSection from "../components/contact/DirectContactsSection";
-import { footerData } from "../components/layout/FooterData";
+// import { footerData } from "../components/layout/FooterData";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -48,12 +48,12 @@ const mapImage = "/map-placeholder.png";
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-primary-dark">
       <PageHero
         title={pageHero.title}
         subtitle={pageHero.subtitle}
         breadcrumbs={pageHero.breadcrumbs}
-        imageSrc={pageHero.imageSrc}
+        // imageSrc={pageHero.imageSrc}
       />
 
       <CTAComponent
@@ -63,19 +63,13 @@ export default function ContactPage() {
         secondaryButtonText={cta.secondaryButtonText}
       />
 
-      <OfficeContactsSection
-        title="Branches"
-
-        offices={footerData.offices}
-        sectionProps={{ background: "bg-background" }}
-      />
-
+   
       <OurBranchesSection />
       <DirectContactsSection
         title={directContactsTitle}
 
         mapImage={mapImage}
-        sectionProps={{ background: "bg-background" }}
+        sectionProps={{ background: "bg-background/5" }}
       />
     </div>
   );

@@ -21,7 +21,7 @@ export default function ProjectTeam({ team }: ProjectTeamProps) {
 
   return (
     <>
-      <SectionTitle title="Project Team" align="left" />
+      <SectionTitle title="Project Team" align="left"   titleColor="text-white" />
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7 justify-items-center mt-12">
         {team.map((member, i) => (
           <LeaderCard

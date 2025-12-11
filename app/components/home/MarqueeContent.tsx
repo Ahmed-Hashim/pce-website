@@ -12,7 +12,7 @@ interface MarqueeContentProps {
 
 export default function MarqueeContent({
   items,
-  separatorIcon = <TriangleIcon />,
+  separatorIcon = <TriangleIcon className="text-secondary-dark" />,
   speed = 100,
 }: MarqueeContentProps) {
   return (

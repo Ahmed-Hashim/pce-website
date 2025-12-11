@@ -46,19 +46,19 @@ export default function ProjectsFiltersSection({
   sectionProps,
 }: ProjectsFiltersSectionProps) {
   return (
-    <Section {...sectionProps} className={`${sectionProps?.className || ""} pb-0`}>
+    <Section {...sectionProps} className={`${sectionProps?.className || ""} pb-8`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="rounded-sm border border-primary-dark bg-primary-dark/5 p-4 md:p-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 items-end">
-            <div>
-              <label className="block text-xs tracking-wide text-primary-dark mb-2">
+        <div className="bg-primary-dark p-6 md:p-8 shadow-lg rounded-sm">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-white">
                 {filterLabels.location}
               </label>
-              <div className="relative">
+              <div className="relative group">
                 <select
                   value={selectedLocation}
                   onChange={(e) => onChangeLocation(e.target.value)}
-                  className="w-full h-11 rounded-sm border border-primary-dark bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-primary-dark focus:border-primary-medium focus:outline-none"
+                  className="w-full h-12 bg-neutral-50 border-b-2 border-neutral-200 hover:border-primary-dark focus:border-primary-dark transition-colors appearance-none px-4 pr-10 text-primary-dark font-medium focus:outline-none rounded-t-sm"
                 >
                   <option value="all">{filterLabels.all}</option>
                   {locations.map((loc) => (
@@ -67,19 +67,19 @@ export default function ProjectsFiltersSection({
                     </option>
                   ))}
                 </select>
-                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-primary-dark/70" />
+                <FiChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 group-hover:text-primary-dark transition-colors" />
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs tracking-wide text-primary-dark mb-2">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-white">
                 {filterLabels.sectorTag}
               </label>
-              <div className="relative">
+              <div className="relative group">
                 <select
                   value={selectedSectorTag}
                   onChange={(e) => onChangeSectorTag(e.target.value)}
-                  className="w-full h-11 rounded-sm border border-primary-dark bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-primary-dark focus:border-primary-medium focus:outline-none"
+                  className="w-full h-12 bg-neutral-50 border-b-2 border-neutral-200 hover:border-primary-dark focus:border-primary-dark transition-colors appearance-none px-4 pr-10 text-primary-dark font-medium focus:outline-none rounded-t-sm"
                 >
                   <option value="all">{filterLabels.all}</option>
                   {sectorTags.map((s) => (
@@ -88,19 +88,19 @@ export default function ProjectsFiltersSection({
                     </option>
                   ))}
                 </select>
-                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-primary-dark/70" />
+                <FiChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 group-hover:text-primary-dark transition-colors" />
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs tracking-wide text-primary-dark mb-2">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-white">
                 {filterLabels.sector}
               </label>
-              <div className="relative">
+              <div className="relative group">
                 <select
                   value={selectedSector}
                   onChange={(e) => onChangeSector(e.target.value)}
-                  className="w-full h-11 rounded-sm border border-primary-dark bg-white/70 backdrop-blur appearance-none px-3 pr-10 text-primary-dark focus:border-primary-medium focus:outline-none"
+                  className="w-full h-12 bg-neutral-50 border-b-2 border-neutral-200 hover:border-primary-dark focus:border-primary-dark transition-colors appearance-none px-4 pr-10 text-primary-dark font-medium focus:outline-none rounded-t-sm"
                 >
                   <option value="all">{filterLabels.all}</option>
                   {sectors.map((sec) => (
@@ -109,17 +109,17 @@ export default function ProjectsFiltersSection({
                     </option>
                   ))}
                 </select>
-                <FiChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-primary-dark/70" />
+                <FiChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 group-hover:text-primary-dark transition-colors" />
               </div>
             </div>
 
-            <div className="flex md:justify-end">
+            <div className="flex md:justify-end pb-1">
               <button
                 type="button"
                 onClick={onReset}
-                className="inline-flex items-center justify-center h-11 px-4 rounded-sm border border-primary-dark bg-white/60 text-primary-dark hover:bg-white/80 transition-colors"
+                className="group relative inline-flex items-center justify-center h-12 px-8 text-sm font-medium uppercase tracking-wider border-white  text-white border  hover:bg-primary-medium transition-all duration-300 rounded-sm overflow-hidden"
               >
-                {filterLabels.reset}
+                <span className="relative z-10">{filterLabels.reset}</span>
               </button>
             </div>
           </div>

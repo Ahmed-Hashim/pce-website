@@ -3,7 +3,12 @@
 import React from "react";
 import Image from "next/image";
 import { FiX, FiPhone, FiMapPin } from "react-icons/fi";
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+} from "react-icons/fa";
 import { footerData, FooterContent } from "./FooterData";
 
 interface Branding {
@@ -53,41 +58,44 @@ export default function DesktopSidePanel({
   return (
     <div
       aria-hidden={!open}
-      className={`fixed inset-0 z-100 ${open ? "pointer-events-auto" : "pointer-events-none"}`}
+      className={`fixed inset-0 z-100 ${
+        open ? "pointer-events-auto" : "pointer-events-none"
+      }`}
     >
       {/* Backdrop */}
       <div
-  role="presentation"
-  onClick={onClose}
-  className={`fixed inset-0 bg-black/60 transition-opacity duration-300 
+        role="presentation"
+        onClick={onClose}
+        className={`fixed inset-0 bg-black/60 transition-opacity duration-300 
   ${open ? "opacity-100" : "opacity-0"}`}
-/>
-
+      />
 
       {/* Panel (right side) */}
       <aside
-  role="dialog"
-  aria-modal="true"
-  className={`fixed top-0 right-0 h-screen w-[360px] sm:w-[420px] 
-  bg-background text-primary-dark border-l border-secondary-dark shadow-xl 
+        role="dialog"
+        aria-modal="true"
+        className={`fixed top-0 right-0 h-screen w-[360px] sm:w-[420px] 
+   bg-linear-to-br from-primary-dark to-black  text-primary-dark border-l border-secondary-dark shadow-xl 
   transition-transform duration-300 will-change-transform
   ${open ? "translate-x-0" : "translate-x-full"}`}
->
-
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-secondary-dark bg-background">
+        <div className="flex items-center justify-between p-5 border-b border-secondary-dark bg-white ">
           <div className="flex items-center gap-3">
             <Image
               src={branding.logoSrc}
               alt={branding.logoAlt ?? branding.name}
               width={40}
               height={40}
-              
             />
             <div>
-              <p className="text-xl font-semibold text-primary-medium">{branding.name}</p>
+              <p className="text-xl font-semibold text-primary-medium">
+                {branding.name}
+              </p>
               {branding.tagline && (
-                <p className="text-sm text-secondary-dark">{branding.tagline}</p>
+                <p className="text-sm text-secondary-dark">
+                  {branding.tagline}
+                </p>
               )}
             </div>
           </div>
@@ -101,25 +109,29 @@ export default function DesktopSidePanel({
         </div>
 
         {/* Body */}
-        <div className="p-6 space-y-6 bg-background">
+        <div className="p-6 space-y-6 ">
           {companySection && (
             <div>
-              <p className="text-secondary-dark">{companySection.description}</p>
+              <p className="text-white">
+                {companySection.description}
+              </p>
             </div>
           )}
 
           {/* Contact */}
           <div>
-            <h4 className="text-lg font-semibold text-primary-medium mb-3">{getInTouchTitle}</h4>
+            <h4 className="text-lg font-semibold text-secondary-light mb-3">
+              {getInTouchTitle}
+            </h4>
             <div className="space-y-3">
               {phone && (
-                <div className="flex items-center gap-3 text-secondary-dark">
+                <div className="flex items-center gap-3 text-white">
                   <FiPhone className="w-4 h-4" />
                   <span>{phone}</span>
                 </div>
               )}
               {address && (
-                <div className="flex items-center gap-3 text-secondary-dark">
+                <div className="flex items-center gap-3 text-white">
                   <FiMapPin className="w-4 h-4" />
                   <span>{address}</span>
                 </div>
@@ -135,7 +147,7 @@ export default function DesktopSidePanel({
                   key={i}
                   href={social.href}
                   aria-label={social.ariaLabel}
-                  className="w-10 h-10 grid place-items-center rounded-full bg-primary-dark/10 text-secondary-dark hover:text-primary-medium hover:bg-primary-dark/15 transition-colors"
+                  className="w-10 h-10 grid place-items-center rounded-full bg-primary-dark/10 text-secondary-dark border hover:text-primary-medium hover:bg-primary-dark/15 hover:shadow-accent hover:shadow-md transition-colors"
                 >
                   {socialIconMap[social.icon]}
                 </a>

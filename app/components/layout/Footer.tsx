@@ -32,7 +32,7 @@ async function FooterContentLoader() {
 
 function FooterView({ data }: { data: FooterContent }) {
   return (
-    <footer className="relative bg-gradient-to-br from-black to-primary-dark border-t border-white/10">
+    <footer className="relative bg-linear-to-br from-black to-primary-dark border-t border-white/10">
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20">
 
         {/* Main Columns Grid */}

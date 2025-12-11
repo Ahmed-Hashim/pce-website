@@ -160,12 +160,13 @@ export default async function BlogDetail({
   const contentArray = [processedContent];
 
   return (
-    <article className="min-h-screen">
+    <article className="min-h-screen bg-primary-dark">
       <ContentDetail
         title={post.title}
         subtitle={post.short_description || undefined}
         imageSrc={post.main_image_url || "/4.png"}
         breadcrumbs={breadcrumbs}
+        theme="dark"
 
         date={
           post.created_at
@@ -186,13 +187,13 @@ export default async function BlogDetail({
       />
       {related.length > 0 ? (
         <Section
-          background="bg-background"
+          background="bg-white/5"
           className="py-(--space-section-y-md)"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <SectionTitle
               title={relatedTitle}
-              titleColor="var(--color-primary-dark)"
+              titleColor="text-white"
               align="left"
               className="mb-8"
               fontSize="md:text-3xl lg:text-4xl"

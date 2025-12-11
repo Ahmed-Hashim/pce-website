@@ -27,10 +27,10 @@ export default function ProjectOverview({
       <div className="mb-8 max-w-4xl">
         {overview && (
           <>
-            <h2 className="font-extrabold md:text-4xl lg:text-5xl text-primary-dark ">
+            <h2 className="font-extrabold md:text-4xl lg:text-5xl text-white ">
               Overview
             </h2>
-            <div className="text-primary-medium leading-relaxed whitespace-pre-line font-light mt-2">
+            <div className="text-neutral-light leading-relaxed whitespace-pre-line font-light mt-2">
               {overview}
             </div>
           </>
@@ -38,7 +38,7 @@ export default function ProjectOverview({
       </div>
 
       {/* Meta Info Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 border-t border-secondary-light/30 pt-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 border-t border-white/10 pt-8">
         {/* Client */}
         {client && (
           <div>
@@ -46,16 +46,18 @@ export default function ProjectOverview({
               Client
             </h6>
             {client.logo_link ? (
-              <div className="relative h-12 w-32">
+              <div className="relative h-12 w-32 ">
+                
                 <Image
                   src={client.logo_link}
                   alt={client.name}
                   fill
-                  className="object-contain object-left"
+                  className="object-contain object-left invert brightness-0"
                 />
               </div>
+              
             ) : (
-              <div className="text-primary-dark font-medium">
+              <div className="text-white font-medium">
                 {client.name}
               </div>
             )}
@@ -72,7 +74,7 @@ export default function ProjectOverview({
               {categories.map((cat, i) => (
                 <span
                   key={i}
-                  className="text-primary-dark font-medium"
+                  className="text-white font-medium"
                 >
                   {cat}
                   {i < categories.length - 1 ? "," : ""}
@@ -92,7 +94,7 @@ export default function ProjectOverview({
               {sectors.map((sec, i) => (
                 <span
                   key={i}
-                  className="text-primary-dark font-medium"
+                  className="text-white font-medium"
                 >
                   {sec}
                   {i < sectors.length - 1 ? "," : ""}
@@ -108,7 +110,7 @@ export default function ProjectOverview({
             <h6 className="font-bold text-primary-medium uppercase tracking-widest mb-3">
               Location
             </h6>
-            <div className="text-primary-dark font-medium">
+            <div className=" font-medium">
               {location}
             </div>
           </div>

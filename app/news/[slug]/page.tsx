@@ -151,7 +151,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ slug: s
   const contentArray = [processedContent];
 
   return (
-    <article className="min-h-screen">
+    <article className="min-h-screen bg-primary-dark">
       <ContentDetail
         title={item.title}
         subtitle={item.meta_description || undefined} // mapped meta_description to subtitle as per blog logic usually uses short_description

@@ -159,6 +159,7 @@ function BranchesSkeleton({
           titleColor="heading"
           outlineColor="var(--color-neutral-light)"
           title={sectionTitle}
+          
           background={sectionTitle.split(" ").pop()}
           align="center"
         />

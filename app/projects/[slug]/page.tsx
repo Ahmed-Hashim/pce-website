@@ -159,7 +159,7 @@ export default async function ProjectDetailPage({
       }[]) || [];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-primary-dark">
       <ProjectHeader
         title={pageHero.title}
         subtitle={pageHero.subtitle}
@@ -169,7 +169,7 @@ export default async function ProjectDetailPage({
       />
 
       {/* Main Content: Overview + Meta */}
-      <Section container={true}>
+      <Section container={true} className="bg-white/5">
         <ProjectOverview
           overview={project.overview}
           client={project.clients}
@@ -181,12 +181,13 @@ export default async function ProjectDetailPage({
       </Section>
 
       {/* Gallery Section */}
-      <Section className="bg-neutral-light/30">
+      <Section className="bg-primary-dark/50 border-t border-white/5">
 
           <SectionTitle
            
             title="Visuals from the Field"
             align="left"
+            titleColor="text-white"
           />
 
           <div className="mt-2">
@@ -197,7 +198,7 @@ export default async function ProjectDetailPage({
 
       {/* Project Team Section */}
       {team.length > 0 && (
-        <Section className="bg-background" container={true}>
+        <Section className="bg-white/5" container={true}>
           <ProjectTeam team={team} />
         </Section>
       )}
