@@ -225,7 +225,25 @@
     transparent 70%
   );
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary-light);
+  border-radius: 3px;
+  border: 1px solid var(--color-secondary-dark);
+}
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   html,
   body {
     font-family: var(--font-raleway), ui-sans-serif, system-ui, -apple-system,

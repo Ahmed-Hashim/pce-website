@@ -11,7 +11,7 @@ export default function CoreServicesOverview() {
 <div
         className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
         style={{
-          backgroundImage: `url("./Layout.png")`,
+          backgroundImage: `url("/Layout.png")`,
         }}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-8">

@@ -11,7 +11,7 @@ export default function MissionVisionValues() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
         style={{
-          backgroundImage: `url("./philo.png")`,
+          backgroundImage: `url("/philo.png")`,
         }}
       />
 

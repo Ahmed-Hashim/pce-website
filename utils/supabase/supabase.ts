@@ -905,16 +905,31 @@ export type Database = {
       }
       sectors: {
         Row: {
+          description: string | null
+          display_order: number | null
+          icon_url: string | null
           id: number
+          image_url: string | null
           name: string
+          slug: string | null
         }
         Insert: {
+          description?: string | null
+          display_order?: number | null
+          icon_url?: string | null
           id?: never
+          image_url?: string | null
           name: string
+          slug?: string | null
         }
         Update: {
+          description?: string | null
+          display_order?: number | null
+          icon_url?: string | null
           id?: never
+          image_url?: string | null
           name?: string
+          slug?: string | null
         }
         Relationships: []
       }

@@ -55,7 +55,7 @@ export default async function Home() {
       <CoreServicesOverview />
 
       <FeaturedProjectsPreview
-        sectionProps={{ container: false, className: "bg-primary-dark/95" }}
+        sectionProps={{ container: true, className: "bg-primary-dark/95" }}
       />
 
       <OurBranchesSection sectionProps={{ container: false }} />

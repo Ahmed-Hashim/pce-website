@@ -61,6 +61,7 @@ export default function ContactPage() {
         description={cta.description}
         primaryButtonText={cta.primaryButtonText}
         secondaryButtonText={cta.secondaryButtonText}
+        sectionProps={{ id: "cta" }}
       />
 
    

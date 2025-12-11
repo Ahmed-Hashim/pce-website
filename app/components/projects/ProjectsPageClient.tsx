@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import ProjectsFiltersSection from "./ProjectsFiltersSection";
 import ProjectsGridSection from "./ProjectsGridSection";
 import ProjectsPaginationSection from "./ProjectsPaginationSection";
@@ -25,10 +26,22 @@ export default function ProjectsPageClient({
     projects,
     filters,
 }: ProjectsPageClientProps) {
+    const searchParams = useSearchParams();
+    const initialSector = searchParams.get("sector");
+
     const [selectedLocation, setSelectedLocation] = useState<string>("all");
-    const [selectedSectorTag, setSelectedSectorTag] = useState<string>("all");
+    const [selectedSectorTag, setSelectedSectorTag] = useState<string>(initialSector || "all");
     const [selectedSector, setSelectedSector] = useState<string>("all");
     const [currentPage, setCurrentPage] = useState(1);
+    
+    // Track previous prop for synchronization during render
+    const [prevInitialSector, setPrevInitialSector] = useState(initialSector);
+
+    // Sync state with URL params during render (avoids useEffect cascading)
+    if (initialSector !== prevInitialSector) {
+        setPrevInitialSector(initialSector);
+        setSelectedSectorTag(initialSector || "all");
+    }
 
     // Transform filters to expected format
     const locations = useMemo(

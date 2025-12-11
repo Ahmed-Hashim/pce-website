@@ -3,6 +3,7 @@ import PageHero from "../components/ui/PageHero";
 import CTAComponent from "../components/home/CTAComponent";
 import Statistics from "../components/home/Statistics";
 import CoreServicesOverview from "../components/home/CoreServicesOverview";
+import SectorsSection from "../components/home/SectorsSection";
 
 import { cacheLife } from "next/cache";
 
@@ -43,7 +44,7 @@ export default async function ServicesPage() {
     secondaryButtonText: "Explore Services",
   };
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-primary-dark">
       <PageHero
         title={pageHero.title}
         subtitle={pageHero.subtitle}
@@ -52,6 +53,12 @@ export default async function ServicesPage() {
       />
 
       <CoreServicesOverview />
+
+      <SectorsSection 
+        sectionTitle="Sectors We Serve"
+        sectionEyebrow="Our Expertise"
+        sectionProps={{ background: "bg-background/5" }}
+      />
 
       <Statistics />
       <CTAComponent

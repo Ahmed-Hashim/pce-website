@@ -21,7 +21,7 @@ export default function WhoWeAreSection({ sectionProps }: WhoWeAreSectionProps) 
       <div
         className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
         style={{
-          backgroundImage: `url("./Cover.png")`,
+          backgroundImage: `url("/Cover.png")`,
         }}
       />
      

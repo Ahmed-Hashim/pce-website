@@ -24,7 +24,7 @@ export default function CEOSection({
       {/* Parallax Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
-        style={{ backgroundImage: `url("./Layout.png")` }}
+        style={{ backgroundImage: `url("/Layout.png")` }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">

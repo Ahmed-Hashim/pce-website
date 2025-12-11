@@ -11,7 +11,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
-  { name: "Services", href: "/services" },
+  { name: "Services/Sectors", href: "/services" },
   { name: "Blog", href: "/blog" },
   { name: "News", href: "/news" },
   { name: "Contact", href: "/contact" },
@@ -56,9 +56,9 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-4">
-          <button className="bg-primary-dark text-button-text px-5 py-2 rounded-sm text-sm border border-primary-medium font-medium hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+          <Link href="/contact#cta" className="bg-primary-dark text-button-text px-5 py-2 rounded-sm text-sm border border-primary-medium font-medium hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
             Book a Meeting
-          </button>
+          </Link>
 
           <button
             onClick={() => {
@@ -106,13 +106,18 @@ const Header = () => {
                 key={link.name}
                 href={link.href}
                 className="text-primary-medium/80 hover:text-primary-medium hover:bg-text/10 rounded-md px-3 py-2 transition-all duration-300"
+                onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <button className="bg-primary-medium/90 text-button-text w-full mt-4 px-6 py-2 rounded-sm hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+            <Link 
+              href="/contact#cta" 
+              className="block bg-primary-medium/90 text-button-text w-full mt-4 px-6 py-2 rounded-sm hover:bg-primary-medium hover:scale-105 transition-all duration-300 backdrop-blur-sm text-center"
+              onClick={() => setIsOpen(false)}
+            >
               Book a Meeting
-            </button>
+            </Link>
           </nav>
         </div>
       )}

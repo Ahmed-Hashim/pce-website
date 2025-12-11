@@ -10,6 +10,7 @@ export { default as ContentCard } from "./ContentCard";
 export { default as LeaderCard } from "./LeaderCard";
 export { default as ProjectCard } from "./ProjectCard";
 export { default as ServiceCard } from "./ServiceCard";
+export { default as SectorCard } from "./SectorCard";
 
 // Content
 export { default as ContentDetail } from "./ContentDetail";

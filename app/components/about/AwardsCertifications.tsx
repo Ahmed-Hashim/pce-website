@@ -24,7 +24,7 @@ export default function AwardsCertifications({
         <div
         className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat "
         style={{
-          backgroundImage: `url("./awards-bg-1.webp")`,
+          backgroundImage: `url("/awards-bg-1.webp")`,
         
         }}
       />

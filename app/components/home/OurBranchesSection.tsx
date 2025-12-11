@@ -43,7 +43,7 @@ export default function OurBranchesSection({
       <div
         className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
         style={{
-          backgroundImage: `url("./globalmap.jpg")`,
+          backgroundImage: `url("/globalmap.jpg")`,
         }}
       />
       <Suspense

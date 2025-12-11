@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import PageHero from "../components/ui/PageHero";
 import ProjectsPageClient from "../components/projects/ProjectsPageClient";
@@ -112,10 +113,12 @@ export default async function ProjectsPage() {
         // imageSrc={pageHero.imageSrc}
       />
 
-      <ProjectsPageClient
-        projects={projects}
-        filters={filters}
-      />
+      <Suspense fallback={<div className="min-h-screen bg-primary-dark/80 flex items-center justify-center text-white">Loading projects...</div>}>
+        <ProjectsPageClient
+          projects={projects}
+          filters={filters}
+        />
+      </Suspense>
     </>
   );
 }
