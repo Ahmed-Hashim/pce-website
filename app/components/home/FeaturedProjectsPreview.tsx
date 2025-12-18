@@ -78,7 +78,7 @@ async function FeaturedProjectsData(props: FeaturedProjectsPreviewProps) {
       )
     `)
     .order("date", { ascending: false }) // or order by id if date is null
-    .limit(6);
+    .eq("show_home", true);
 
   if (error) {
     console.error("Error fetching featured projects:", JSON.stringify(error, null, 2));

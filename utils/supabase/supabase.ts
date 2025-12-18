@@ -729,6 +729,7 @@ export type Database = {
           overview: string | null
           points: Json | null
           service_id: number | null
+          show_home: boolean | null
           slug: string | null
           start_date: string | null
           status: string | null
@@ -745,6 +746,7 @@ export type Database = {
           overview?: string | null
           points?: Json | null
           service_id?: number | null
+          show_home?: boolean | null
           slug?: string | null
           start_date?: string | null
           status?: string | null
@@ -761,6 +763,7 @@ export type Database = {
           overview?: string | null
           points?: Json | null
           service_id?: number | null
+          show_home?: boolean | null
           slug?: string | null
           start_date?: string | null
           status?: string | null
