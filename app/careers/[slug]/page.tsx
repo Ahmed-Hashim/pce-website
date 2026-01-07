@@ -299,7 +299,11 @@ export async function generateStaticParams() {
   const supabase = createClient();
   const { data: careers } = await supabase.from("careers").select("job_title");
 
-  return careers?.map((c) => ({
+  if (!careers || careers.length === 0) {
+    return [{ slug: "no-careers-found" }];
+  }
+
+  return careers.map((c) => ({
     slug: generateSlug(c.job_title)
-  })) || [];
+  }));
 }

@@ -209,5 +209,10 @@ export default async function ProjectDetailPage({
 export async function generateStaticParams() {
   const supabase = await createClient();
   const { data: projects } = await supabase.from("projects").select("slug");
+
+  if (!projects || projects.length === 0) {
+    return [{ slug: "no-projects-found" }];
+  }
+
   return (projects || []).map((p) => ({ slug: p.slug }));
 }

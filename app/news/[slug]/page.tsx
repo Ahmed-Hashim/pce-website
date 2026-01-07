@@ -243,6 +243,10 @@ export async function generateStaticParams() {
   const supabase = createClient();
   const { data: news } = await supabase.from("news").select("slug");
 
+  if (!news || news.length === 0) {
+    return [{ slug: "no-news-found" }];
+  }
+
   return (news || [])
     .filter((n) => n.slug) // ensure slug is not null
     .map((n) => ({ slug: n.slug! }));

@@ -246,7 +246,9 @@ export async function generateStaticParams() {
     .select("title")
     .eq("published", true);
 
-  if (!blogs) return [];
+  if (!blogs || blogs.length === 0) {
+    return [{ slug: "no-posts-found" }];
+  }
 
   return blogs.map((blog) => ({
     slug: slugify(blog.title),

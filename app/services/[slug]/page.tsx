@@ -284,7 +284,9 @@ export async function generateStaticParams() {
   const supabase = await createClient();
   const { data: services } = await supabase.from("services").select("name");
 
-  if (!services) return [];
+  if (!services || services.length === 0) {
+    return [{ slug: "no-services-found" }];
+  }
 
   // Helper to slugify a string
   const slugify = (text: string) => {
