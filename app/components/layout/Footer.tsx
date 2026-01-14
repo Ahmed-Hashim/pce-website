@@ -1,17 +1,18 @@
 import React, { Suspense } from "react";
 import {
   FaFacebookF,
-  FaTwitter,
   FaLinkedinIn,
   FaInstagram,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
 import { FooterContent } from "./FooterData";
 import { getFooterData } from "./footerService";
 import Image from "next/image";
 
 const socialIconMap: Record<string, React.ReactNode> = {
   facebook: <FaFacebookF />,
-  twitter: <FaTwitter />,
+  twitter: <FaXTwitter />,
   linkedin: <FaLinkedinIn />,
   instagram: <FaInstagram />,
 };

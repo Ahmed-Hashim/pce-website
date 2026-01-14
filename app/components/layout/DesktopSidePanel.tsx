@@ -5,10 +5,11 @@ import Image from "next/image";
 import { FiX, FiPhone, FiMapPin } from "react-icons/fi";
 import {
   FaFacebookF,
-  FaTwitter,
   FaLinkedinIn,
   FaInstagram,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
 import { footerData, FooterContent } from "./FooterData";
 
 interface Branding {
@@ -43,7 +44,7 @@ export default function DesktopSidePanel({
 
   const socialIconMap: Record<string, React.ReactNode> = {
     facebook: <FaFacebookF />,
-    twitter: <FaTwitter />,
+    twitter: <FaXTwitter />,
     linkedin: <FaLinkedinIn />,
     instagram: <FaInstagram />,
   };
