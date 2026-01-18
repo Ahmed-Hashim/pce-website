@@ -44,7 +44,8 @@ export function proxy(request: NextRequest) {
   // This ensures that shared links (e.g., from Facebook/LinkedIn) are not blocked.
   const allowedQueryParams = [
     'fbclid', 'gclid', 'utm_source', 'utm_medium', 'utm_campaign', 
-    'utm_term', 'utm_content', 'ref', 's'
+    'utm_term', 'utm_content', 'ref', 's',
+    'sector', 'category', 'location', 'page', 'tag', 'q'
   ]
   
   const hasUnknownParams = Array.from(searchParams.keys()).some(
