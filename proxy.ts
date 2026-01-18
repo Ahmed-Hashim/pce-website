@@ -42,14 +42,25 @@ export function proxy(request: NextRequest) {
   // 3. QUERY PARAM CHECK: 
   // We allow common tracking parameters used by social media and marketing tools.
   // This ensures that shared links (e.g., from Facebook/LinkedIn) are not blocked.
-  const allowedQueryParams = [
+  const globalAllowedParams = [
     'fbclid', 'gclid', 'utm_source', 'utm_medium', 'utm_campaign', 
-    'utm_term', 'utm_content', 'ref', 's',
-    'sector', 'category', 'location', 'page', 'tag', 'q'
+    'utm_term', 'utm_content', 'ref', 's'
+  ]
+
+  // Route-specific allowed parameters
+  // This ensures parameters like 'sector' are only allowed on pages that actually use them.
+  const routeAllowedParams: Record<string, string[]> = {
+    '/projects': ['sector'],
+    // Add other routes and their params here if needed
+  }
+
+  const allowedForThisRoute = [
+    ...globalAllowedParams,
+    ...(routeAllowedParams[pathname] || [])
   ]
   
   const hasUnknownParams = Array.from(searchParams.keys()).some(
-    key => !allowedQueryParams.includes(key)
+    key => !allowedForThisRoute.includes(key)
   )
 
   if (hasUnknownParams && Array.from(searchParams.keys()).length > 0) {

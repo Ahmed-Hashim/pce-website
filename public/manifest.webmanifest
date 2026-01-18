@@ -1,0 +1,21 @@
+{
+  "name": "Precision Consulting Engineering",
+  "short_name": "PCE",
+  "description": "Leading engineering consultancy delivering world-class infrastructure and construction management across the Middle East.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#011131",
+  "icons": [
+    {
+      "src": "/pce-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/pce-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

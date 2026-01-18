@@ -71,6 +71,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  manifest: '/manifest.webmanifest',
 };
 
 export default async function RootLayout({
