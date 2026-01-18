@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://pce.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://pce-consultants.com";
 
 export default function robots(): MetadataRoute.Robots {
     return {
@@ -18,11 +18,11 @@ export default function robots(): MetadataRoute.Robots {
             },
             {
                 userAgent: "GPTBot",
-                disallow: ["/"],
+                allow: ["/"],
             },
             {
                 userAgent: "ChatGPT-User",
-                disallow: ["/"],
+                allow: ["/"],
             },
         ],
         sitemap: `${BASE_URL}/sitemap.xml`,
