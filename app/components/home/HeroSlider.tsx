@@ -138,8 +138,7 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
           >
             {/* Optimized Background Image with next/image */}
             <div
-              className={`absolute inset-0 transition-transform duration-8000 ease-linear ${isActive ? "scale-110" : "scale-100"
-                }`}
+              className={`absolute inset-0 transition-transform duration-8000 ease-linear scale-100`}
             >
               <Image
                 src={slide.image}
