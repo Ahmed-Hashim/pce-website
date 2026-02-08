@@ -30,11 +30,11 @@ const Header = () => {
         <div className="shrink-0">
           <Link href="/">
             <Image
-              src="/pce-logo.png"
+              src="/pce-logo3.png"
               alt="PCE Logo"
               className="invert brightness-0"
-              width={50}
-              height={50}
+              width={225}
+              height={75}
             />
           </Link>
         </div>
