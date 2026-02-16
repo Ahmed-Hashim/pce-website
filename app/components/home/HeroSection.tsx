@@ -46,7 +46,7 @@ async function HeroDataContent() {
 // 3. Loading State
 function LoadingSkeleton() {
   return (
-    <section className="relative w-full h-[calc(100dvh-5.5rem)] bg-slate-900 overflow-hidden">
+    <section className="relative w-full h-[40vh] min-h-[300px] lg:h-[calc(100dvh-5.5rem)] bg-slate-900 overflow-hidden">
       <div className="absolute inset-0 bg-slate-800 animate-pulse" />
       <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-4 sm:px-8 md:px-16 max-w-5xl mx-auto">
         <div className="w-full max-w-3xl flex flex-col items-center gap-6">
@@ -55,8 +55,8 @@ function LoadingSkeleton() {
           <div className="h-12 sm:h-16 md:h-20 w-1/2 bg-white/10 rounded animate-pulse" />
           
           {/* Description Skeleton */}
-          <div className="h-6 sm:h-8 w-2/3 bg-white/10 rounded animate-pulse mt-4" />
-          <div className="h-6 sm:h-8 w-1/2 bg-white/10 rounded animate-pulse" />
+          <div className="hidden sm:block h-6 sm:h-8 w-2/3 bg-white/10 rounded animate-pulse mt-4" />
+          <div className="hidden sm:block h-6 sm:h-8 w-1/2 bg-white/10 rounded animate-pulse" />
 
           {/* Button Skeleton */}
           <div className="h-12 sm:h-14 w-40 sm:w-48 bg-white/10 rounded animate-pulse mt-8" />

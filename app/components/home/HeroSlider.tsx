@@ -118,7 +118,7 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
   return (
     <section
       className="relative w-full overflow-hidden bg-slate-900 text-white select-none cursor-grab active:cursor-grabbing touch-pan-y
-                 h-[calc(100dvh-5.5rem)]"
+                 h-[40vh] min-h-[300px] lg:h-[calc(100dvh-5.5rem)]"
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerLeave}
@@ -165,7 +165,7 @@ const HeroSlider = ({ slides }: HeroSliderProps) => {
                 </h1>
 
                 <p
-                  className={`text-base sm:text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-md transition-all duration-1000 ease-out delay-500 ${isActive
+                  className={`hidden sm:block text-base sm:text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-md transition-all duration-1000 ease-out delay-500 ${isActive
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-8"
                     }`}
