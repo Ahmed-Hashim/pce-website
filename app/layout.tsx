@@ -53,6 +53,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@PCE_Consultants",
+    creator: "@PCE_Consultants",
     title: "PCE | Precision Consulting Engineering",
     description: "Leading engineering consultancy with 30+ years of experience.",
     images: ["/og_image.png"],
@@ -130,8 +132,10 @@ export default async function RootLayout({
                     "height": 60
                   },
                   "sameAs": [
-                    "https://www.linkedin.com/company/pce",
-                    "https://twitter.com/pce"
+                    "https://www.facebook.com/PCEConsultants",
+                    "https://x.com/PCE_Consultants",
+                    "https://www.linkedin.com/company/pce-precision-consulting-engineering",
+                    "https://www.instagram.com/pce_consultants/"
                   ]
                 },
                 {
