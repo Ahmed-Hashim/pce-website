@@ -12,20 +12,10 @@ import RelatedProjects from "../../components/services/RelatedProjects";
 import RelatedNews from "../../components/services/RelatedNews";
 import { createClient } from "@/utils/supabase/supabaseServer";
 import { Tables } from "@/utils/supabase/supabase";
+import { slugify } from "@/lib/slugify";
 
 type ServiceSectionWithDetails = Tables<"service_section_titles"> & {
   service_sections: Pick<Tables<"service_sections">, "title" | "points">[];
-};
-
-// Helper to slugify a string
-const slugify = (text: string) => {
-  return text
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, "-") // Replace spaces with -
-    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
-    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 };
 
 // Helper to fetch service data from Supabase
@@ -287,17 +277,6 @@ export async function generateStaticParams() {
   if (!services || services.length === 0) {
     return [{ slug: "no-services-found" }];
   }
-
-  // Helper to slugify a string
-  const slugify = (text: string) => {
-    return text
-      .toString()
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, "-") // Replace spaces with -
-      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
-      .replace(/\-\-+/g, "-"); // Replace multiple - with single -
-  };
 
   return services.map((s) => ({ slug: slugify(s.name) }));
 }

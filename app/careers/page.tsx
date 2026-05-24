@@ -5,6 +5,7 @@ import SectionTitle from "../components/ui/SectionTitle";
 
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/supabaseServer";
+import { slugify } from "@/lib/slugify";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -50,10 +51,7 @@ export default async function CareersPage() {
 
   const jobs =
     careers?.map((career) => ({
-      slug: career.job_title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)+/g, ""),
+      slug: slugify(career.job_title),
       title: career.job_title,
       department: career.services?.name || "General",
       location: "Riyadh, Saudi Arabia",

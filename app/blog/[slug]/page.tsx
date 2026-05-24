@@ -5,13 +5,8 @@ import ContentGrid, { ContentItem } from "../../components/ui/ContentGrid";
 import Section from "../../components/ui/Section";
 import SectionTitle from "../../components/ui/SectionTitle";
 import { createClient } from "@/utils/supabase/supabaseServer";
-
-// Helper to slugify title (same as in blog page)
-const slugify = (text: string) =>
-  text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-");
+import { slugify } from "@/lib/slugify";
+import { SITE_URL } from "@/lib/constants";
 
 function processContent(htmlContent: string) {
   const toc: { id: string; text: string; level: number }[] = [];
@@ -224,12 +219,12 @@ export default async function BlogDetail({
               "name": "PCE",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://pce.com/pce-logo.png"
+                "url": `${SITE_URL}/pce-logo.png`
               }
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `https://pce.com/blog/${slug}`
+              "@id": `${SITE_URL}/blog/${slug}`
             },
             "keywords": Array.isArray(post.tags) ? post.tags.join(", ") : ""
           })

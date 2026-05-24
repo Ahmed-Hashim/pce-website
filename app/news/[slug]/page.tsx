@@ -5,6 +5,7 @@ import { ContentItem } from "../../components/ui/ContentGrid";
 
 import SectionTitle from "../../components/ui/SectionTitle";
 import { createClient } from "@/utils/supabase/supabaseServer";
+import { SITE_URL } from "@/lib/constants";
 import Image from "next/image";
 // import { notFound } from "next/navigation";
 
@@ -225,12 +226,12 @@ export default async function NewsDetail({ params }: { params: Promise<{ slug: s
               "name": "PCE",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://pce.com/pce-logo.png"
+                "url": `${SITE_URL}/pce-logo.png`
               }
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `https://pce.com/news/${slug}`
+              "@id": `${SITE_URL}/news/${slug}`
             }
           })
         }}

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { FaDraftingCompass, FaHardHat } from "react-icons/fa";
 import { RxTriangleRight } from "react-icons/rx";
+import { slugify } from "@/lib/slugify";
 
 
 
@@ -68,7 +69,7 @@ export default function ServiceCard({
 
       {/* Content - Image Style (Bottom Left Layout) */}
       {image && (
-        <Link href={`/services/${title.toLowerCase().replace(/\s+/g, "-")}`}>
+        <Link href={`/services/${slugify(title)}`}>
           <div
             className="relative z-10 px-6 py-6 sm:px-8 sm:py-8 h-full flex flex-col justify-end
           bg-linear-to-t from-primary-dark/50 via-primary-dark/10 to-transparent"

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header, Footer, SidePanelManager, getFooterData } from "./components/layout";
 import { NewsletterSection } from "./components/home";
-import { A11Y } from "@/lib/constants";
+import { A11Y, SITE_URL } from "@/lib/constants";
 
 export const newsletterContent = {
   eyebrow: "Stay Updated",
@@ -21,7 +21,7 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://pce.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "PCE | Precision Consulting Engineering",
     template: "%s | PCE",
@@ -120,12 +120,12 @@ export default async function RootLayout({
               "@graph": [
                 {
                   "@type": "Organization",
-                  "@id": "https://pce.com/#organization",
+                  "@id": `${SITE_URL}/#organization`,
                   "name": "PCE - Precision Consulting Engineering",
-                  "url": "https://pce.com",
+                  "url": SITE_URL,
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://pce.com/pce-logo.png",
+                    "url": `${SITE_URL}/pce-logo.png`,
                     "width": 600,
                     "height": 60
                   },
@@ -136,12 +136,12 @@ export default async function RootLayout({
                 },
                 {
                   "@type": "WebSite",
-                  "@id": "https://pce.com/#website",
-                  "url": "https://pce.com",
+                  "@id": `${SITE_URL}/#website`,
+                  "url": SITE_URL,
                   "name": "PCE - Precision Consulting Engineering",
                   "description": "Leading engineering consultancy with 30+ years of experience in infrastructure, construction, and project management.",
                   "publisher": {
-                    "@id": "https://pce.com/#organization"
+                    "@id": `${SITE_URL}/#organization`
                   },
                   "inLanguage": "en-US"
                 }

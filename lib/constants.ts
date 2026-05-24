@@ -4,6 +4,18 @@
  */
 
 // =============================================================================
+// Site / SEO
+// =============================================================================
+
+/**
+ * Canonical production origin (no trailing slash).
+ * Single source of truth for canonical URLs, sitemap, robots, and JSON-LD.
+ * Override per-environment with NEXT_PUBLIC_SITE_URL (must be a full https origin).
+ */
+export const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://pce-consultants.com";
+
+// =============================================================================
 // Pagination
 // =============================================================================
 

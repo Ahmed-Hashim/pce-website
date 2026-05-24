@@ -4,6 +4,7 @@ import SectionTitle from "../components/ui/SectionTitle";
 import ContentGrid, { ContentItem } from "../components/ui/ContentGrid";
 import Section from "../components/ui/Section";
 import { createClient } from "@/utils/supabase/supabaseServer";
+import { slugify } from "@/lib/slugify";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -35,13 +36,6 @@ const sectionText = {
   latestTitle: "Latest Posts",
   ctaLabel: "Read More",
 };
-
-// Helper to slugify title
-const slugify = (text: string) =>
-  text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-");
 
 function BlogSkeleton() {
   return (

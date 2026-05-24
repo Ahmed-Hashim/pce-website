@@ -4,9 +4,8 @@ import PageHero from "../../components/ui/PageHero";
 import SectionTitle from "../../components/ui/SectionTitle";
 import CareersForm from "../../components/careers/CareersForm";
 import { createClient } from "@/utils/supabase/supabaseServer";
-
-const generateSlug = (title: string) =>
-  title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+import { slugify } from "@/lib/slugify";
+import { SITE_URL } from "@/lib/constants";
 
 async function getCareerBySlug(slug: string) {
   const supabase = createClient();
@@ -21,7 +20,7 @@ async function getCareerBySlug(slug: string) {
 
   const jobs = careers?.map((career: { id: number; job_title: string; description: string; services: { name: string } | null }) => ({
     id: career.id,
-    slug: generateSlug(career.job_title),
+    slug: slugify(career.job_title),
     title: career.job_title,
     department: career.services?.name || "General",
     location: "Riyadh, Saudi Arabia",
@@ -80,7 +79,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
 
   const jobs = careers?.map((career) => ({
     id: career.id,
-    slug: generateSlug(career.job_title),
+    slug: slugify(career.job_title),
     title: career.job_title,
     department: career.services?.name || "General",
     description: career.description,
@@ -125,7 +124,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
     message: "Message",
   };
 
-  const emailTo = "careers@pce.com";
+  const emailTo = "careers@pce-consultants.com";
 
   return (
     <div className="min-h-screen bg-primary-dark selection:bg-secondary-light selection:text-primary-dark">
@@ -276,8 +275,8 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
             "hiringOrganization": {
               "@type": "Organization",
               "name": "PCE - Precision Consulting Engineering",
-              "sameAs": "https://pce.com",
-              "logo": "https://pce.com/pce-logo.png"
+              "sameAs": SITE_URL,
+              "logo": `${SITE_URL}/pce-logo.png`
             },
             "jobLocation": {
               "@type": "Place",
@@ -304,6 +303,6 @@ export async function generateStaticParams() {
   }
 
   return careers.map((c) => ({
-    slug: generateSlug(c.job_title)
+    slug: slugify(c.job_title)
   }));
 }
