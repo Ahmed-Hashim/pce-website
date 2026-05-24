@@ -129,7 +129,7 @@ function FooterView({ data }: { data: FooterContent }) {
           <div className="flex items-center gap-3 bg-primary-medium px-5 py-2.5 rounded-full border border-white/5 hover:border-white/10 transition-colors">
             <span className="text-[10px] uppercase tracking-widest text-primary-dark font-semibold">Powered by</span>
             <a
-              href="https://hbs-group.xyz"
+              href="https://hbs-group.xyz/?utm_source=pce-consultants.com&utm_medium=footer&utm_campaign=powered_by&utm_content=homepage&ref=https%3A%2F%2Fpce-consultants.com%2F"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-2 opacity-100 transition-opacity"
